@@ -46,7 +46,7 @@ public class UserController {
 		  	if(userService.loginUser(user.getEmail(), user.getPassword()) != null) {
 		  		session.setAttribute("email",user.getEmail());
 		  		model.addAttribute("sucessLogin", "You are login sucessfully");
-		  		System.out.println("You are login sucessfully"+user.getEmail());
+		  		System.out.println("You are login sucessfully "+ user.getEmail());
 		  		return "redirect:userdashboard";
 		  	}else {
 		  		System.out.println("Invalid Email/Password");

@@ -15,7 +15,7 @@
   	<div class="collapse navbar-collapse" id="navbarNav">
     	<ul class="navbar-nav ml-auto">
       	<li class="nav-item">
-        	<a class="nav-link" href="${pageContext.request.contextPath}/user/useraccount">Rojmat</a>
+        	<a class="nav-link" href="${pageContext.request.contextPath}/user/userdashboard">Rojmat</a>
       	</li>
       	<li class="dropdown">
         	<a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link">Products <b class="caret"></b></a>

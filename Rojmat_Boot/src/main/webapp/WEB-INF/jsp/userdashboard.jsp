@@ -28,9 +28,10 @@
 	<jsp:include page="userheader.jsp"/>	
 	<h1>Rojmat (Daily Account)</h1><br/>
 	<strong>${email}</strong><br/><strong>${userid}</strong><strong>${shopname}</strong>
+	<p>${sucessLogin}</p>
 	<div class="container">
 		<div class="row">
-			<form:form action="${pageContext.request.contextPath}/user/useraccount" method="POST" id="myForm" modelAttribute="command">
+			<form:form action="${pageContext.request.contextPath}/user/savecreditdebit" method="POST" id="myForm" modelAttribute="command">
 			<div class="col-md-5">
 				<h3>Credit Account</h3>
 				<div class="form-group">
