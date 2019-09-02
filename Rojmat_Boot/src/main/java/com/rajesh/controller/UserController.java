@@ -43,16 +43,17 @@ public class UserController {
 	
 	@PostMapping("/user/login") 
 	public String doLogin(ModelMap model, @ModelAttribute("command")User user,HttpSession session) {
-		  	if(userService.loginUser(user.getEmail(), user.getPassword()) != null) {
-		  		session.setAttribute("email",user.getEmail());
-		  		model.addAttribute("sucessLogin", "You are login sucessfully");
-		  		System.out.println("You are login sucessfully "+ user.getEmail());
-		  		return "redirect:userdashboard";
-		  	}else {
-		  		System.out.println("Invalid Email/Password");
-				model.put("failed", "Invalid Email/Password");
-				return "home";
-		  	}
+		  	
+		  		if(userService.loginUser(user.getEmail(), user.getPassword()) != null) {
+			  		session.setAttribute("email",user.getEmail());
+			  		model.addAttribute("sucessLogin", "You are login sucessfully");
+			  		System.out.println("You are login sucessfully "+ user.getEmail());
+			  		return "redirect:userdashboard";
+			  	}else {
+			  		System.out.println("Invalid Email/Password");
+					model.put("failed", "Invalid Email/Password");
+					return "home";
+			  	}
 	}
 	@GetMapping("user/userdashboard")
 	public String showUserAccount(@ModelAttribute("command")Credit credit, BindingResult br, HttpSession session) {

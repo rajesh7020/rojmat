@@ -12,13 +12,13 @@ public class Category {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="cid")
-	private Long cid;
+	private long cid;
 	@Column
 	private String categoryname;
-	public Long getCid() {
+	public long getCid() {
 		return cid;
 	}
-	public void setCid(Long cid) {
+	public void setCid(long cid) {
 		this.cid = cid;
 	}
 	public String getCategoryname() {

@@ -12,13 +12,13 @@ public class State {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column
-	private int stateid;
+	private long stateid;
 	@Column
 	private String statename;
-	public int getStateid() {
+	public long getStateid() {
 		return stateid;
 	}
-	public void setStateid(int stateid) {
+	public void setStateid(long stateid) {
 		this.stateid = stateid;
 	}
 	public String getStatename() {

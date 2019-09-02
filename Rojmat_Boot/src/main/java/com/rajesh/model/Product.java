@@ -16,7 +16,7 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Basic(fetch = FetchType.EAGER)
-	private int pid;
+	private long pid;
 	@Column
 	private String name;
 	@Column
@@ -32,10 +32,10 @@ public class Product {
 	@OneToOne
 	@JoinColumn(name="gstid")
 	private Gst gst;
-	public int getPid() {
+	public long getPid() {
 		return pid;
 	}
-	public void setPid(int pid) {
+	public void setPid(long pid) {
 		this.pid = pid;
 	}
 	public String getName() {

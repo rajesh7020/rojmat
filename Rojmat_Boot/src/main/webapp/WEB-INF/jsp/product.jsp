@@ -25,7 +25,7 @@
 	<h1 style="text-align:center;">Products Details</h1>
 	<div class="container">
 		<div class="row">
-			<form:form action="${pageContext.request.contextPath}/product/saveProduct" method="POST" id="myForm" modelAttribute="command">
+			<form:form action="${pageContext.request.contextPath}/user/saveProduct" method="POST" id="myForm" modelAttribute="command">
 			<div class="col-md-5">
 				<h3>Product</h3>
 				<div class="form-group">
@@ -106,7 +106,7 @@
 								<td><c:out value="${product.category.categoryname}"/></td>
 								<td><c:out value="${product.unit.unitname}"/></td>
 								<td><c:out value="${product.gst.percentage}"/></td>
-								<td><a href="editProduct?pid=${product.pid}">Edit</a> | <a href="deleteProduct?pid=${product.pid}">Delete</a></td>
+								<td><a href="/user/updateProduct?pid=${product.pid}">Edit</a> | <a href="/user/deleteProduct?pid=${product.pid}">Delete</a></td>
 							</tr>
 						</c:forEach>	
 					</table>

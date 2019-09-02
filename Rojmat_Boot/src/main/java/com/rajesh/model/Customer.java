@@ -14,7 +14,7 @@ public class Customer {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column
-	private int custid;
+	private long custid;
 	@Column
 	private String customername;
 	@Column
@@ -34,10 +34,10 @@ public class Customer {
 	@OneToOne
 	@JoinColumn(name="stateid")
 	private State state;
-	public int getCustid() {
+	public long getCustid() {
 		return custid;
 	}
-	public void setCustid(int custid) {
+	public void setCustid(long custid) {
 		this.custid = custid;
 	}
 	public String getCustomername() {

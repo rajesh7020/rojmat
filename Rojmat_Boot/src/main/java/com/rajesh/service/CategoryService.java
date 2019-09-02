@@ -18,7 +18,7 @@ public class CategoryService {
 		if(cat.isPresent()) {
 			Category newCat = cat.get();
 			newCat.setCategoryname(category.getCategoryname());
-			newCat = categoryRepository.save(category);
+			newCat = categoryRepository.save(newCat);
 			return newCat;
 		}else {
 			category = categoryRepository.save(category);
@@ -49,5 +49,4 @@ public class CategoryService {
 			 throw new RecordNotFoundException("No category record is exist for given id");
 		 }
 	 }
-	 
 }

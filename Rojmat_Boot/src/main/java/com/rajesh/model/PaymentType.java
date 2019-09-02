@@ -12,13 +12,13 @@ public class PaymentType {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column
-	private int payid;
+	private long payid;
 	@Column
 	private String paymentMode;
-	public int getPayid() {
+	public long getPayid() {
 		return payid;
 	}
-	public void setPayid(int payid) {
+	public void setPayid(long payid) {
 		this.payid = payid;
 	}
 	public String getPaymentMode() {

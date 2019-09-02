@@ -1,5 +1,4 @@
 package com.rajesh.controller;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -13,8 +12,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.rajesh.model.Credit;
 import com.rajesh.model.Debit;
 import com.rajesh.model.User;

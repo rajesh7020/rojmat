@@ -12,13 +12,13 @@ public class Gst {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="gstid")
-	private int gstid;
+	private long gstid;
 	@Column
 	private double percentage;
-	public int getGstid() {
+	public long getGstid() {
 		return gstid;
 	}
-	public void setGstid(int gstid) {
+	public void setGstid(long gstid) {
 		this.gstid = gstid;
 	}
 	public double getPercentage() {

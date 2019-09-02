@@ -23,7 +23,7 @@
 	<h1 style="text-align:center;">Payment Mode</h1>
 	<div class="container">
 		<div class="row">
-			<form:form action="${pageContext.request.contextPath}/paymentt/savepaymentype" method="POST" id="myForm" modelAttribute="command">
+			<form:form action="${pageContext.request.contextPath}/user/savePaymentType" method="POST" id="myForm" modelAttribute="command">
 			<div class="col-md-5">
 				<h3>Add Payment Mode</h3>
 				<div class="form-group">
@@ -54,7 +54,7 @@
 							<tr>
 								<td><c:out value="${paymenttype.payid}"/></td>
 								<td><c:out value="${paymenttype.paymentMode}"/></td>
-								<td><a href="editpaymenttype?payid=${paymenttype.payid}">Edit</a> | <a href="deletepaymenttype?payid=${paymenttype.payid}">Delete</a></td>
+								<td><a href="/user/updatePaymentType?payid=${paymenttype.payid}">Edit</a> | <a href="/user/deletePaymentType?payid=${paymenttype.payid}">Delete</a></td>
 							</tr>
 						</c:forEach>	
 					</table>

@@ -16,7 +16,7 @@ public class PurchasePayment {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column
-	private int pid;
+	private long pid;
 	@Column
 	private Date invoiceDate;
 	@Column
@@ -36,10 +36,10 @@ public class PurchasePayment {
 	@OneToOne
 	@JoinColumn(name="payid")
 	private PaymentType paymenttype;
-	public int getPid() {
+	public long getPid() {
 		return pid;
 	}
-	public void setPid(int pid) {
+	public void setPid(long pid) {
 		this.pid = pid;
 	}
 	public Date getInvoiceDate() {

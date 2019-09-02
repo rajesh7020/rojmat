@@ -20,29 +20,29 @@
       	<li class="dropdown">
         	<a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link">Products <b class="caret"></b></a>
             <ul class="dropdown-menu">
-	            <li><a href="${pageContext.request.contextPath}/category/addCategory">Category</a></li>
-	            <li><a href="${pageContext.request.contextPath}/product/addProduct">Product</a></li>
+	            <li><a href="${pageContext.request.contextPath}/user/viewCategory">Category</a></li>
+	            <li><a href="${pageContext.request.contextPath}/user/viewProduct">Product</a></li>
 	            <li class="divider"></li>
-	            <li><a href="${pageContext.request.contextPath}/unit/addUnit">Unit</a></li>
-	            <li><a href="${pageContext.request.contextPath}/gst/addGst">GST</a></li>
+	            <li><a href="${pageContext.request.contextPath}/user/viewUnit">Unit</a></li>
+	            <li><a href="${pageContext.request.contextPath}/user/viewGst">GST</a></li>
             </ul>
         </li>
       	<li class="nav-item dropdown">
         	<a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link">Payment <b class="caret"></b></a>
             <ul class="dropdown-menu">
-	            <li><a href="${pageContext.request.contextPath}/paymentt/paytype">Payment Mode</a></li>
+	            <li><a href="${pageContext.request.contextPath}/user/viewPaymentType">Payment Mode</a></li>
 	            <li class="divider"></li>
-	            <li><a href="${pageContext.request.contextPath}/sales/addsales">Sales Payment</a></li>
-	            <li><a href="${pageContext.request.contextPath}/purchase/addpurchasepay">Purchase Payment</a></li>
+	            <li><a href="${pageContext.request.contextPath}/user/viewSalesPayment">Sales Payment</a></li>
+	            <li><a href="${pageContext.request.contextPath}/user/viewPurchasePayment">Purchase Payment</a></li>
             </ul>
         </li>
         <li class="nav-item dropdown">
         	<a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link">Ledger<b class="caret"></b></a>
             <ul class="dropdown-menu">
-	           <li><a href="${pageContext.request.contextPath}/cust/addcustomer">Customer</a></li>
-	            <li><a href="${pageContext.request.contextPath}/supp/addsupplier">Supplier</a></li>
+	           <li><a href="${pageContext.request.contextPath}/user/viewCustomer">Customer</a></li>
+	            <li><a href="${pageContext.request.contextPath}/user/viewSupplier">Supplier</a></li>
 	            <li class="divider"></li>
-	            <li><a href="${pageContext.request.contextPath}/state/addstate">States</a></li>
+	            <li><a href="${pageContext.request.contextPath}/user/viewState">States</a></li>
             </ul>
         </li>
       	<li class="nav-item">

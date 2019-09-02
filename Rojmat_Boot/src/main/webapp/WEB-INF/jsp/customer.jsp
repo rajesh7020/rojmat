@@ -22,7 +22,7 @@
 	<div class="container">
 		<div class="row">
 			<h3>Add/Edit Customer</h3>
-			<form:form action="${pageContext.request.contextPath}/cust/savecustomer" method="POST" id="myForm" modelAttribute="command">
+			<form:form action="${pageContext.request.contextPath}/user/saveCustomer" method="POST" id="myForm" modelAttribute="command">
 			<div class="col-md-4">
 				<div class="form-group">
 					<form:label path="custid">Customer Id :</form:label>
@@ -133,7 +133,7 @@
 								<td><c:out value="${customer.city}"/></td>
 								<td><c:out value="${customer.mobileno}"/></td>
 								<td><c:out value="${customer.email}"/></td>
-								<td><a href="editcustomer?custid=${customer.custid}">Edit</a> | <a href="deletecustomer?custid=${customer.custid}">Delete</a></td>
+								<td><a href="/user/updateCustomer?custid=${customer.custid}">Edit</a> | <a href="/user/deleteCustomer?custid=${customer.custid}">Delete</a></td>
 							</tr>
 						</c:forEach>	
 					</table>

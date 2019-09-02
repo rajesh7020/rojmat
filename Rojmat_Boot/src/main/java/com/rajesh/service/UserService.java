@@ -16,11 +16,9 @@ public class UserService {
 	@Autowired
     private RoleRepository roleRepository;
 	
-	
 	public User findUserByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
-	
 	public void saveUser(User user) {
 		user.setShopname(user.getShopname());
 		user.setName(user.getName());
@@ -40,5 +38,9 @@ public class UserService {
 	}
 	public User loginUser(String email,String password) {
 		return userRepository.loginUser(email, password);
+	}
+	public Integer isActiveUserStatus(Integer active) {
+		Integer activeStatus =  userRepository.isActiveUserStatus(active);
+		return activeStatus;
 	}
 }

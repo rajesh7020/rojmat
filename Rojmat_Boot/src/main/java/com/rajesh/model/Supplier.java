@@ -14,7 +14,7 @@ public class Supplier {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column
-	private int supid;
+	private long supid;
 	@Column
 	private String suppliername;
 	@Column
@@ -34,10 +34,10 @@ public class Supplier {
 	@OneToOne
 	@JoinColumn(name="stateid")
 	private State state;
-	public int getSupid() {
+	public long getSupid() {
 		return supid;
 	}
-	public void setSupid(int supid) {
+	public void setSupid(long supid) {
 		this.supid = supid;
 	}
 	public String getSuppliername() {

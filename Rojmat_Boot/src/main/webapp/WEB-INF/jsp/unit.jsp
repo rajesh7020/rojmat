@@ -23,7 +23,7 @@
 	<h1 style="text-align:center;">Unit Management</h1>
 	<div class="container">
 		<div class="row">
-			<form:form action="${pageContext.request.contextPath}/unit/saveUnit" method="POST" id="myForm" modelAttribute="command">
+			<form:form action="${pageContext.request.contextPath}/user/saveUnit" method="POST" id="myForm" modelAttribute="command">
 			<div class="col-md-5">
 				<h3>Add Unit</h3>
 				<div class="form-group">
@@ -54,7 +54,7 @@
 							<tr>
 								<td><c:out value="${unit.unitid}"/></td>
 								<td><c:out value="${unit.unitname}"/></td>
-								<td><a href="editUnit?unitid=${unit.unitid}">Edit</a> | <a href="deleteUnit?unitid=${unit.unitid}">Delete</a></td>
+								<td><a href="/user/updateUnit?unitid=${unit.unitid}">Edit</a> | <a href="/user/deleteUnit?unitid=${unit.unitid}">Delete</a></td>
 							</tr>
 						</c:forEach>	
 					</table>

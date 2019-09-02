@@ -12,13 +12,13 @@ public class Unit {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="unitid")
-	private int unitid;
+	private long unitid;
 	@Column
 	private String unitname;
-	public int getUnitid() {
+	public long getUnitid() {
 		return unitid;
 	}
-	public void setUnitid(int unitid) {
+	public void setUnitid(long unitid) {
 		this.unitid = unitid;
 	}
 	public String getUnitname() {

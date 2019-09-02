@@ -23,7 +23,7 @@
 	<div class="container">
 		<div class="row">
 			<h3>Add Purchase Payment</h3>
-			<form:form action="${pageContext.request.contextPath}/purchase/savepurchasepayment" method="POST" id="myForm" modelAttribute="command">
+			<form:form action="${pageContext.request.contextPath}/user/savePurchasePayment" method="POST" id="myForm" modelAttribute="command">
 			<div class="col-md-4">	
 				<div class="form-group">
 					<form:label path="pid">Product Id :</form:label>
@@ -132,7 +132,7 @@
 								<td><c:out value="${purchasePayment.unpaidAmount}"/></td>
 								<td><c:out value="${purchasePayment.paymenttype.paymentMode}"/></td>
 								<td><c:out value="${purchasePayment.chequeNoOrTransactionId}"/></td>
-								<td><a href="editpurchasepayment?pid=${purchasePayment.pid}">Edit</a> | <a href="deletepurchasepayment?pid=${purchasePayment.pid}">Delete</a></td>
+								<td><a href="/user/updatePurchasePayment?pid=${purchasePayment.pid}">Edit</a> | <a href="/user/deletePurchasePayment?pid=${purchasePayment.pid}">Delete</a></td>
 							</tr>
 						</c:forEach>	
 					</table>

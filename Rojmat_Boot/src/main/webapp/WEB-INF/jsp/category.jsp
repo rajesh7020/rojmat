@@ -23,7 +23,7 @@
 	<h1 style="text-align:center;">Category</h1>
 	<div class="container">
 		<div class="row">
-			<form:form action="${pageContext.request.contextPath}/category/saveCategory" method="POST" id="myForm" modelAttribute="command">
+			<form:form action="${pageContext.request.contextPath}/user/savecategory" method="POST" id="myForm" modelAttribute="command">
 			<div class="col-md-5">
 				<h3>Add Category</h3>
 				<div class="form-group">
@@ -54,7 +54,7 @@
 							<tr>
 								<td><c:out value="${category.cid}"/></td>
 								<td><c:out value="${category.categoryname}"/></td>
-								<td><a href="editCategory?cid=${category.cid}">Edit</a> | <a href="deleteCategory?cid=${category.cid}">Delete</a></td>
+								<td><a href="/user/updateCategory?cid=${category.cid}">Edit</a> | <a href="/user/deleteCategory?cid=${category.cid}">Delete</a></td>
 							</tr>
 						</c:forEach>	
 					</table>

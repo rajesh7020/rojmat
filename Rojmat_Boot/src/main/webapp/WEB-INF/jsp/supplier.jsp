@@ -22,7 +22,7 @@
 	<div class="container">
 		<div class="row">
 			<h3>Add/Edit Supplier</h3>
-			<form:form action="${pageContext.request.contextPath}/supp/savesupplier" method="POST" id="myForm" modelAttribute="command">
+			<form:form action="${pageContext.request.contextPath}/user/saveSupplier" method="POST" id="myForm" modelAttribute="command">
 			<div class="col-md-4">
 				<div class="form-group">
 					<form:label path="supid">Supplier Id :</form:label>
@@ -133,7 +133,7 @@
 								<td><c:out value="${supplier.city}"/></td>
 								<td><c:out value="${supplier.mobileno}"/></td>
 								<td><c:out value="${supplier.email}"/></td>
-								<td><a href="editsupplier?supid=${supplier.supid}">Edit</a> | <a href="deletesupplier?supid=${supplier.supid}">Delete</a></td>
+								<td><a href="/user/updateSupplier?supid=${supplier.supid}">Edit</a> | <a href="/user/deleteSupplier?supid=${supplier.supid}">Delete</a></td>
 							</tr>
 						</c:forEach>	
 					</table>

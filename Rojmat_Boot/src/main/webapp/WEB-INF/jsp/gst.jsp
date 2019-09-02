@@ -23,7 +23,7 @@
 	<h1 style="text-align:center;">GST Details</h1>
 	<div class="container">
 		<div class="row">
-			<form:form action="${pageContext.request.contextPath}/gst/saveGst" method="POST" id="myForm" modelAttribute="command">
+			<form:form action="${pageContext.request.contextPath}/user/saveGst" method="POST" id="myForm" modelAttribute="command">
 			<div class="col-md-5">
 				<h3>Add GST</h3>
 				<div class="form-group">
@@ -54,7 +54,7 @@
 							<tr>
 								<td><c:out value="${gst.gstid}"/></td>
 								<td><c:out value="${gst.percentage}"/></td>
-								<td><a href="editGst?gstid=${gst.gstid}">Edit</a> | <a href="deleteGst?gstid=${gst.gstid}">Delete</a></td>
+								<td><a href="/user/updateGst?gstid=${gst.gstid}">Edit</a> | <a href="/user/deleteGst?gstid=${gst.gstid}">Delete</a></td>
 							</tr>
 						</c:forEach>	
 					</table>

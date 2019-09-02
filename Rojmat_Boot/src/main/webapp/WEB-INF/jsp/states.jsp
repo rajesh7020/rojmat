@@ -23,7 +23,7 @@
 	<h1 style="text-align:center;">State Manage</h1>
 	<div class="container">
 		<div class="row">
-			<form:form action="${pageContext.request.contextPath}/state/savestate" method="POST" id="myForm" modelAttribute="command">
+			<form:form action="${pageContext.request.contextPath}/user/saveState" method="POST" id="myForm" modelAttribute="command">
 			<div class="col-md-5">
 				<h3>Add States</h3>
 				<div class="form-group">
@@ -54,7 +54,7 @@
 							<tr>
 								<td><c:out value="${state.stateid}"/></td>
 								<td><c:out value="${state.statename}"/></td>
-								<td><a href="editstate?stateid=${state.stateid}">Edit</a> | <a href="deletestate?stateid=${state.stateid}">Delete</a></td>
+								<td><a href="/user/updateState?stateid=${state.stateid}">Edit</a> | <a href="/user/deleteState?stateid=${state.stateid}">Delete</a></td>
 							</tr>
 						</c:forEach>	
 					</table>

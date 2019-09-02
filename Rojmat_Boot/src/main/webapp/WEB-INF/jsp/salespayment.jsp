@@ -23,7 +23,7 @@
 	<div class="container">
 		<div class="row">
 			<h3>Add Sales Payment</h3>
-			<form:form action="${pageContext.request.contextPath}/sales/savesalespayment" method="POST" id="myForm" modelAttribute="command">
+			<form:form action="${pageContext.request.contextPath}/user/saveSalesPayment" method="POST" id="myForm" modelAttribute="command">
 			<div class="col-md-4">
 				<div class="form-group">
 					<form:label path="sid">Sales Id :</form:label>
@@ -34,7 +34,7 @@
 			<div class="col-md-4">	
 				<div class="form-group">
 					<form:label path="invoiceDate">Invoice Date :</form:label>
-					<form:input path="invoiceDate" id="invoiceDate" value="${salesPayment.invoiceDate}" class="form-control" autocomplete="off" placeholder="Invoice Date"/>
+					<form:input path="invoiceDate" type="date" id="invoiceDate" value="${salesPayment.invoiceDate}" class="form-control" autocomplete="off" placeholder="Invoice Date"/>
 					<small id="invoicedatechk"></small>
 				</div>
 			</div>
@@ -48,7 +48,7 @@
 			<div class="col-md-4">
 				<div class="form-group">
 					<form:label path="paymentdate">Payment Date :</form:label>
-					<form:input path="paymentdate" id="paymentdate" value="${salesPayment.paymentdate}" class="form-control" autocomplete="off" placeholder="Payment Date"/>
+					<form:input path="paymentdate" type="date" id="paymentdate" value="${salesPayment.paymentdate}" class="form-control" autocomplete="off" placeholder="Payment Date"/>
 					<small id="invoicenochk"></small>
 				</div>
 			</div>	
@@ -132,7 +132,7 @@
 								<td><c:out value="${salesPayment.unpaidAmount}"/></td>
 								<td><c:out value="${salesPayment.paymenttype.paymentMode}"/></td>
 								<td><c:out value="${salesPayment.chequeNoOrTransactionId}"/></td>
-								<td><a href="editsalespayment?sid=${salesPayment.sid}">Edit</a> | <a href="deletesalespayment?sid=${salesPayment.sid}">Delete</a></td>
+								<td><a href="/user/updateSalesPayment?sid=${salesPayment.sid}">Edit</a> | <a href="/user/deleteSalesPayment?sid=${salesPayment.sid}">Delete</a></td>
 							</tr>
 						</c:forEach>	
 					</table>

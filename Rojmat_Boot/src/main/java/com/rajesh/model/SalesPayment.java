@@ -16,7 +16,7 @@ public class SalesPayment {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column
-	private int sid;
+	private long sid;
 	@Column
 	private Date invoiceDate;
 	@Column
@@ -36,10 +36,10 @@ public class SalesPayment {
 	@OneToOne
 	@JoinColumn(name="payid")
 	private PaymentType paymenttype;
-	public int getSid() {
+	public long getSid() {
 		return sid;
 	}
-	public void setSid(int sid) {
+	public void setSid(long sid) {
 		this.sid = sid;
 	}
 	public Date getInvoiceDate() {
