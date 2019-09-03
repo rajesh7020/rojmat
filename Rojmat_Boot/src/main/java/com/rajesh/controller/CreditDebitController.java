@@ -44,9 +44,11 @@ public class CreditDebitController {
 			}
 			System.out.println("debits1 ="+debits1);
 			User user = new User();
+			
 			 // Credit Data Set
 				credit.setOpeningbalance(credit.getOpeningbalance());
 				credit.setDate(credit.getDate());
+				System.out.println("Date is: = "+credit.getDate());
 				credit.setDebittotal(credit.getDebittotal());
 				credit.setDrawertotal(credit.getDrawertotal());
 				credit.setDebittotalplusdrawertotal(credit.getDebittotalplusdrawertotal());

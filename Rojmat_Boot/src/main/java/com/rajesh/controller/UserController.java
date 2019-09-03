@@ -1,4 +1,8 @@
 package com.rajesh.controller;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,15 +13,18 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.servlet.ModelAndView;
 import com.rajesh.model.Credit;
 import com.rajesh.model.User;
+import com.rajesh.service.CreditDebitService;
 import com.rajesh.service.UserService;
 
 @Controller
 public class UserController {
 	@Autowired
     private UserService userService;
+	@Autowired
+	private CreditDebitService creditDebitService;
 	@GetMapping("/")
 	public String Home(Model model) {
 		return "home";
@@ -42,10 +49,11 @@ public class UserController {
     }
 	
 	@PostMapping("/user/login") 
-	public String doLogin(ModelMap model, @ModelAttribute("command")User user,HttpSession session) {
+	public String doLogin(ModelMap model, @ModelAttribute("command")User user, HttpSession session) {
 		  	
 		  		if(userService.loginUser(user.getEmail(), user.getPassword()) != null) {
 			  		session.setAttribute("email",user.getEmail());
+			  		session.setAttribute("user_id", user.getId());
 			  		model.addAttribute("sucessLogin", "You are login sucessfully");
 			  		System.out.println("You are login sucessfully "+ user.getEmail());
 			  		return "redirect:userdashboard";
@@ -56,10 +64,10 @@ public class UserController {
 			  	}
 	}
 	@GetMapping("user/userdashboard")
-	public String showUserAccount(@ModelAttribute("command")Credit credit, BindingResult br, HttpSession session) {
-		/*Map<String,Object> model = new HashMap<String,Object>();
-		model.put("creditdebitlist", creditService.getAllCreditDebit());*/
-		return "userdashboard";
-		//dfgdfgdfgdfgdgdg
+	public ModelAndView showUserAccount(@ModelAttribute("command")Credit credit, BindingResult br, HttpSession session) {
+		Map<String,Object> model = new HashMap<String,Object>();
+		model.put("creditdebitlist", creditDebitService.getAllCreditList());
+		return new ModelAndView("userdashboard", model);
+		
 	} 
 }

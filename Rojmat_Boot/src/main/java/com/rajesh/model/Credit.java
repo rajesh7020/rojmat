@@ -14,6 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.springframework.core.annotation.Order;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="credit")
@@ -25,6 +26,7 @@ public class Credit extends BaseEntity{
 	@Column @Order
 	private long openingbalance;
 	@Column
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
 	@Column @Order
 	private long debittotal;
@@ -39,7 +41,6 @@ public class Credit extends BaseEntity{
 	@JoinTable(name="credit_debit", 
                joinColumns=@JoinColumn(name="c_id"), 
                inverseJoinColumns=@JoinColumn(name="d_id"))
-	 /*@JoinColumns({@JoinColumn(name = "cid" ,referencedColumnName = "cid")})*/
 	private List<Debit> debits = new ArrayList<Debit>(Arrays.asList());
 	public Credit() {
 		
@@ -101,7 +102,7 @@ public class Credit extends BaseEntity{
 	public List<Debit> getDebit() {	
 		return debits;
 	}	
-	public void setDebit(List<Debit> debit) {	
+	public void setDebit(List<Debit> debits) {	
 		this.debits = debits;
 	}
 	@Override

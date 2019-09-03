@@ -2,6 +2,13 @@
     pageEncoding="ISO-8859-1"%>
     <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+	HttpSession sess = request.getSession(false);
+	if (sess.getAttribute("user_id") == null) {
+		response.sendRedirect("home");
+		return;
+	}
+%> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -27,7 +34,7 @@
 <!-- Navigation Bar -->	
 	<jsp:include page="userheader.jsp"/>	
 	<h1>Rojmat (Daily Account)</h1><br/>
-	<strong>${email}</strong><br/><strong>${userid}</strong><strong>${shopname}</strong>
+	<strong>${email}</strong><br/><strong>${user_id}</strong><strong>${shopname}</strong>
 	<p>${sucessLogin}</p>
 	<div class="container">
 		<div class="row">
@@ -49,11 +56,11 @@
 					<form:input path="todaybusiness" id="todaybusiness" class="form-control" autocomplete="off"/>
 					<small id="todaybusinesschk"></small>
 				</div>
-				<%-- <div class="form-group">
+				<div class="form-group">
 					<form:label path="date">Date :</form:label>
-					<form:input path="date" id="date" value="${user.date}" class="form-control" autocomplete="off"/>
+					<form:input path="date" type="date" id="date" value="" class="form-control" autocomplete="off"/>
 					<small id="datechk"></small>
-				</div> --%>
+				</div>
 				<button class="btn btn-primary" id="savebtn">Save</button>
 				<button class="btn btn-warning" id="savebtn" type="reset">Reset</button>
 			</div>
