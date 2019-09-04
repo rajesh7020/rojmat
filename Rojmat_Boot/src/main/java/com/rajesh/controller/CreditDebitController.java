@@ -9,9 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.rajesh.exception.RecordNotFoundException;
 import com.rajesh.model.Credit;
 import com.rajesh.model.Debit;
 import com.rajesh.model.User;
@@ -23,7 +28,7 @@ public class CreditDebitController {
 	CreditDebitService creditDebitService;
 	
 	@PostMapping("/user/savecreditdebit")
-	public String saveCreditDebit(@RequestParam(value = "amount") String[] amount, 
+	public String saveCreditDebit(@RequestParam(value = "amount") long[] amount, 
             @RequestParam(value = "description") String[] description, 
             ModelMap model, HttpServletRequest request, HttpSession session,@ModelAttribute("command")Credit credit, BindingResult result) {
 		try {
@@ -67,5 +72,11 @@ public class CreditDebitController {
 			e.printStackTrace();
 		}
 		return "redirect:userdashboard";
+	}
+	@GetMapping("/user/getCreditDebit/{cid}")
+	@ResponseBody
+	public Credit getCreditDebitById(@PathVariable("cid") long cid, @ModelAttribute("command") Credit credit, HttpSession session, HttpServletRequest request, BindingResult result) throws RecordNotFoundException {
+		//creditDebitService.getCreditDebitById(cid);
+		return creditDebitService.getCreditDebitById(cid);
 	}
 }

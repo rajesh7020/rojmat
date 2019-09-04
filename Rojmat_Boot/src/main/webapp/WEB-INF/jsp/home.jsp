@@ -650,7 +650,7 @@
 					<div class="row">
  						<label class="label col-md-2 control-label">Password:</label>
    						<div class="col-md-10">
- 							<input type="password" class="form-control" name="password" id="passid" placeholder="Password" autocomplete="off"/>
+ 							<input type="password" class="form-control" name="password" id="passid" oncopy="return false" oncut="return false" onpaste="return false" placeholder="Password" autocomplete="off"/>
  							<small id="passwordchk"></small>
    						</div>
    					</div>
@@ -699,7 +699,7 @@
    								</div>
    								<div class="form-group">
    									<label><i class="fa fa-lock fa-1x"></i>Password</label>
-   									<input type="password" id="passlog" name="password" class="form-control" placeholder="Password" autocomplete="off"/>
+   									<input type="password" id="passlog" name="password" class="form-control" oncopy="return false" oncut="return false" onpaste="return false" placeholder="Password" autocomplete="off"/>
    									<small id="passwordloginchk"></small>
    								</div>
    								<div>
@@ -707,8 +707,9 @@
 								</div> 
    						</div>
    						<div class="modal-footer">
-   							<button type="submit" id="btnLogin" class="btn btn-info">Login</button>
-   							<button type="reset" class="btn btn-warning">Reset</button>
+   							<button id="btnLogin" type="submit" value="Login" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Checking login..." class="btn btn-lg btn-success btn-block">Login</button>
+                 	   <!-- <button type="submit" id="btnLogin" class="btn btn-info">Login</button> -->
+   				    	<!-- <button type="reset" class="btn btn-warning">Reset</button> -->
    						</div>
    					</div>
    					</form>

@@ -14,10 +14,9 @@ public class Debit {
 	@Column
 	private long did;
 	@Column
-	private String amount;
+	private long amount;
 	@Column
 	private String description;	
-	
 	public long getDid() {
 		return did;
 	}
@@ -27,15 +26,15 @@ public class Debit {
 	public Debit() {
 		
 	}
-	public Debit(String amount, String description) {
+	public Debit(long amount, String description) {
 		super();
 		this.amount = amount;
 		this.description = description;
 	}
-	public String getAmount() {
+	public long getAmount() {
 		return amount;
 	}
-	public void setAmount(String amount) {
+	public void setAmount(long amount) {
 		this.amount = amount;
 	}
 	public String getDescription() {
