@@ -1,5 +1,6 @@
 package com.rajesh.controller;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.rajesh.model.Credit;
 import com.rajesh.model.User;
@@ -67,7 +69,17 @@ public class UserController {
 	public ModelAndView showUserAccount(@ModelAttribute("command")Credit credit, BindingResult br, HttpSession session) {
 		Map<String,Object> model = new HashMap<String,Object>();
 		model.put("creditdebitlist", creditDebitService.getAllCreditList());
-		return new ModelAndView("userdashboard", model);
-		
-	} 
+		return new ModelAndView("userdashboard",model);
+	}
+	
+	/*
+	 * @GetMapping("user/userdashboard")
+	 * 
+	 * @ResponseBody public List<Credit>
+	 * showUserAccount(@ModelAttribute("command")Credit credit, BindingResult br,
+	 * HttpSession session) { Map<String,Object> model = new
+	 * HashMap<String,Object>(); model.put("creditdebitlist",
+	 * creditDebitService.getAllCreditList()); return
+	 * creditDebitService.getAllCreditList(); }
+	 */
 }
