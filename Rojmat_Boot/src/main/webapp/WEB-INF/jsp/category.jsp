@@ -54,7 +54,7 @@
 							<tr>
 								<td><c:out value="${category.cid}"/></td>
 								<td><c:out value="${category.categoryname}"/></td>
-								<td><a href="/user/updateCategory?cid=${category.cid}">Edit</a> | <a href="/user/deleteCategory?cid=${category.cid}">Delete</a></td>
+								<td><a href="/user/updateCategory?cid=${category.cid}" class="btn btn-success">Edit</a> | <a href="/user/deleteCategory?cid=${category.cid}" class="btn btn-danger">Delete</a></td>
 							</tr>
 						</c:forEach>	
 					</table>

@@ -7,6 +7,10 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 /**
  * This is the base entity. All entity classes should implement this. It has the
  * basic logging attributes, which should be the part of each entity.
@@ -14,6 +18,9 @@ import javax.persistence.TemporalType;
  * @author Rajesh Bhushan
  *
  */
+@Getter
+@Setter
+@ToString
 @MappedSuperclass
 public class BaseEntity {
 	

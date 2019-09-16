@@ -657,7 +657,7 @@
    					<div class="row">
    						<label class="label col-md-2 control-label">Mobile_No:</label>
    						<div class="col-md-10">
-   							<input type="text" class="form-control" name="mobile" id="mobileno" placeholder="Mobile" autocomplete="off"/>
+   							<input type="text" class="form-control" name="mobile" maxlength="10" id="mobileno" placeholder="Mobile" autocomplete="off"/>
    							<small id="mobilnochk"></small>
    						</div>
    					</div>

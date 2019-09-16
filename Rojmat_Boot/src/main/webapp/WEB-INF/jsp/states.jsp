@@ -54,7 +54,7 @@
 							<tr>
 								<td><c:out value="${state.stateid}"/></td>
 								<td><c:out value="${state.statename}"/></td>
-								<td><a href="/user/updateState?stateid=${state.stateid}">Edit</a> | <a href="/user/deleteState?stateid=${state.stateid}">Delete</a></td>
+								<td><a href="/user/updateState?stateid=${state.stateid}" class="btn btn-success">Edit</a> | <a href="/user/deleteState?stateid=${state.stateid}" class="btn btn-danger">Delete</a></td>
 							</tr>
 						</c:forEach>	
 					</table>

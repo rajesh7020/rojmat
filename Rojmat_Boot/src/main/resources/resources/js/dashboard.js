@@ -1,5 +1,8 @@
 	    $(document).ready(function(){
-	    	
+
+	    	function openWin() {
+	    		window.open("",  "width=500, height=500");
+	    	}
 	    	
 	        $("#addRow").click(function(){
 	        	var dc='amount' + parseInt($('[data-val="amount"]').length +1);

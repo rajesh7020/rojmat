@@ -71,7 +71,7 @@ $(document).ready(function() {
 		 email_chk();
 		 password_chk();
 		 
-		 if((email_err =- true) && (pass_err == true)) {
+		 if((email_err == true) && (pass_err == true)) {
 			 return true;
 		 } else {
 			 return false;

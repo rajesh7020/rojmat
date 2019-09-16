@@ -54,7 +54,7 @@
 							<tr>
 								<td><c:out value="${paymenttype.payid}"/></td>
 								<td><c:out value="${paymenttype.paymentMode}"/></td>
-								<td><a href="/user/updatePaymentType?payid=${paymenttype.payid}">Edit</a> | <a href="/user/deletePaymentType?payid=${paymenttype.payid}">Delete</a></td>
+								<td><a href="/user/updatePaymentType?payid=${paymenttype.payid}" class="btn btn-success">Edit</a> | <a href="/user/deletePaymentType?payid=${paymenttype.payid}" class="btn btn-danger">Delete</a></td>
 							</tr>
 						</c:forEach>	
 					</table>

@@ -132,7 +132,7 @@
 								<td><c:out value="${purchasePayment.unpaidAmount}"/></td>
 								<td><c:out value="${purchasePayment.paymenttype.paymentMode}"/></td>
 								<td><c:out value="${purchasePayment.chequeNoOrTransactionId}"/></td>
-								<td><a href="/user/updatePurchasePayment?pid=${purchasePayment.pid}">Edit</a> | <a href="/user/deletePurchasePayment?pid=${purchasePayment.pid}">Delete</a></td>
+								<td><a href="/user/updatePurchasePayment?pid=${purchasePayment.pid}" class="btn btn-success">Edit</a> | <a href="/user/deletePurchasePayment?pid=${purchasePayment.pid}" class="btn btn-danger">Delete</a></td>
 							</tr>
 						</c:forEach>	
 					</table>

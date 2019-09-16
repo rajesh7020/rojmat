@@ -133,7 +133,7 @@
 								<td><c:out value="${customer.city}"/></td>
 								<td><c:out value="${customer.mobileno}"/></td>
 								<td><c:out value="${customer.email}"/></td>
-								<td><a href="/user/updateCustomer?custid=${customer.custid}">Edit</a> | <a href="/user/deleteCustomer?custid=${customer.custid}">Delete</a></td>
+								<td><a href="/user/updateCustomer?custid=${customer.custid}" class="btn btn-success">Edit</a> | <a href="/user/deleteCustomer?custid=${customer.custid}" class="btn btn-danger">Delete</a></td>
 							</tr>
 						</c:forEach>	
 					</table>

@@ -132,7 +132,7 @@
 								<td><c:out value="${salesPayment.unpaidAmount}"/></td>
 								<td><c:out value="${salesPayment.paymenttype.paymentMode}"/></td>
 								<td><c:out value="${salesPayment.chequeNoOrTransactionId}"/></td>
-								<td><a href="/user/updateSalesPayment?sid=${salesPayment.sid}">Edit</a> | <a href="/user/deleteSalesPayment?sid=${salesPayment.sid}">Delete</a></td>
+								<td><a href="/user/updateSalesPayment?sid=${salesPayment.sid}" class="btn btn-success">Edit</a> | <a href="/user/deleteSalesPayment?sid=${salesPayment.sid}" class="btn btn-danger">Delete</a></td>
 							</tr>
 						</c:forEach>	
 					</table>

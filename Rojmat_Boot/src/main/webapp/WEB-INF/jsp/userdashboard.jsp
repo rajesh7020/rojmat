@@ -2,10 +2,11 @@
     pageEncoding="ISO-8859-1"%>
     <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%
 	HttpSession sess = request.getSession(false);
 	if (sess.getAttribute("user_id") == null) {
-		response.sendRedirect("home");
+		response.sendRedirect("/");
 		return;
 	}
 %> 
@@ -15,12 +16,12 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Accounting</title>	
 	<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet"/>
-	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="<c:url value="/resources/css/dashboard.css"/>" rel="stylesheet" type="text/css" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -29,6 +30,45 @@
 			"paging": true, 
 		    "order": [0, 'desc'],
 		});
+		
+		function openWin() {
+    		window.open("",  "width=300, height=200");
+    	}
+		function showAll() {
+			
+			$.ajax({
+				type : "GET",
+				url : "/user/getCreditDebit",
+				dataType : "application/json",
+				success : function(data) {
+					alert(data);
+					var rows = '';
+					if($.trim(data)==""){
+						rows += '<tr><td colspan="10" style="text-align: center;">No data available</td></tr>';
+						$('#tblcreditdebitAll').html(rows);
+					}
+					var sr = 1;
+					$.each(data, function(index, item) {
+						
+						rows += '<tr><td >' + sr + '</td>';
+						rows += '<td>' + item.cid + '</td>';
+						rows += '<td>' + item.openingbalance + '</td>';
+						rows += '<td>' + item.drawertotal + '</td>';
+						rows += '<td>' + item.debittotalplusdrawertotal + '</td>';
+						rows += '<td>' + item.todaybusiness + '</td>';
+						rows += '<td>' + item.date + '</td>';
+						rows += '<td>' + item.did + '</td>';
+						rows += '<td>' + item.amount + '</td>';
+						rows += '<td>' + item.description + '</td>';
+						sr++;
+						});
+						$('#tblcreditdebitAll').html(rows);
+						},
+						error : function(xmlHttpRequest, textStatus, errorThrown) {
+							alert("error");
+						}
+					});
+		}
 	</script>
 </head>
 <body> 
@@ -99,13 +139,16 @@
 					<table id="tblcreditdebit" class="table table-striped display table-hover" style="width:100%;">
 						<thead>
 							<tr>
-								<th>cid</th>
+								<th>Cid</th>
 								<th>Opening Balance</th>
 								<th>Debit Total</th>
 								<th>Drawer Total</th>
 								<th>Debit + drawer</th>
 								<th>Today Business</th>
 								<th>Date</th>
+								<th>Did</th>
+								<th>Amount</th>
+								<th>Description</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
@@ -119,68 +162,22 @@
 								<td><c:out value="${credit.debittotalplusdrawertotal}"/></td>
 								<td><c:out value="${credit.todaybusiness}"/></td>
 								<td><c:out value="${credit.date}"/></td>
-								<td><a href="#" class="btn btn-danger">Delete</a> | <a href="#" data-toggle="modal" data-target="#creditdebitbyidModal" class="btn btn-warning">More</a></td>
+								<c:forEach items="${credit.debit}" var="debit">
+								<tr>
+									<td colspan="7"></td>
+									<td><c:out value="${debit.did}"></c:out></td>
+									<td><c:out value="${debit.amount}"></c:out></td>
+									<td><c:out value="${debit.description}"></c:out></td>
+								</tr>	
+								</c:forEach>
 							</tr>
 							</tbody>
+							<%-- <td><a href="#" class="btn btn-danger">Delete</a> | <a href="/user/getCreditDebit?cid=${credit.cid}" class="btn btn-warning" onclick="showAll();">More</a></td> --%>
 						</c:forEach>	
 					</table>
 				</c:if>
 			</div>
-			<section id="creditdebitbyid">
-   		<div class="container">
-   			<div class="modal fade" id="creditdebitbyidModal" >
-   				<div class="modal-dialog modal-dialog-centered">
-   					<div class="modal-content">
-   						<div class="modal-header">
-   							<h3 class="text-center">Credit Debit Data</h3>
-   				 			<button type="button" class="close" id="btnClose" data-dismiss="modal"> &times;</button>
-   						</div>
-   						<div class="col-md-6">
-								<h3>Credit Debit Account List</h3>
-								<c:if test="${!empty creditdebitlist }">
-									<table id="tblcreditdebit" class="table table-striped display table-hover" style="width:100%;">
-										<thead>
-											<tr>
-												<th>cid</th>
-												<th>Opening Balance</th>
-												<th>Debit Total</th>
-												<th>Drawer Total</th>
-												<th>Debit + drawer</th>
-												<th>Today Business</th>
-												<th>Date</th>
-												<th>did</th>
-												<th>Amount</th>
-												<th>Description</th>
-												<th>Actions</th>
-											</tr>
-										</thead>
-										<c:forEach items="${creditdebitlist}" var="credit">
-											<tbody>
-											<tr>
-												<td><c:out value="${credit.cid}"/></td>
-												<td><c:out value="${credit.openingbalance}"/></td>
-												<td><c:out value="${credit.debittotal}"/></td>
-												<td><c:out value="${credit.drawertotal}"/></td>
-												<td><c:out value="${credit.debittotalplusdrawertotal}"/></td>
-												<td><c:out value="${credit.todaybusiness}"/></td>
-												<td><c:out value="${credit.date}"/></td>
-												<td><c:out value="${debit.did}"/></td>
-												<td><c:out value="${debit.amount}"/></td>
-												<td><c:out value="${debit.description}"/></td>
-											</tr>
-											</tbody>
-										</c:forEach>	
-									</table>
-								</c:if>
-							</div>
-						</div>
-   						<div class="modal-footer">
-							 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-   						</div>
-   					</div>
-   				</div>
-   			</div>
-   		</div>
+	</div>
    </section>
 		</div>
 		<!-- Log In Popup -->

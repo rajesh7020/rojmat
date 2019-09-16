@@ -22,11 +22,11 @@ public class Credit extends BaseEntity{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column
-	private long cid;
+	private Long cid;
 	@Column @Order
 	private long openingbalance;
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	@Column
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
 	@Column @Order
 	private long debittotal;
@@ -45,7 +45,7 @@ public class Credit extends BaseEntity{
 	public Credit() {
 		
 	}
-	public Credit(long cid, long openingbalance, Date date, long debittotal, long drawertotal,
+	public Credit(Long cid, long openingbalance, Date date, long debittotal, long drawertotal,
 			long debittotalplusdrawertotal, long todaybusiness, List<Debit> debits) {
 		super();
 		this.cid = cid;
@@ -57,10 +57,10 @@ public class Credit extends BaseEntity{
 		this.todaybusiness = todaybusiness;
 		this.debits = debits;
 	}
-	public long getCid() {
+	public Long getCid() {
 		return cid;
 	}
-	public void setCid(long cid) {
+	public void setCid(Long cid) {
 		this.cid = cid;
 	}
 	public long getOpeningbalance() {

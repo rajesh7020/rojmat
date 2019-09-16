@@ -106,7 +106,7 @@
 								<td><c:out value="${product.category.categoryname}"/></td>
 								<td><c:out value="${product.unit.unitname}"/></td>
 								<td><c:out value="${product.gst.percentage}"/></td>
-								<td><a href="/user/updateProduct?pid=${product.pid}">Edit</a> | <a href="/user/deleteProduct?pid=${product.pid}">Delete</a></td>
+								<td><a href="/user/updateProduct?pid=${product.pid}" class="btn btn-success">Edit</a> | <a href="/user/deleteProduct?pid=${product.pid}" class="btn btn-danger">Delete</a></td>
 							</tr>
 						</c:forEach>	
 					</table>
