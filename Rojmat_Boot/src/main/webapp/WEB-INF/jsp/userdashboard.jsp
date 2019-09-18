@@ -19,13 +19,25 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
 	<link href="<c:url value="/resources/css/dashboard.css"/>" rel="stylesheet" type="text/css" />
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<style type="text/css">
+		h1 {
+			background: #efefef;
+			border-radius: 15px;
+			width: 262px;
+			height: 40px;
+			margin-left: 560px;
+		}
+	</style>
 	<script type="text/javascript">
+	$(document).ready(function() {
 		$('#tblcreditdebit').DataTable({
 			"paging": true, 
 		    "order": [0, 'desc'],
@@ -34,32 +46,67 @@
 		function openWin() {
     		window.open("",  "width=300, height=200");
     	}
-		function showAll() {
-			
-			$.ajax({
+	});
+	function getCreditDebitList() {
+		$.ajax({
+			type : "GET",
+			url : "/user/creditDebitList",
+			dataType : "json",
+			success : function(data) {
+				var rows = '';
+				if($.trim(data)==""){
+					rows += '<tr><td colspan="10" style="text-align: center;">No data available</td></tr>';
+					$('#tblcreditdebit').html(rows);
+				}
+				var sr = 1;
+				$.each(data, function(index, credit) {
+					rows += '<tr><td >' + sr + '</td>';
+					rows += '<td>' + credit.cid + '</td>';
+					rows += '<td>' + credit.openingbalance + '</td>';
+					rows += '<td>' + credit.debittotal + '</td>';
+					rows += '<td>' + credit.drawertotal + '</td>';
+					rows += '<td>' + credit.debittotalplusdrawertotal + '</td>';
+					rows += '<td>' + credit.todaybusiness + '</td>';
+					rows += '<td>' + credit.date + '</td>';
+					rows += '<td><a href="#" class="btn btn-danger">Delete</a> | <button class="btn btn-warning" onclick="showAll();">More</button></td>'
+					sr++;
+					});
+					$('#tblProducts').html(rows);
+					},
+					error : function(xmlHttpRequest, textStatus, errorThrown) {
+						alert("error");
+					}
+				});
+	}
+/* 	function showAll() {
+		var table = $('#tblcreditdebit').DataTable();
+		 
+		$('#tblcreditdebit').on( 'click', 'tr', function () {
+		    var cid = table.row( this ).id();
+		    alert( 'Clicked row id '+cid );
+		    $.ajax({
 				type : "GET",
-				url : "/user/getCreditDebit",
-				dataType : "application/json",
+				url : "/user/getCreditDebitByCreditId?cid="+cid,
+				data: {cid: cid},
+				dataType : "json",
 				success : function(data) {
-					alert(data);
 					var rows = '';
 					if($.trim(data)==""){
 						rows += '<tr><td colspan="10" style="text-align: center;">No data available</td></tr>';
 						$('#tblcreditdebitAll').html(rows);
 					}
 					var sr = 1;
-					$.each(data, function(index, item) {
-						
+					$.each(data, function(index, credit) {
 						rows += '<tr><td >' + sr + '</td>';
-						rows += '<td>' + item.cid + '</td>';
-						rows += '<td>' + item.openingbalance + '</td>';
-						rows += '<td>' + item.drawertotal + '</td>';
-						rows += '<td>' + item.debittotalplusdrawertotal + '</td>';
-						rows += '<td>' + item.todaybusiness + '</td>';
-						rows += '<td>' + item.date + '</td>';
-						rows += '<td>' + item.did + '</td>';
+						rows += '<td>' + credit.cid + '</td>';
+						rows += '<td>' + credit.openingbalance + '</td>';
+						rows += '<td>' + credit.drawertotal + '</td>';
+						rows += '<td>' + credit.debittotalplusdrawertotal + '</td>';
+						rows += '<td>' + credit.todaybusiness + '</td>';
+						rows += '<td>' + credit.date + '</td>';
+						/* rows += '<td>' + item.did + '</td>';
 						rows += '<td>' + item.amount + '</td>';
-						rows += '<td>' + item.description + '</td>';
+						rows += '<td>' + item.description + '</td>'; 
 						sr++;
 						});
 						$('#tblcreditdebitAll').html(rows);
@@ -68,13 +115,15 @@
 							alert("error");
 						}
 					});
-		}
+		});
+		
+	} */
 	</script>
 </head>
 <body> 
 <!-- Navigation Bar -->	
 	<jsp:include page="userheader.jsp"/>	
-	<h1>Rojmat (Daily Account)</h1><br/>
+	<h1>Rojmat (Daily Account)</h1>
 	<strong>${email}</strong><br/><strong>${user_id}</strong><strong>${shopname}</strong>
 	<p>${sucessLogin}</p>
 	<div class="container">
@@ -89,12 +138,12 @@
 				</div>
 				<div class="form-group">
 					<form:label path="debittotalplusdrawertotal">Debit Total + Drawer Total :</form:label>
-					<form:input path="debittotalplusdrawertotal" id="debitplusdrawertotal" class="form-control" autocomplete="off"/>
+					<form:input path="debittotalplusdrawertotal" id="debitplusdrawertotal" class="form-control" readonly="true"/>
 					<small id="debitplusdrawertotalchk"></small>
 				</div>
 				<div class="form-group">
 					<form:label path="todaybusiness">Today Business :</form:label>
-					<form:input path="todaybusiness" id="todaybusiness" class="form-control" autocomplete="off"/>
+					<form:input path="todaybusiness" id="todaybusiness" class="form-control" readonly="true"/>
 					<small id="todaybusinesschk"></small>
 				</div>
 				<div class="form-group">
@@ -107,7 +156,7 @@
 			</div>
 			<div class="col-md-6">
 			<h3>Debit Account</h3>
-			<input type="button" class="btn btn-primary" value="Add Row" id="addRow"/>&nbsp;&nbsp;
+			<input type="button" class="btn btn-primary" value="Add Row" id="addRow" tabindex="1"/>&nbsp;&nbsp;
 			<input type="button" class="btn btn-danger" id="deleteRow" value="Delete"/><br>
 				<table class="table table-hover table-bordered" id="tableid">
 					<thead>
@@ -122,7 +171,7 @@
 				</table>
 				<div class="form-group">
 					<form:label path="debittotal">Debit Total:</form:label>
-					<form:input path="debittotal" id="debittotal" class="form-control" autocomplete="off"/>
+					<form:input path="debittotal" id="debittotal" class="form-control" readonly="true"/>
 					<small id="debittotalchk"></small>
 				</div>
 				<div class="form-group">
@@ -130,13 +179,14 @@
 					<form:input path="drawertotal" id="drawertotal" class="form-control" autocomplete="off"/>
 					<small id="drawertotalchk"></small>
 				</div>
-			</div>
+
++			</div>
 			</form:form>
 		</div>
 			<div class="col-md-12">
 				<h3>Credit Debit Account List</h3>
 				<c:if test="${!empty creditdebitlist }">
-					<table id="tblcreditdebit" class="table table-striped display table-hover" style="width:100%;">
+					<table id="tblcreditdebit" class="table table-striped display table-hover">
 						<thead>
 							<tr>
 								<th>Cid</th>
@@ -146,15 +196,11 @@
 								<th>Debit + drawer</th>
 								<th>Today Business</th>
 								<th>Date</th>
-								<th>Did</th>
-								<th>Amount</th>
-								<th>Description</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
 						<c:forEach items="${creditdebitlist}" var="credit">
-							<tbody>
-							<tr>
+							<tr id="${credit.cid}">
 								<td><c:out value="${credit.cid}"/></td>
 								<td><c:out value="${credit.openingbalance}"/></td>
 								<td><c:out value="${credit.debittotal}"/></td>
@@ -162,26 +208,13 @@
 								<td><c:out value="${credit.debittotalplusdrawertotal}"/></td>
 								<td><c:out value="${credit.todaybusiness}"/></td>
 								<td><c:out value="${credit.date}"/></td>
-								<c:forEach items="${credit.debit}" var="debit">
-								<tr>
-									<td colspan="7"></td>
-									<td><c:out value="${debit.did}"></c:out></td>
-									<td><c:out value="${debit.amount}"></c:out></td>
-									<td><c:out value="${debit.description}"></c:out></td>
-								</tr>	
-								</c:forEach>
+								<td><a href="#" class="btn btn-danger">Delete</a> | <a class="btn btn-warning" href="#" onclick="">More</a></td>
 							</tr>
-							</tbody>
-							<%-- <td><a href="#" class="btn btn-danger">Delete</a> | <a href="/user/getCreditDebit?cid=${credit.cid}" class="btn btn-warning" onclick="showAll();">More</a></td> --%>
 						</c:forEach>	
 					</table>
 				</c:if>
 			</div>
-	</div>
-   </section>
 		</div>
-		<!-- Log In Popup -->
-   
 		<%-- <jsp:include page="userfooter.jsp"/> --%>
 	<!-- select distinct credit.cid, credit.openingbalance, credit.debittotal, credit.drawertotal, credit.debittotalplusdrawertotal, credit.todaybusiness, debit.did, debit.amount, debit.description from Credit credit Left Join Debit debit on credit.cid= debit.did; -->
 	<%-- <button id="login" type="submit" value="Login" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Checking login..." class="btn btn-lg btn-success btn-block">Login</button> --%>

@@ -34,7 +34,7 @@
 			<div class="col-md-4">	
 				<div class="form-group">
 					<form:label path="invoiceDate">Invoice Date :</form:label>
-					<form:input path="invoiceDate" id="invoiceDate" value="${purchasePayment.invoiceDate}" class="form-control" autocomplete="off" placeholder="Invoice Date"/>
+					<form:input path="invoiceDate" type="date" id="invoiceDate" value="${purchasePayment.invoiceDate}" class="form-control" autocomplete="off" placeholder="Invoice Date"/>
 					<small id="invoicedatechk"></small>
 				</div>
 			</div>
@@ -48,7 +48,7 @@
 			<div class="col-md-4">	
 				<div class="form-group">
 					<form:label path="paymentdate">Payment Date :</form:label>
-					<form:input path="paymentdate" id="paymentdate" value="${purchasePayment.paymentdate}" class="form-control" autocomplete="off" placeholder="Payment Date"/>
+					<form:input path="paymentdate" type="date" id="paymentdate" value="${purchasePayment.paymentdate}" class="form-control" autocomplete="off" placeholder="Payment Date"/>
 					<small id="invoicenochk"></small>
 				</div>
 			</div>

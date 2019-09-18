@@ -6,10 +6,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -23,13 +21,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.rajesh.exception.RecordNotFoundException;
 import com.rajesh.model.Credit;
 import com.rajesh.model.Debit;
 import com.rajesh.model.User;
 import com.rajesh.service.CreditDebitService;
-
+/*
+ * ** author Rajesh
+ */
 @Controller
 public class CreditDebitController {
 	@Autowired
@@ -87,10 +86,9 @@ public class CreditDebitController {
 		}
 		return "redirect:userdashboard";
 	}
-	@GetMapping("/user/getCreditDebit")
+	@GetMapping(value="/user/getCreditDebitByCreditId",produces = "application/json")
 	@ResponseBody
-	public Credit getCreditDebitById(Long cid, @ModelAttribute("command") Credit credit, HttpSession session, HttpServletRequest request, BindingResult result) throws RecordNotFoundException {
-             creditDebitService.getCreditDebitById(cid);
+	public Credit getCreditDebitById(Long cid, Credit credit, HttpSession session, HttpServletRequest request, BindingResult result) throws RecordNotFoundException {
 		return creditDebitService.getCreditDebitById(cid);
 	}
 	@GetMapping("user/userdashboard")

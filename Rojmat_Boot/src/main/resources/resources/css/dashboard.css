@@ -1,7 +1,4 @@
-*{
-			margin: 0;
-			padding: 0;
-		}
+
 	/*--Navigation ----*/
 		#nav-bar{
 			position: sticky;
@@ -35,15 +32,12 @@
 			font-size: 16px;
 		}
 		/**********Rojmat***********/
-		.container {
-			
-		}
-		h1 {
+		h1{
 			background: #efefef;
-			border-radius: 18px;
-			width: 350px;
+			border-radius: 15px;
+			width: 262px;
 			height: 40px;
-			margin-left: 150px;
+			margin-left: 560px;
 		}
 		h1:hover {
 			box-shadow: 0 0 15px 5px rgba(0,0,0,0.2);

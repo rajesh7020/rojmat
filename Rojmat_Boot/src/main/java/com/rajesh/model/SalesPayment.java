@@ -1,6 +1,4 @@
 package com.rajesh.model;
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +16,7 @@ public class SalesPayment {
 	@Column
 	private long sid;
 	@Column
-	private Date invoiceDate;
+	private String invoiceDate;
 	@Column
 	private String invoiceNo;
 	@Column
@@ -32,7 +30,7 @@ public class SalesPayment {
 	@Column
 	private int chequeNoOrTransactionId;
 	@Column
-	private Date paymentdate;
+	private String paymentdate;
 	@OneToOne
 	@JoinColumn(name="payid")
 	private PaymentType paymenttype;
@@ -42,10 +40,10 @@ public class SalesPayment {
 	public void setSid(long sid) {
 		this.sid = sid;
 	}
-	public Date getInvoiceDate() {
+	public String getInvoiceDate() {
 		return invoiceDate;
 	}
-	public void setInvoiceDate(Date invoiceDate) {
+	public void setInvoiceDate(String invoiceDate) {
 		this.invoiceDate = invoiceDate;
 	}
 	public String getInvoiceNo() {
@@ -84,10 +82,10 @@ public class SalesPayment {
 	public void setChequeNoOrTransactionId(int chequeNoOrTransactionId) {
 		this.chequeNoOrTransactionId = chequeNoOrTransactionId;
 	}
-	public Date getPaymentdate() {
+	public String getPaymentdate() {
 		return paymentdate;
 	}
-	public void setPaymentdate(Date paymentdate) {
+	public void setPaymentdate(String paymentdate) {
 		this.paymentdate = paymentdate;
 	}
 	public PaymentType getPaymenttype() {
