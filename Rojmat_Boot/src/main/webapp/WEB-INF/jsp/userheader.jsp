@@ -52,7 +52,7 @@
         	<a class="nav-link" href="${pageContext.request.contextPath}/user/userprofilehome">User Profile</a>
       	</li>
        	<li class="nav-item">
-        	<a class="nav-link" href="${pageContext.request.contextPath}/">LogOut</a>
+        	<a class="nav-link" href="${pageContext.request.contextPath}/logout">LogOut</a>
       	</li>
     </ul>
   </div>

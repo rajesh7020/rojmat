@@ -54,4 +54,9 @@ public class UserController {
 			return "home";
 	  	}  		
 	}
+	@GetMapping("/logout")
+	public String doLogout(ModelMap model, @ModelAttribute("command")User user, HttpSession session) {
+		session.removeAttribute("email");
+		return "home";
+	}
 }
