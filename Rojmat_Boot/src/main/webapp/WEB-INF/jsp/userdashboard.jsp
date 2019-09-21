@@ -75,46 +75,46 @@
 					}
 				});
 	}
-/* 	function showAll() {
+ 	function getCreditDebitById() { 	
 		var table = $('#tblcreditdebit').DataTable();
-		 
 		$('#tblcreditdebit').on( 'click', 'tr', function () {
 		    var cid = table.row( this ).id();
-		    alert( 'Clicked row id '+cid );
+		
 		    $.ajax({
 				type : "GET",
-				url : "/user/getCreditDebitByCreditId?cid="+cid,
-				data: {cid: cid},
-				dataType : "json",
+				url : "/user/getCreditDebitByCreditId",
+				dataType: "json",
+	 		    data: {cid: cid },
 				success : function(data) {
 					var rows = '';
 					if($.trim(data)==""){
 						rows += '<tr><td colspan="10" style="text-align: center;">No data available</td></tr>';
-						$('#tblcreditdebitAll').html(rows);
+						$('#cssTable').html(rows);
 					}
-					var sr = 1;
-					$.each(data, function(index, credit) {
-						rows += '<tr><td >' + sr + '</td>';
-						rows += '<td>' + credit.cid + '</td>';
-						rows += '<td>' + credit.openingbalance + '</td>';
-						rows += '<td>' + credit.drawertotal + '</td>';
-						rows += '<td>' + credit.debittotalplusdrawertotal + '</td>';
-						rows += '<td>' + credit.todaybusiness + '</td>';
-						rows += '<td>' + credit.date + '</td>';
-						/* rows += '<td>' + item.did + '</td>';
-						rows += '<td>' + item.amount + '</td>';
-						rows += '<td>' + item.description + '</td>'; 
+					var sr = 1; 
+					console.dir(data);
+					/* $.each(data, function(index, item) {*/
+						
+						rows += '<td>' + data.cid + '</td>';
+						rows += '<td>' + data.openingbalance + '</td>';
+						rows += '<td>' + data.debittotal + '</td>';
+						rows += '<td>' + data.drawertotal + '</td>';
+						rows += '<td>' + data.debittotalplusdrawertotal + '</td>';
+						rows += '<td>' + data.todaybusiness + '</td>';
+						rows += '<td>' + data.date + '</td>';
+						rows += '<td>' + data[sr] + '</td>';
 						sr++;
-						});
-						$('#tblcreditdebitAll').html(rows);
-						},
+					
+						$('#tblCredit').html(rows);
+						/* },
 						error : function(xmlHttpRequest, textStatus, errorThrown) {
 							alert("error");
-						}
-					});
+						} */
+					}
+		    }); 
 		});
 		
-	} */
+	} 
 	</script>
 </head>
 <body> 
@@ -177,7 +177,7 @@
 					<small id="drawertotalchk"></small>
 				</div>
 
-+			</div>
+		</div>
 			</form:form>
 		</div>
 			<div class="col-md-12">
@@ -204,8 +204,8 @@
 								<td><c:out value="${credit.drawertotal}"/></td>
 								<td><c:out value="${credit.debittotalplusdrawertotal}"/></td>
 								<td><c:out value="${credit.todaybusiness}"/></td>
-								<td><c:out value="${credit.date}"/></td>
-								<td><a href="#" class="btn btn-danger">Delete</a> | <a class="btn btn-warning" href="#" onclick="" data-toggle="modal" data-target="#myModal">More</a></td>
+								<td><c:out value="${credit.date}"/></td> <!-- data-toggle="modal" data-target="#myModal" -->
+								<td><a href="#" class="btn btn-danger">Delete</a> | <button class="btn btn-warning" onclick="getCreditDebitById();" data-toggle="modal" data-target="#myModal">More</button></td>
 							</tr>
 						</c:forEach>	
 					</table>
@@ -214,19 +214,35 @@
 		</div>
 		 <!-- The Modal -->
   <div class="modal" id="myModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
       
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Modal Heading</h4>
+          <h4 class="modal-title">Credit and Debit Record</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         
         <!-- Modal body -->
         <div class="modal-body">
-          Modal body..
-        </div>
+			<table class="table no-margin table-striped  table-hover  table-bordered tblData_inner" id="cssTable">
+				<thead>
+					<tr>
+						<th>Cid</th>
+						<th>Opening Balance</th>
+						<th>Debit Total</th>
+						<th>Drawer Total</th>
+						<th>Debit + drawer</th>
+						<th>Today Business</th>
+						<th>Date</th>
+						<th>Did</th>
+						<th>Amount</th>
+						<th>Description</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody id="tblCredit"></tbody>
+			</table>			
         
         <!-- Modal footer -->
         <div class="modal-footer">
@@ -236,7 +252,7 @@
       </div>
     </div>
   </div>
-  
+ </div> 
 
 		<%-- <jsp:include page="userfooter.jsp"/> --%>
 	<!-- select distinct credit.cid, credit.openingbalance, credit.debittotal, credit.drawertotal, credit.debittotalplusdrawertotal, credit.todaybusiness, debit.did, debit.amount, debit.description from Credit credit Left Join Debit debit on credit.cid= debit.did; -->
