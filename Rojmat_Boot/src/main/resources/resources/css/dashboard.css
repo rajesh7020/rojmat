@@ -34,10 +34,10 @@
 		/**********Rojmat***********/
 		h1{
 			background: #efefef;
-			border-radius: 15px;
-			width: 262px;
+			border-radius: 10px;
+			width: 265px;
 			height: 40px;
-			margin-left: 560px;
+			margin-left: 770px;
 		}
 		h1:hover {
 			box-shadow: 0 0 15px 5px rgba(0,0,0,0.2);
@@ -72,6 +72,17 @@
 			border-radius: 15px;
 		}
 		#savebtn:hover {
+			background-color: green;
+		}
+		#resetbtn {
+			height: 32px;
+			width: 70px;
+			font-size: 16px;
+			margin-bottom: 9px;
+			color: white;
+			border-radius: 15px;
+		}
+		#resetbtn:hover {
 			background-color: green;
 		}
 		#addRow {

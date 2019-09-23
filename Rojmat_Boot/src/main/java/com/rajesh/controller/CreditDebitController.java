@@ -29,7 +29,7 @@ public class CreditDebitController {
 	@Autowired
 	CreditDebitService creditDebitService;
 	
-	@PostMapping("/user/savecreditdebit")
+	@PostMapping(value="/user/savecreditdebit")
 	public String saveCreditDebit(@RequestParam(value = "amount") long[] amount, @RequestParam(value = "description") String[] description, 
 					ModelMap model, HttpServletRequest request, HttpSession session,@ModelAttribute("command")Credit credit, BindingResult result) {
 		
@@ -89,9 +89,16 @@ public class CreditDebitController {
 	public @ResponseBody List<Credit> showCreditDebitList(Credit credit) {
 		return creditDebitService.getAllCreditList();
 	}
-	@GetMapping(value="/user/deleteCreditDebitByCreditId",produces = "application/json")
+	@GetMapping(value="/user/deleteCreditDebitByCreditId")
 	@ResponseBody
-	public void deleteCreditDebitById(Long cid, Credit credit, HttpSession session, HttpServletRequest request, BindingResult result) throws RecordNotFoundException {
-		 creditDebitService.deleteCreditDebitById(cid);
+	public String deleteCreditDebitById(Long cid, Credit credit, HttpSession session, HttpServletRequest request, BindingResult result) throws RecordNotFoundException {
+		try {
+			creditDebitService.deleteCreditDebitById(cid);
+			return "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+		 
 	}
 }

@@ -1,8 +1,9 @@
 	    $(document).ready(function(){
-
-	    	function openWin() {
-	    		window.open("",  "width=500, height=500");
-	    	}
+	    	getCreditDebitList();
+			$('#tblcreditdebit').DataTable({
+				"paging": true, 
+			    "order": [0, 'desc'],
+			});
 	    	
 	        $("#addRow").click(function(){
 	        	var dc='amount' + parseInt($('[data-val="amount"]').length +1);
@@ -11,7 +12,8 @@
 	            var markup ="<tr><td><input type='checkbox' name='record'></td>"+
             		"<td><input type='text' name='amount' data-label="+dcAmount+" data-val='amount' data-class="+dc+" id='amount' class='form-control'/>" + "<small id='amountchk' class="+dc1+"></small></td>" +
             		"<td><input type='text' name='description' id='description' class='form-control' autocomplete='off'/></td></tr>";
-	            $("table tbody").append(markup);
+	            
+	            $("table#tableid tbody").append(markup);
 	        });
 	        $("#addRow").click(function() {
 				$('input[name="amount"]').css({
@@ -60,21 +62,21 @@
 				var drawer_total = $('#drawertotal').val();
 				var debit_Drawer = parseInt(debit_total) + parseInt(drawer_total);
 				if($.isNumeric(debit_Drawer)) {
-					$("#debitplusdrawertotal").val(debit_Drawer);
+					$("#debittotalplusdrawertotal").val(debit_Drawer);
 				}
 			}
 			
 			/*************** DebitTotalPlus_DrawerTotal - Opening_Balance **********/
 			
-			$('#debitplusdrawertotal').keyup(function() {
+			$('#debittotalplusdrawertotal').keyup(function() {
 				Debit_minus_OpeningBalace();
-			});$('#openingBalance').keyup(function() {
+			});$('#openingbalance').keyup(function() {
 				Debit_minus_OpeningBalace();
 			});
 			
 			function Debit_minus_OpeningBalace() {
-				var debit_Drawer = $('#debitplusdrawertotal').val();
-				var opening_Balance = $('#openingBalance').val();
+				var debit_Drawer = $('#debittotalplusdrawertotal').val();
+				var opening_Balance = $('#openingbalance').val();
 				var today_Business = parseInt(debit_Drawer) - parseInt(opening_Balance);
 				if($.isNumeric(today_Business)) {
 					$("#todaybusiness").val(today_Business);
@@ -97,11 +99,11 @@
 	    //    var date_err = true;
 	        var amount_err = true;
 	        
-	        $('#openingBalance').keyup(function() {
+	        $('#openingbalance').keyup(function() {
 	        	openingBalance_chk();
 			});
 	        function openingBalance_chk() {
-				var openingbalance = $('#openingBalance').val();
+				var openingbalance = $('#openingbalance').val();
 				var pattern = /^\d*(?:\.\d{1,2})?$/;
 				if((openingbalance.length == '') || (openingbalance.length == null)) {
 					$('#openingBalancechk').show();
@@ -183,11 +185,11 @@
 				}
 			}
 	        
-	        $('#debitplusdrawertotal').keyup(function() {
+	        $('#debittotalplusdrawertotal').keyup(function() {
 				debitplusdrawertotal_chk();
 			});
 	        function debitplusdrawertotal_chk() {
-	        	var debitplusdrawertotal = $('#debitplusdrawertotal').val();
+	        	var debitplusdrawertotal = $('#debittotalplusdrawertotal').val();
 				var pattern = /^\d*(?:\.\d{1,2})?$/;
 				if((debitplusdrawertotal.length == '') || (debitplusdrawertotal.length == null)) {
 					$('#debitplusdrawertotalchk').show();
@@ -269,7 +271,6 @@
 	        $("#addRow").click(function() {
 	        
 	        	$('[data-val="amount"]').keyup(function () {
-	        		
 					var dclassname = $(this).attr('data-class');
 					var dcAmountValue = $(this).attr('data-label');
 					amount_chk(dclassname,dcAmountValue);
@@ -324,6 +325,128 @@
 		        	 return false;
 		         }
 			});
+ 
 	    }); 
-	    
+        var d=0;
+    	function saveCreditDebit() {
+    		debugger;
+    		$.ajax({
+    			type: "POST",
+    			url: "/user/savecreditdebit",
+    			data: {
+    				openingbalance: $('#openingBalance').val(),
+    				debittotalplusdrawertotal: $('#debitplusdrawertotal').val(),
+    				todaybusiness: $('#todaybusiness').val(),
+    				date: $('#date').val(),
+    				debittotal: $('#debittotal').val(),
+    				drawertotal: $('#drawertotal').val(),
+    				amount: amount,
+    				description: description,
+    			},
+    			success : function(data) {
+    				alert("success");
+    				debugger;
+    				d=1;
+    				getCreditDebitList();
+    			},
+    			error : function(xmlHttpRequest, textStatus, errorThrown) {
+    				alert("error");
+    			}
+    		});
+    	}
+    	function deleteCreditDebitByCreditId(cid1) {
+    		$.ajax({
+    			type : "GET",
+    			url : "/user/deleteCreditDebitByCreditId?cid="+cid1,
+    			
+    			success : function(data) {
+    				d=1;
+    				getCreditDebitList();
+    			},
+    			error : function(xmlHttpRequest, textStatus, errorThrown) {
+    				alert("error");
+    			}
+    		});
+    	}
+    	function getCreditDebitList() {
+    		$.ajax({
+    			type : "GET",
+    			url : "/user/creditDebitList",
+    			dataType : "json",
+    			success : function(data) {
+    				var rows = '';
+    				if($.trim(data)==""){
+    					rows += '<tr><td colspan="10" style="text-align: center;">No data available</td></tr>';
+    					$('#tblcreditdebit').html(rows);
+    				}
+    				var sr = 1;
+    				$.each(data, function(index, credit) {
+    					rows += '<tr><td >' + sr + '</td>';
+    					rows += '<td>' + credit.cid + '</td>';
+    					rows += '<td>' + credit.openingbalance + '</td>';
+    					rows += '<td>' + credit.debittotal + '</td>';
+    					rows += '<td>' + credit.drawertotal + '</td>';
+    					rows += '<td>' + credit.debittotalplusdrawertotal + '</td>';
+    					rows += '<td>' + credit.todaybusiness + '</td>';
+    					rows += '<td>' + credit.date + '</td>';
+    					rows += '<td><button class="btn btn-danger" onclick="deleteCreditDebitByCreditId('+credit.cid+');">Delete</button> | <button class="btn btn-warning" onclick="getCreditDebitById('+credit.cid+');" data-toggle="modal" data-target="#myModal">More</button></td></tr>'
+    					sr++;
+    				});
+    				$('#tblProducts').html(rows);
+    					if( d==1){
+    						setTimeout(() => {
+    							$().DataTable().ajax.reload();
+    							d=0;
+    						}, 1000);
+    					}
+    			},
+    			error : function(xmlHttpRequest, textStatus, errorThrown) {
+    				alert("error");
+    			}
+    		});
+    	}
+     	function getCreditDebitById(cid) { 	
+    			
+    		    $.ajax({
+    				type : "GET",
+    				url : "/user/getCreditDebitByCreditId",
+    				dataType: "json",
+    	 		    data: {cid: cid },
+    				success : function(data) {
+    					var rows = '';
+    					if($.trim(data)==""){
+    						rows += '<tr><td colspan="10" style="text-align: center;">No data available</td></tr>';
+    						$('#tableid').html(rows);
+    					}
+    					console.dir(data);
+    						var ob = data.openingbalance;
+    						var dpdt = data.debittotalplusdrawertotal;
+    						var tb = data.todaybusiness;
+    						var drt = data.drawertotal;
+    						var det = data.date;
+    						var dt = data.debittotal;
+    						var dpdt1 = data.debittotalplusdrawertotal;
+    						
+    						$("#openingBal").val(ob);
+    						$("#debitplusDrawertotal").val(dpdt);
+    						$("#debitplusDrawertotal1").val(dpdt1);
+    						$("#todayBusiness").val(tb);
+    						$("#drawerTotal").val(drt);
+    						$("#Date").val(det);
+    						$("#debitTotal").val(dt);
+    						var sr = 1; 
+    						$.each(data.debit, function(index, item) {
+    						rows += '<tr><td >' + sr + '</td>';
+    						rows += '<td>' + item.did + '</td>';
+    						rows += '<td>' + item.amount + '</td>';
+    						rows += '<td>' + item.description + '</td>';
+    						sr++;
+    						$('#tblCredit').html(rows);
+    						});
+    					},
+    					error : function(xmlHttpRequest, textStatus, errorThrown) {
+    						alert("error");
+    					} 
+    		    }); 
+    	}
       
