@@ -1,5 +1,4 @@
 package com.rajesh.controller;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -8,18 +7,12 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.rajesh.exception.RecordNotFoundException;
 import com.rajesh.model.Credit;
 import com.rajesh.model.Debit;
-import com.rajesh.model.User;
 import com.rajesh.service.CreditDebitService;
 /*
  * ** author Rajesh
@@ -36,17 +28,12 @@ import com.rajesh.service.CreditDebitService;
 public class CreditDebitController {
 	@Autowired
 	CreditDebitService creditDebitService;
-	 @InitBinder
-	 public void initBinder(WebDataBinder binder) 
-	 {
-	  SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-	  dateFormat.setLenient(false);
-	  binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-	 }
+	
 	@PostMapping("/user/savecreditdebit")
-	public String saveCreditDebit(@RequestParam(value = "amount") long[] amount, 
-            @RequestParam(value = "description") String[] description, 
-            ModelMap model, HttpServletRequest request, HttpSession session,@ModelAttribute("command")Credit credit, BindingResult result) {
+	public String saveCreditDebit(@RequestParam(value = "amount") long[] amount, @RequestParam(value = "description") String[] description, 
+					ModelMap model, HttpServletRequest request, HttpSession session,@ModelAttribute("command")Credit credit, BindingResult result) {
+		
+		String email = (String) session.getAttribute("email");
 		try {
 			List<Debit> debits = new ArrayList<Debit>(Arrays.asList());
 			debits = credit.getDebit();
@@ -64,8 +51,6 @@ public class CreditDebitController {
 				debits1.add(new Debit(debits.get(i).getAmount(),debits.get(i).getDescription()));
 			}
 			System.out.println("debits1 ="+debits1);
-			User user = new User();
-			
 			 // Credit Data Set
 				credit.setOpeningbalance(credit.getOpeningbalance());
 				credit.setDate(credit.getDate());
@@ -74,9 +59,9 @@ public class CreditDebitController {
 				credit.setDrawertotal(credit.getDrawertotal());
 				credit.setDebittotalplusdrawertotal(credit.getDebittotalplusdrawertotal());
 				credit.setTodaybusiness(credit.getTodaybusiness());
-				credit.setCreatedBy(user.getEmail());
+				credit.setCreatedBy(email);
 				credit.setCreatedDate(new Date());
-				credit.setUpdatedBy(user.getEmail());
+				credit.setUpdatedBy(email);
 				credit.setUpdatedDate(new Date());	
 			//  Debit Data set	
 				System.out.println("Debit List = " + debits1.size());
@@ -92,7 +77,6 @@ public class CreditDebitController {
 	@GetMapping(value="/user/getCreditDebitByCreditId",produces = "application/json")
 	@ResponseBody
 	public Credit getCreditDebitById(Long cid, Credit credit, HttpSession session, HttpServletRequest request, BindingResult result) throws RecordNotFoundException {
-		System.out.println("+****************************"+cid);
 		return creditDebitService.getCreditDebitById(cid);
 	}
 	@GetMapping("user/userdashboard")
@@ -104,5 +88,10 @@ public class CreditDebitController {
 	@GetMapping("user/creditDebitList")
 	public @ResponseBody List<Credit> showCreditDebitList(Credit credit) {
 		return creditDebitService.getAllCreditList();
+	}
+	@GetMapping(value="/user/deleteCreditDebitByCreditId",produces = "application/json")
+	@ResponseBody
+	public void deleteCreditDebitById(Long cid, Credit credit, HttpSession session, HttpServletRequest request, BindingResult result) throws RecordNotFoundException {
+		 creditDebitService.deleteCreditDebitById(cid);
 	}
 }

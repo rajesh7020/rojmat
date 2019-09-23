@@ -27,6 +27,14 @@ public class CreditDebitService {
 		 }else {
 			 throw new RecordNotFoundException("No Credit debit record is exist for given id");
 		 }
-		
+	}
+	public void deleteCreditDebitById(long cid) throws RecordNotFoundException {
+		Optional<Credit> credit =  creditDebitRepository.findById(cid);
+		if(credit.isPresent())
+        {
+			creditDebitRepository.deleteById(cid);
+        } else {
+            throw new RecordNotFoundException("No Credit Debit record exist for given cid");
+        }
 	}
 }
