@@ -8,7 +8,7 @@
 	            var markup ="<tr><td><input type='checkbox' name='record'></td>"+
             		"<td><input type='text' name='amount' data-label="+dcAmount+" data-val='amount' data-class="+dc+" id='amount' class='form-control'/>" + "<small id='amountchk' class="+dc1+"></small></td>" +
             		"<td><input type='text' name='description' id='description' class='form-control' autocomplete='off'/></td></tr>";
-	            $("table tbody").append(markup);
+	            $("table#tableid tbody").append(markup);
 	        });
 	        $("#addRow").click(function() {
 				$('input[name="amount"]').css({

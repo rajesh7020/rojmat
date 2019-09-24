@@ -1,8 +1,8 @@
 package com.rojmat.entity;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 import org.springframework.core.annotation.Order;
 
 @Entity
@@ -25,7 +26,7 @@ public class Credit extends BaseEntity{
 	@Column @Order
 	private long openingbalance;
 	@Column
-	private Date date;
+	private String date;
 	@Column @Order
 	private long debittotal;
 	@Column @Order
@@ -44,7 +45,7 @@ public class Credit extends BaseEntity{
 	public Credit() {
 		
 	}
-	public Credit(long cid, long openingbalance, Date date, long debittotal, long drawertotal,
+	public Credit(long cid, long openingbalance, String date, long debittotal, long drawertotal,
 			long debittotalplusdrawertotal, long todaybusiness, List<Debit> debits) {
 		super();
 		this.cid = cid;
@@ -68,10 +69,10 @@ public class Credit extends BaseEntity{
 	public void setOpeningbalance(long openingbalance) {
 		this.openingbalance = openingbalance;
 	}	
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public long getDebittotal() {

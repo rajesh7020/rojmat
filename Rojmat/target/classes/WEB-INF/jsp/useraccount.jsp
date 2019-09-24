@@ -120,6 +120,6 @@
 		</div>
 		<%-- <jsp:include page="userfooter.jsp"/> --%>
 	<!-- select distinct credit.cid, credit.openingbalance, credit.debittotal, credit.drawertotal, credit.debittotalplusdrawertotal, credit.todaybusiness, debit.did, debit.amount, debit.description from Credit credit Left Join Debit debit on credit.cid= debit.did; -->
-	<script src="<c:url value="/resources/js/dashboard.js"/>"></script>
+	<script src="<c:url value="/resources/js/dashboard.js?v=dsd"/>"></script>
 </body>
 </html>
