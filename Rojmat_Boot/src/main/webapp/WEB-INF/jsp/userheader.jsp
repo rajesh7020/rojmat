@@ -45,9 +45,15 @@
 	            <li><a href="${pageContext.request.contextPath}/user/viewState">States</a></li>
             </ul>
         </li>
-      	<li class="nav-item">
-        	<a class="nav-link" href="${pageContext.request.contextPath}/user/invoicehome">Invoice</a>
-      	</li>
+      	<li class="nav-item dropdown">
+        	<a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link">Invoice<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+	           <li><a href="${pageContext.request.contextPath}/user/viewCustomerInvoice">Customer Invoice</a></li>
+	            <li><a href="${pageContext.request.contextPath}/user/viewSupplierInvoice">Supplier Invoice</a></li>
+	            <li class="divider"></li>
+	            <li><a href="${pageContext.request.contextPath}/user/viewState">Add Product</a></li>
+            </ul>
+        </li>
       	<li class="nav-item">
         	<a class="nav-link" href="${pageContext.request.contextPath}/user/userprofilehome">User Profile</a>
       	</li>

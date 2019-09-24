@@ -99,6 +99,13 @@ public class CreditDebitController {
 			e.printStackTrace();
 			return "error";
 		}
-		 
+	}
+	@GetMapping(value="/user/viewCustomerInvoice")
+	public ModelAndView showCustomerInvoice(HttpSession session, HttpServletRequest request) {
+		return  new ModelAndView("customer_invoice");
+	}
+	@GetMapping(value="/user/viewSupplierInvoice")
+	public ModelAndView showSupplierInvoice(HttpSession session, HttpServletRequest request) {
+		return new ModelAndView("supplier_invoice");
 	}
 }
