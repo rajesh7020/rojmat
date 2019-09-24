@@ -46,7 +46,9 @@
 		.dropdown-toggle{
 			margin-bottom: 2px;
 		}
-
+		.dropdown-toggle::after{
+			display: none;
+		}
 		.navbar .dropdown-toggle, .nav-tabs .dropdown-toggle{
 			margin-bottom: 0;
 		}

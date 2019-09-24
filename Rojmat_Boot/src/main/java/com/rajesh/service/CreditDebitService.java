@@ -18,6 +18,8 @@ public class CreditDebitService {
 		creditDebitRepository.save(credit);
 	}
 	public List<Credit> getAllCreditList() {
+		List<Credit> data = (List<Credit>) creditDebitRepository.findAll();
+		System.out.println(data);
 		return (List<Credit>) creditDebitRepository.findAll();
 	}
 	public Credit getCreditDebitById(long cid) throws RecordNotFoundException {

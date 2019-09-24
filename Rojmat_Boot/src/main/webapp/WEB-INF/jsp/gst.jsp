@@ -54,7 +54,7 @@
 							<tr>
 								<td><c:out value="${gst.gstid}"/></td>
 								<td><c:out value="${gst.percentage}"/></td>
-								<td><a href="/user/updateGst?gstid=${gst.gstid}" class="btn btn-warning">Edit</a> | <a href="/user/deleteGst?gstid=${gst.gstid}" class="btn btn-danger">Delete</a></td>
+								<td><a href="/user/updateGst?gstid=${gst.gstid}" class="btn btn-success">Edit</a> | <a href="/user/deleteGst?gstid=${gst.gstid}" class="btn btn-danger">Delete</a></td>
 							</tr>
 						</c:forEach>	
 					</table>

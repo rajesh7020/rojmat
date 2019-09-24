@@ -1,41 +1,21 @@
 	    $(document).ready(function(){
 	    	 var d=0;
-	    	getCreditDebitList();
 			$('#tblcreditdebit').DataTable({
-				ajax:{
-	    			url : "/user/creditDebitList",
-	    			dataType : "json",
-	    			success : function(data) {
-	    				var rows = '';
-	    				if($.trim(data)==""){
-	    					rows += '<tr><td colspan="10" style="text-align: center;">No data available</td></tr>';
-	    					$('#tblcreditdebit').html(rows);
-	    				}
-	    				var sr = 1;
-	    				$.each(data, function(index, credit) {
-	    					rows += '<tr><td >' + sr + '</td>';
-	    					rows += '<td>' + credit.cid + '</td>';
-	    					rows += '<td>' + credit.openingbalance + '</td>';
-	    					rows += '<td>' + credit.debittotal + '</td>';
-	    					rows += '<td>' + credit.drawertotal + '</td>';
-	    					rows += '<td>' + credit.debittotalplusdrawertotal + '</td>';
-	    					rows += '<td>' + credit.todaybusiness + '</td>';
-	    					rows += '<td>' + credit.date + '</td>';
-	    					rows += '<td><button class="btn btn-danger" onclick="deleteCreditDebitByCreditId('+credit.cid+');">Delete</button> | <button class="btn btn-warning" onclick="getCreditDebitById('+credit.cid+');" data-toggle="modal" data-target="#myModal">More</button></td></tr>'
-	    					sr++;
-	    				});
-	    				$('#tblProducts').html(rows);
-	    					if( d==1){
-	    						setTimeout(() => {
-	    							$().DataTable().ajax.reload();
-	    							d=0;
-	    						}, 1000);
-	    					}
-	    			},
-	    			error : function(xmlHttpRequest, textStatus, errorThrown) {
-	    				alert("error");
-	    			}
-	    		}
+			//	processing: true,
+		    //  serverSide: true,
+				ajax:{ 
+					url: '/user/creditDebitList',
+					dataSrc: ''
+				},
+		        columns: [
+		            { data: 'cid' },
+		            { data: 'openingbalance' },
+		            { data: 'debittotal' },
+		            { data: 'drawertotal' },
+		            { data: 'debittotalplusdrawertotal' },
+		            { data: 'todaybusiness' },
+		            { data: 'date' }
+		        ]
 			});
 	    	
 	        $("#addRow").click(function(){

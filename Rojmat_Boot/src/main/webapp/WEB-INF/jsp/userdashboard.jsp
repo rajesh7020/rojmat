@@ -24,7 +24,7 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-	<script src="<c:url value="/resources/js/dashboard.js?v=cxdd"/>"></script>
+	<script src="<c:url value="/resources/js/dashboard.js"/>"></script>
 </head>
 <body> 
 <!-- Navigation Bar -->	
@@ -95,7 +95,6 @@
 					<table id="tblcreditdebit" class="table table-striped display table-hover">
 						<thead>
 							<tr>
-								<th>Sr.No</th>
 								<th>Cid</th>
 								<th>Opening Balance</th>
 								<th>Debit Total</th>
@@ -103,7 +102,6 @@
 								<th>Debit + drawer</th>
 								<th>Today Business</th>
 								<th>Date</th>
-								<th>Actions</th>
 							</tr>
 						</thead>
 						<tbody id="tblProducts">

@@ -85,7 +85,7 @@ public class CreditDebitController {
 		model.put("creditdebitlist", creditDebitService.getAllCreditList());
 		return new ModelAndView("userdashboard",model);
 	}
-	@GetMapping("user/creditDebitList")
+	@GetMapping("/user/creditDebitList")
 	public @ResponseBody List<Credit> showCreditDebitList(Credit credit) {
 		return creditDebitService.getAllCreditList();
 	}
