@@ -92,6 +92,7 @@
 			<div class="col-md-12">
 				<h3>Credit Debit Account List</h3>
 				<c:if test="${!empty creditdebitlist }">
+				<div class="table-responsive">
 					<table id="tblcreditdebit" class="table table-striped display table-hover">
 						<thead>
 							<tr>
@@ -107,6 +108,7 @@
 						<tbody id="tblProducts">
 						</tbody>
 					</table>
+				</div>	
 				</c:if>
 			</div>
 		</div>

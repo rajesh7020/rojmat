@@ -7,7 +7,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>GST</title>	
-		<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet"/>
+	<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet"/>
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -63,5 +63,6 @@
 		</div>
 	</div>
 	<script src="<c:url value="/resources/js/gst.js"/>"></script>
+	<!-- eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIwYzRhZDFiMDFiYzE0Y2FjOTdlYjJkNzc0ZjQ5ZDczYyIsImlhdCI6MTU2NTMzMjQzMywic3ViIjoidXBkYXRlRGF0YSIsImlzcyI6ImJpc2FnIiwiZXhwIjozMTMwNjY0ODY2fQ.cvL68m3n6B3vflGYJYdvs8Tm4hhyYtUGKyv5N4S0NO8 -->
 </body>
 </html>
