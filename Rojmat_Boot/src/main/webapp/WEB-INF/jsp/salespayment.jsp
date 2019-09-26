@@ -49,7 +49,7 @@
 				<div class="form-group">
 					<form:label path="paymentdate">Payment Date :</form:label>
 					<form:input path="paymentdate" type="date" id="paymentdate" value="${salesPayment.paymentdate}" class="form-control" autocomplete="off" placeholder="Payment Date"/>
-					<small id="invoicenochk"></small>
+					<small id="paymentdatechk"></small>
 				</div>
 			</div>	
 			<div class="col-md-4">	
@@ -76,8 +76,8 @@
 			<div class="col-md-4">	
 				<div class="form-group">
 					<form:label path="unpaidAmount">Un-Paid/Balance Amount :</form:label>
-					<form:input path="unpaidAmount" id="unpaidAmount" value="${salesPayment.unpaidAmount}" class="form-control" autocomplete="off" placeholder="Paid Amount"/>
-					<small id="paidamountchk"></small>
+					<form:input path="unpaidAmount" id="unpaidAmount" value="${salesPayment.unpaidAmount}" class="form-control" autocomplete="off" placeholder="Paid Amount" readonly="true"/>
+					<small id="unpaidamountchk"></small>
 				</div>
 			</div>	
 			<div class="col-md-4">	
@@ -99,7 +99,7 @@
 					<small id="chequeortranchk"></small>
 				</div>
 			</div>	
-				<button class="btn btn-primary" id="savebtn">Save</button>
+				<button type="submit" class="btn btn-primary" id="savebtn">Save</button>
 			</form:form>
 		</div>
 		<div class="row1">
@@ -140,6 +140,6 @@
 			</div>
 		</div>
 	</div>
-	<script src="<c:url value="/resources/js/product.js"/>"></script>
+	<script src="<c:url value="/resources/js/salespayment.js"/>"></script>
 </body>
 </html>

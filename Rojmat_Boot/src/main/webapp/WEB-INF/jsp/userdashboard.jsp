@@ -24,7 +24,7 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-	<script src="<c:url value="/resources/js/dashboard.js"/>"></script>
+	<script src="<c:url value="/resources/js/dashboard.js?v=ds"/>"></script>
 </head>
 <body> 
 <!-- Navigation Bar -->	
@@ -44,7 +44,7 @@
 				</div>
 				<div class="form-group">
 					<form:label path="debittotalplusdrawertotal">Debit Total + Drawer Total :</form:label>
-					<form:input path="debittotalplusdrawertotal" id="debittotalplusdrawertotal" class="form-control"/>
+					<form:input path="debittotalplusdrawertotal" id="debittotalplusdrawertotal" class="form-control" readonly="true"/>
 					<small id="debitplusdrawertotalchk"></small>
 				</div>
 				<div class="form-group">
@@ -103,6 +103,7 @@
 								<th>Debit + drawer</th>
 								<th>Today Business</th>
 								<th>Date</th>
+								<th>Actions</th>
 							</tr>
 						</thead>
 						<tbody id="tblProducts">

@@ -1,23 +1,32 @@
-	    $(document).ready(function(){
-	    	 var d=0;
-			$('#tblcreditdebit').DataTable({
-			//	processing: true,
-		    //  serverSide: true,
-				ajax:{ 
-					url: '/user/creditDebitList',
-					dataSrc: ''
-				},
-		        columns: [
-		            { data: 'cid' },
-		            { data: 'openingbalance' },
-		            { data: 'debittotal' },
-		            { data: 'drawertotal' },
-		            { data: 'debittotalplusdrawertotal' },
-		            { data: 'todaybusiness' },
-		            { data: 'date' }
-		        ]
-			});
+var Dtable;	    
+$(document).ready(function(){
+	    	var today = new Date().toISOString().split('T')[0];
+	    	$('#date').attr('min',today);
+	    	$('#date').attr('max',today);
+	    	var d=0;
 	    	
+			Dtable = $('#tblcreditdebit').DataTable({
+				//	processing: true,
+			    //  serverSide: true,
+					ajax:{ 
+						url: '/user/creditDebitList',
+						dataSrc: ''
+					},
+			        columns: [
+			            { data: 'cid' },
+			            { data: 'openingbalance' },
+			            { data: 'debittotal' },
+			            { data: 'drawertotal' },
+			            { data: 'debittotalplusdrawertotal' },
+			            { data: 'todaybusiness' },
+			            { data: 'date' },
+			            { data: 'cid',
+			            	'render': function ( cid, type, row) {
+				            	return '<td><button class="btn btn-danger" onclick="deleteCreditDebitByCreditId('+cid+');">Delete</button> | <button class="btn btn-warning" onclick="getCreditDebitById('+cid+');" data-toggle="modal" data-target="#myModal">More</button></td></tr>';
+			            	}
+			            }
+			        ]
+			});
 	        $("#addRow").click(function(){
 	        	var dc='amount' + parseInt($('[data-val="amount"]').length +1);
 	        	var dcAmount= parseInt($('[data-val="amount"]').length +1);
@@ -342,46 +351,55 @@
 	    }); 
 	    var d=0;
     	function saveCreditDebit() {
-    		debugger;
-    		$.ajax({
-    			type: "POST",
-    			url: "/user/savecreditdebit",
-    			data: {
-    				openingbalance: $('#openingBalance').val(),
-    				debittotalplusdrawertotal: $('#debitplusdrawertotal').val(),
-    				todaybusiness: $('#todaybusiness').val(),
-    				date: $('#date').val(),
-    				debittotal: $('#debittotal').val(),
-    				drawertotal: $('#drawertotal').val(),
-    				amount: amount,
-    				description: description,
-    			},
-    			success : function(data) {
-    				alert("success");
-    				debugger;
-    				d=1;
-    				getCreditDebitList();
-    			},
-    			error : function(xmlHttpRequest, textStatus, errorThrown) {
-    				alert("error");
-    			}
-    		});
+    		var result = confirm("Once you will add this record you can't update ! after the saved record");
+    		if (result) {
+    			$.ajax({
+        			type: "POST",
+        			url: "/user/savecreditdebit",
+        			dataType: "json",
+        			data: {
+        				openingbalance: $('#openingBalance').val(),
+        				debittotalplusdrawertotal: $('#debitplusdrawertotal').val(),
+        				todaybusiness: $('#todaybusiness').val(),
+        				date: $('#date').val(),
+        				debittotal: $('#debittotal').val(),
+        				drawertotal: $('#drawertotal').val(),
+        				amount: amount,
+        				description: description,
+        			},
+        			success : function(data) {
+        				console.log(data);
+        				if(data == "success"){
+        					Dtable.ajax.reload();    					
+        				}
+        			},
+        			error : function(xmlHttpRequest, textStatus, errorThrown) {
+        				alert("error");
+        			}
+        		}); 
+    		}
+    		
     	}
     	function deleteCreditDebitByCreditId(cid1) {
-    		$.ajax({
-    			type : "GET",
-    			url : "/user/deleteCreditDebitByCreditId?cid="+cid1,
-    			
-    			success : function(data) {
-    				d=1;
-    				getCreditDebitList();
-    			},
-    			error : function(xmlHttpRequest, textStatus, errorThrown) {
-    				alert("error");
-    			}
-    		});
+    		var result = confirm("Want to delete?");
+    		if (result) {
+    			$.ajax({
+        			type : "GET",
+        			url : "/user/deleteCreditDebitByCreditId?cid="+cid1,
+        			
+        			success : function(data) {
+        				console.log(data);
+        				if(data == "success"){
+        					Dtable.ajax.reload();    					
+        				}
+        			},
+        			error : function(xmlHttpRequest, textStatus, errorThrown) {
+        				alert("error");
+        			}
+        		});
+    		}
     	}
-    	function getCreditDebitList() {
+    	/*function getCreditDebitList() {
     		$.ajax({
     			type : "GET",
     			url : "/user/creditDebitList",
@@ -417,7 +435,7 @@
     				alert("error");
     			}
     		});
-    	}
+    	}*/
      	function getCreditDebitById(cid) { 	
     			
     		    $.ajax({
@@ -449,11 +467,11 @@
     						$("#debitTotal").val(dt);
     						var sr = 1; 
     						$.each(data.debit, function(index, item) {
-    						rows += '<tr><td >' + sr + '</td>';
-    						rows += '<td>' + item.did + '</td>';
-    						rows += '<td>' + item.amount + '</td>';
-    						rows += '<td>' + item.description + '</td>';
-    						sr++;
+	    						rows += '<tr><td >' + sr + '</td>';
+	    						rows += '<td>' + item.did + '</td>';
+	    						rows += '<td>' + item.amount + '</td>';
+	    						rows += '<td>' + item.description + '</td>';
+	    						sr++;
     						$('#tblCredit').html(rows);
     						});
     					},
