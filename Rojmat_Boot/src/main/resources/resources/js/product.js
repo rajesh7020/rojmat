@@ -18,7 +18,6 @@ $(document).ready(function(){
 	     var category_err = true;
 	     var gst_err = true;
 	     var unit_err = true;
-	     var gst_err = true;
 	     /********************Product Name *********************/
 	     $('#name').keyup(function() {
 			name_chk();
@@ -74,12 +73,12 @@ $(document).ready(function(){
 			}
 		}
 	     /********************Category *********************/
-	     $('#savebtn').click(function(){
+	     $("#category").change(function () {
 	    	 category_chk();
 	     });
 	     function category_chk() {
-	    	var category = $('#category');
-			if(category.length == 0) {
+	    	 //alert($('#category option:selected').val());
+	    	if($('#category option:selected').val() == 0) {
 				$('#categorychk').show();
 				$('#categorychk').html("Please select category");
 				$('#categorychk').focus();
@@ -92,9 +91,11 @@ $(document).ready(function(){
 	     }	
 	     
 	     /********************Unit *********************/
-	     
+	     $("#unit").change(function () {
+	    	 unit_chk();
+	     });
 	     function unit_chk() {
-			if($("select[name=unit]").val() == "Select a Type") {
+	    	 if($('#unit option:selected').val() == 0) {
 				$('#unitchk').show();
 				$('#unitchk').html("Please select unit");
 				$('#unitchk').focus();
@@ -109,18 +110,32 @@ $(document).ready(function(){
 	     /********************GST *********************/
 	     
 	     function gst_chk() {
-			if($("select[name=gst]").val() == 0) {
+			if($('#gst option:selected').val() == 0) {
 				$('#gstchk').show();
 				$('#gstchk').html("Please select gst");
 				$('#gstchk').focus();
 				$('#gstchk').css("color","red");
-				unit_err = false;
+				gst_err = false;
 				return false;
 			} else {
 				$('#gstchk').hide();
 			}
 	     }	
 	     
+	     $("#gst").change(function () {
+	    	 gst_chk();
+	    	 var gst = $('#gst option:selected').text();
+	    	 var gsts = gst / 2;
+	    	 if($.isNumeric(gsts)) {
+	    		 $('#sgst').val(gsts);
+		    	 $('#cgst').val(gsts);
+				}
+	     });
+	     
+	     function dropDown() {
+			var gst = $('#gst option:selected').val();
+			alert(gst);
+		}
 	     
 	     $('#myForm').submit(function() {
 	    	 name_err = true;

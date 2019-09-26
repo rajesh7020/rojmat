@@ -16,6 +16,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script src="<c:url value="/resources/js/salespayment.js?v=fd"/>"></script>
 </head>
 <body>
 	<!-- Navigation Bar -->		
@@ -41,7 +42,7 @@
 			<div class="col-md-4">	
 				<div class="form-group">
 					<form:label path="invoiceNo">Invoice No :</form:label>
-					<form:input path="invoiceNo" id="invoiceNo" value="${salesPayment.invoiceNo}" class="form-control" autocomplete="off" placeholder="Invoice No"/>
+					<input name="invoiceNo" id="invoiceNo" value="${salesPayment.invoiceNo}" class="form-control" autocomplete="off" placeholder="Invoice No"/>
 					<small id="invoicenochk"></small>
 				</div>
 			</div>	
@@ -55,21 +56,21 @@
 			<div class="col-md-4">	
 				<div class="form-group">
 					<form:label path="partyName">Party Name :</form:label>
-					<form:input path="partyName" id="partyName" value="${salesPayment.partyName}" class="form-control" autocomplete="off" placeholder="Party Name"/>
+					<input name="partyName" id="partyName" value="${salesPayment.partyName}" class="form-control" autocomplete="off" placeholder="Party Name"/>
 					<small id="partynamechk"></small>
 				</div>
 			</div>
 			<div class="col-md-4">	
 				<div class="form-group">
 					<form:label path="invoiceAmount">Invoice Amount :</form:label>
-					<form:input path="invoiceAmount" id="invoiceAmount" value="${salesPayment.invoiceAmount}" class="form-control" autocomplete="off" placeholder="Invoice Amount"/>
+					<input name="invoiceAmount" id="invoiceAmount" value="${salesPayment.invoiceAmount}" class="form-control" autocomplete="off" placeholder="Invoice Amount"/>
 					<small id="invoiceamountchk"></small>
 				</div>
 			</div>
 			<div class="col-md-4">	
 				<div class="form-group">
 					<form:label path="paidAmount">Paid Amount :</form:label>
-					<form:input path="paidAmount" id="paidAmount" value="${salesPayment.paidAmount}" class="form-control" autocomplete="off" placeholder="Paid Amount"/>
+					<input name="paidAmount" id="paidAmount" value="${salesPayment.paidAmount}" class="form-control" autocomplete="off" placeholder="Paid Amount"/>
 					<small id="paidamountchk"></small>
 				</div>
 			</div>
@@ -83,13 +84,13 @@
 			<div class="col-md-4">	
 				<div class="form-group">
 					<form:label path="paymenttype.payid">Payment Mode: </form:label>
-					<form:select path="paymenttype.payid" cssStyle="width:150px;" id="paymenttype" name="paymenttype">
+					<form:select path="paymenttype.payid" cssStyle="width:240px;" id="paymenttype" name="paymenttype">
+						<option value="0">Select a Type</option>
+						<c:forEach items="${paymenttypes}" var="paymenttype">
+							<option value="${paymenttype.payid}">${paymenttype.paymentMode}</option>
+						</c:forEach>
+					</form:select>
 					<small id="paytypechk"></small>
-					<option value="-1">Select a Type</option>
-					<c:forEach items="${paymenttypes}" var="paymenttype">
-						<option value="${paymenttype.payid}">${paymenttype.paymentMode}</option>
-					</c:forEach>
-				</form:select>
 				</div>
 			</div>
 			<div class="col-md-4">	
@@ -140,6 +141,5 @@
 			</div>
 		</div>
 	</div>
-	<script src="<c:url value="/resources/js/salespayment.js"/>"></script>
 </body>
 </html>

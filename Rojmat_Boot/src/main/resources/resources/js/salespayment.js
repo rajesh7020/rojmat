@@ -3,12 +3,14 @@ $(document).ready(function() {
 		"paging": true, 
 	    "order": [0, 'desc'],
 	}); 
+	 $('#invoicedatechk').hide();
 	 $('#invoicenochk').hide();
      $('#partynamechk').hide();
      $('#invoiceamountchk').hide();
      $('#paidamountchk').hide();
      $('#unpaidamountchk').hide();
      $('#chequeortranchk').hide();
+     $('#paytypechk').hide();
      
      var invoiceno_err = true;
      var partyname_err = true;
@@ -16,7 +18,10 @@ $(document).ready(function() {
      var paidamount_err = true;
      var unpaidamount_err = true;
      var chequeortran_err = true;
+     var paymenttype_err = true;
+     var invoicenoDate_err = true;
      
+     /************************* Invoice No **********************************/
      $('#invoiceNo').keyup(function() {
 			invoiceNo_chk();
 		});
@@ -31,6 +36,22 @@ $(document).ready(function() {
 			return false;
 		} else {
 			$('#invoicenochk').hide();
+		}
+	}
+     /************************* Invoice Date **********************************/
+     
+     function invoiceDate_chk() {
+    	 var invoiceNoDate = $('#invoiceDate').text();
+    	 alert(invoiceNoDate.length);
+	   	 if((invoiceNo.val() == '') || (invoiceNo.val() == null)) {
+			$('#invoicedatechk').show();
+			$('#invoicedatechk').html("please select invoice date");
+			$('#invoicedatechk').focus();
+			$('#invoicedatechk').css("color","red");
+			invoicenoDate_err = false;
+			return false;
+		} else {
+			$('#invoicedatechk').hide();
 		}
 	}
      
@@ -150,6 +171,22 @@ $(document).ready(function() {
 				$("#unpaidAmount").val(unpaidAmount);
 			}
 		}
+		/***************** Payment Mode ****************************************/
+		$("#paymenttype").change(function () {
+	    	 paymenttype_chk();
+	     });
+	     function paymenttype_chk() {
+	    	 if($('#paymenttype option:selected').val() == 0) {
+				$('#paytypechk').show();
+				$('#paytypechk').html("Please select payment mode");
+				$('#paytypechk').focus();
+				$('#paytypechk').css("color","red");
+				paymenttype_err = false;
+				return false;
+			} else {
+				$('#paytypechk').hide();
+			}
+	     }	
 	  
 	  $('#myForm').submit(function() {
 		  	  invoiceno_err = true;
@@ -157,14 +194,17 @@ $(document).ready(function() {
 		      invoiceamount_err = true;
 		      paidamount_err = true;
 		      unpaidamount_err = true;
+		      paymenttype_err = true;
+		      invoicenoDate_err = true;
 		      
 		      invoiceNo_chk();
 		      partyName_chk();
 		      invoiceAmount_chk();
 		      paidAmount_chk();
 		      unpaidAmount_chk();
-		      
-		      if((invoiceno_err == true) && (partyname_err == true) && (invoiceamount_err == true) && (paidamount_err == true) && (unpaidamount_err = true)) {
+		      paymenttype_chk();
+		    //  invoiceDate_chk();
+		      if((invoiceno_err == true) && (partyname_err == true) && (invoiceamount_err == true) && (paidamount_err == true) && (unpaidamount_err = true) && (paymenttype_err == true)) {
 		    	  return true;
 		      }else {
 		    	  return false;

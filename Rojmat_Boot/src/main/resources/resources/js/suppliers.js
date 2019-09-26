@@ -12,7 +12,7 @@ $(document).ready(function() {
 		$('#citychk').hide();
 		$('#mobilnochk').hide();
 		$('#emailchk').hide();
-		
+		$('#statechk').hide();
 		
 		var name_err = true;
 		var gst_err = true;
@@ -22,6 +22,7 @@ $(document).ready(function() {
 		var city_err = true;
 		var mobile_err = true;
 		var email_err = true;
+		var state_err = true;
 		
 		$('#suppliername').keyup(function() {
 			custname_chk();
@@ -241,6 +242,23 @@ $(document).ready(function() {
 			}
 		}
 		
+		/************************************ State *************************************/
+		$('#state').change(function () {
+	   	 state_chk();
+	    });
+	    function state_chk() {
+	   	 if($('#state option:selected').val() == 0) {
+				$('#statechk').show();
+				$('#statechk').html("Please select state");
+				$('#statechk').focus();
+				$('#statechk').css("color","red");
+				state_err = false;
+				return false;
+			} else {
+				$('#statechk').hide();
+			}
+	    }	
+		
 		$('#savebtn').click(function() {
 			 name_err = true;
 			 gst_err = true;
@@ -250,6 +268,7 @@ $(document).ready(function() {
 			 city_err = true;
 			 mobile_err = true;
 			 email_err = true;
+			 state_err = true;
 			 
 			 custname_chk();
 			 gstin_chk();
@@ -259,8 +278,9 @@ $(document).ready(function() {
 			 city_chk();
 			 mobile_chk();
 			 email_chk();
+			 state_chk();
 			 
-			 if((name_err == true) && (gst_err == true) && (pan_err == true) && (address_err == true) && (pin_err == true) && (city_err == true) && (mobile_err == true) && (email_err == true)) {
+			 if((name_err == true) && (gst_err == true) && (pan_err == true) && (address_err == true) && (pin_err == true) && (city_err == true) && (mobile_err == true) && (email_err == true) && (state_err == true)) {
 				 return true;
 			 } else {
 				 return false;

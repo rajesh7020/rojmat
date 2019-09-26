@@ -24,7 +24,7 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-	<script src="<c:url value="/resources/js/dashboard.js?v=ds"/>"></script>
+	<script src="<c:url value="/resources/js/dashboard.js?v=dsfd"/>"></script>
 </head>
 <body> 
 <!-- Navigation Bar -->	
@@ -39,17 +39,17 @@
 				<h3>Credit Account</h3>
 				<div class="form-group">
 					<form:label path="openingbalance">Opening Balance :</form:label>
-					<form:input path="openingbalance" id="openingbalance" class="form-control"/>
+					<input name="openingbalance" id="openingbalance" class="form-control"/>
 					<small id="openingBalancechk"></small>
 				</div>
 				<div class="form-group">
 					<form:label path="debittotalplusdrawertotal">Debit Total + Drawer Total :</form:label>
-					<form:input path="debittotalplusdrawertotal" id="debittotalplusdrawertotal" class="form-control" readonly="true"/>
+					<input name="debittotalplusdrawertotal" id="debittotalplusdrawertotal" class="form-control" readonly="true"/>
 					<small id="debitplusdrawertotalchk"></small>
 				</div>
 				<div class="form-group">
 					<form:label path="todaybusiness">Today Business :</form:label>
-					<form:input path="todaybusiness" id="todaybusiness" class="form-control" readonly="true"/>
+					<input name="todaybusiness" id="todaybusiness" class="form-control" readonly="true"/>
 					<small id="todaybusinesschk"></small>
 				</div>
 				<div class="form-group">
@@ -77,12 +77,12 @@
 				</table>
 				<div class="form-group">
 					<form:label path="debittotal">Debit Total:</form:label>
-					<form:input path="debittotal" id="debittotal" class="form-control" readonly="true"/>
+					<input name="debittotal" id="debittotal" class="form-control" readonly="true"/>
 					<small id="debittotalchk"></small>
 				</div>
 				<div class="form-group">
 					<form:label path="drawertotal">Drawer Total :</form:label>
-					<form:input path="drawertotal" id="drawertotal" class="form-control" autocomplete="off"/>
+					<input name="drawertotal" id="drawertotal" class="form-control" autocomplete="off"/>
 					<small id="drawertotalchk"></small>
 				</div>
 

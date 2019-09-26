@@ -15,6 +15,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script src="<c:url value="/resources/js/customer.js?v=dsd"/>"></script>
 </head>
 <body>
 	<!-- Navigation Bar -->	
@@ -61,20 +62,20 @@
 			<div class="col-md-4">	
 				<div class="form-group">
 					<form:label path="pincode">PinCode :</form:label>
-					<form:input path="pincode" id="pincode" value="${customer.pincode}" class="form-control" autocomplete="off" placeholder="Category Name"/>
+					<input name="pincode" id="pincode" value="${customer.pincode}" class="form-control" autocomplete="off" placeholder="Category Name"/>
 					<small id="pincodechk"></small>
 				</div>
 			</div>
 			<div class="col-md-4">	
 				<div class="form-group">
 					<form:label path="state.stateid">State: </form:label>
-					<form:select path="state.stateid" cssStyle="width:150px;" id="state" name="state" class="form-control">
-					<option value="" selected="selected">-Select-</option>
-					<c:forEach items="${states}" var="state">
-						<option value="${state.stateid}">${state.statename}</option>
-					</c:forEach>
-					<small id="statechk"></small>
+					<form:select path="state.stateid" cssStyle="width:350px;" id="state" name="state" class="form-control">
+						<option value="0">---Select---</option>
+						<c:forEach items="${states}" var="state">
+							<option value="${state.stateid}">${state.statename}</option>
+						</c:forEach>
 					</form:select>
+					<small id="statechk"></small>
 				</div>
 			</div>
 			<div class="col-md-4">	
@@ -87,7 +88,7 @@
 			<div class="col-md-4">	
 				<div class="form-group">
 					<form:label path="mobileno">Mobile :</form:label>
-					<form:input path="mobileno" id="mobileno" value="${customer.mobileno}" class="form-control" autocomplete="off" placeholder="Mobile"/>
+					<input name="mobileno" id="mobileno" value="${customer.mobileno}" class="form-control" autocomplete="off" placeholder="Mobile"/>
 					<small id="mobilnochk"></small>
 				</div>
 			</div>
@@ -141,6 +142,5 @@
 			</div>
 		</div>
 	</div>
-	<script src="<c:url value="/resources/js/customer.js"/>"></script>
 </body>
 </html>

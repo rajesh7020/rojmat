@@ -26,62 +26,94 @@
 	<div class="container">
 		<div class="row">
 			<form:form action="${pageContext.request.contextPath}/user/saveProduct" method="POST" id="myForm" modelAttribute="command">
-			<div class="col-md-5">
 				<h3>Product</h3>
-				<div class="form-group">
-					<form:label path="pid">Product Id :</form:label>
-					<form:input path="pid" id="pid" value="${product.pid}" class="form-control" autocomplete="off" placeholder="Product Id" readonly="true"/>
-					<small id="productidhk"></small>
+				<div class="col-md-4">
+					<div class="form-group">
+						<form:label path="pid">Product Id :</form:label>
+						<form:input path="pid" id="pid" value="${product.pid}" class="form-control" autocomplete="off" placeholder="Product Id" readonly="true" />
+						<small id="productidhk"></small>
+					</div>
 				</div>
-				<div class="form-group">
-					<form:label path="name">Product Name :</form:label>
-					<form:input path="name" id="name" value="${product.name}" class="form-control" autocomplete="off" placeholder="Product Name"/>
-					<small id="namechk"></small>
+				<div class="col-md-4">	
+					<div class="form-group">
+						<form:label path="name">Product Name :</form:label>
+						<form:input path="name" id="name" value="${product.name}" class="form-control" autocomplete="off" placeholder="Product Name"/>
+						<small id="namechk"></small>
+					</div>
+				</div>	
+				<div class="col-md-4">	
+					<div class="form-group">
+						<form:label path="hsncode">HSN Code :</form:label>
+						<form:input path="hsncode" id="hsncode" value="${product.hsncode}" class="form-control" autocomplete="off" placeholder="HSN Code"/>
+						<small id="hsncodechk"></small>
+					</div>
 				</div>
-				<div class="form-group">
-					<form:label path="hsncode">HSN Code :</form:label>
-					<form:input path="hsncode" id="hsncode" value="${product.hsncode}" class="form-control" autocomplete="off" placeholder="HSN Code"/>
-					<small id="hsncodechk"></small>
+				<div class="col-md-4">	
+					<div class="form-group">
+						<form:label path="price">Price :</form:label>
+						<form:input path="price" id="price" value="${product.price}" class="form-control" autocomplete="off" placeholder="Price"/>
+						<small id="pricechk"></small>
+					</div>
 				</div>
-				<div class="form-group">
-					<form:label path="price">Price :</form:label>
-					<form:input path="price" id="price" value="${product.price}" class="form-control" autocomplete="off" placeholder="Price"/>
-					<small id="pricechk"></small>
+				<div class="col-md-4">	
+					<div class="form-group">
+						<form:label path="category.cid">Product Category: </form:label>
+						<form:select path="category.cid" cssStyle="width:225px;" id="category" name="category">
+						<option value="0">Select a Type</option>
+						<c:forEach items="${categories}" var="category">
+							<option value="${category.cid}">${category.categoryname}</option>
+						</c:forEach>
+						</form:select>
+						<small id="categorychk"></small>
+					</div>
 				</div>
-				<div class="form-group">
-					<form:label path="category.cid">Product Category: </form:label>
-					<form:select path="category.cid" cssStyle="width:150px;" id="category" name="category">
-					<option value="" selected="selected">Select a Type</option>
-					<c:forEach items="${categories}" var="category">
-						<option value="${category.cid}">${category.categoryname}</option>
-					</c:forEach>
-					<small id="categorychk"></small>
+				<div class="col-md-4">	
+					<div class="form-group">
+						<form:label path="unit.unitid">Unit: </form:label>
+						<form:select path="unit.unitid" cssStyle="width:310px;" id="unit" name="unit">
+						<option value="0">Select a Type</option>
+						<c:forEach items="${units}" var="unit">
+							<option value="${unit.unitid}">${unit.unitname}</option>
+						</c:forEach>
 					</form:select>
-				</div>
-				<div class="form-group">
-					<form:label path="unit.unitid">Unit: </form:label>
-					<form:select path="unit.unitid" cssStyle="width:150px;" id="unit" name="unit">
 					<small id="unitchk"></small>
-					<option value="-1">Select a Type</option>
-					<c:forEach items="${units}" var="unit">
-						<option value="${unit.unitid}">${unit.unitname}</option>
-					</c:forEach>
-				</form:select>
+					</div>
 				</div>
-				<div class="form-group">
-					<form:label path="gst.gstid">GST: </form:label>
-					<form:select path="gst.gstid" cssStyle="width:150px;" id="gst" name="gst">
-					<small id="gstchk"></small>
-					<option value="-1" selected="selected">Select a Type</option>
-					<c:forEach items="${gsts}" var="gst">
-						<option value="${gst.gstid}">${gst.percentage}</option>
-					</c:forEach>
-				</form:select>
+				<div class="col-md-4">	
+					<div class="form-group">
+						<form:label path="gst.gstid">GST: </form:label>
+						<form:select path="gst.gstid" cssStyle="width:315px;" id="gst" name="gst">
+							<option value="0">Select a Type</option>
+							<c:forEach items="${gsts}" var="gst">
+								<option value="${gst.gstid}">${gst.percentage}</option>
+							</c:forEach>
+						</form:select>
+						<small id="gstchk"></small>
+					</div>
+				</div>	
+				<div class="col-md-4">	
+					<div class="form-group">
+						<form:label path="sgst">SGST :</form:label>
+						<form:input path="sgst" id="sgst" value="${product.sgst}" class="form-control" autocomplete="off" placeholder="SGST" readonly="true"/>
+					</div>
+				</div>
+				<div class="col-md-4">	
+					<div class="form-group">
+						<form:label path="cgst">CGST :</form:label>
+						<form:input path="cgst" id="cgst" value="${product.cgst}" class="form-control" autocomplete="off" placeholder="CGST" readonly="true"/>
+					</div>
+				</div>
+				<div class="col-md-4">	
+					<div class="form-group">
+						<form:label path="igst">IGST :</form:label>
+						<form:input path="igst" id="igst" value="${product.igst}" class="form-control" autocomplete="off" placeholder="Price"/>
+					</div>
 				</div>
 				<input type="submit" class="btn btn-primary" id="savebtn" value="Save"/>
-			</div>
 			</form:form>
-			<div class="col-md-6">
+		</div>
+		<div class="row1">	
+			<div class="col-md-12">
 				<h3>Product List</h3>
 				<c:if test="${!empty products }">
 					<table id="tbid" class="table table-striped display table-hover" style="width:100%;">
@@ -94,6 +126,9 @@
 								<th>Category</th>
 								<th>Unit</th>
 								<th>GST</th>
+								<th>SGST</th>
+								<th>CGST</th>
+								<th>IGST</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
@@ -106,6 +141,9 @@
 								<td><c:out value="${product.category.categoryname}"/></td>
 								<td><c:out value="${product.unit.unitname}"/></td>
 								<td><c:out value="${product.gst.percentage}"/></td>
+								<td><c:out value="${product.sgst}"/></td>
+								<td><c:out value="${product.cgst}"/></td>
+								<td><c:out value="${product.igst}"/></td>
 								<td><a href="/user/updateProduct?pid=${product.pid}" class="btn btn-success">Edit</a> | <a href="/user/deleteProduct?pid=${product.pid}" class="btn btn-danger">Delete</a></td>
 							</tr>
 						</c:forEach>	

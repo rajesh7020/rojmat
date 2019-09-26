@@ -58,30 +58,32 @@
 			border-radius: 12px;
 			align-content: left;
 		}
-		/*************** Category form ******************/
-		.col-md-5 {
+		/*************** sales and purchase form ******************/
+		.row {
 			background: #efefef;
-			width: 450px;
+			width: auto;
 			height: auto;
-			margin-right: 30px;
-			margin-left: 10px;
+			margin-bottom: 35px;
 			border-radius: 18px;
 		}
-		.col-md-5:hover {
+		.row:hover {
 			box-shadow: 0 0 15px 5px rgba(0,0,0,0.2);
 			cursor: pointer;
 			transition: 0.5s;
 		}
-		.col-md-5 h3 {
+		.row h3 {
 			margin-top: 20px;
 			font-size: 25px;
 			color: #777;
 			margin-bottom: 20px;
+			margin-left: 500px;
 		}
 		#savebtn {
 			height: 32px;
 			width: 70px;
 			font-size: 16px;
+			margin-top: 27px;
+			margin-left: 10px;
 			margin-bottom: 9px;
 			color: white;
 			border-radius: 15px;
@@ -103,8 +105,8 @@
 		.form-group select {
 			font-size: 15px;
 			color:#777;
+			margin-top: 28px;
 			height:28px;
-			width: 150px;
 			border-radius: 10px !important;
 			border: none !important;
 		}
@@ -116,32 +118,31 @@
 			font-size: 11px;
 			font-weight: bold;
 		}
-		.col-md-6 {
+		.col-md-12 {
 			background: #efefef;
-			width: 450px;
-			height: auto;
-			margin-right: 30px;
-			margin-left: 30px;	
+			margin-top: 35px;
+			width: auto;
+			height: auto;	
 			border-radius: 18px;
 		}
-		.col-md-6:hover {
+		.col-md-12:hover {
 			box-shadow: 0 0 15px 5px rgba(0,0,0,0.2);
 			cursor: pointer;
 			transition: 0.5s;
 		}
-		.col-md-6 h3 {
+		.col-md-12 h3 {
 			margin-top: 15px;
 			margin-bottom: 15px;
 			text-align: center;
 			font-size: 35px;
 			color: #777;
 		}
-		.col-md-6 th {
+		.col-md-12 th {
 			font-size: 14px;
 			font-family: arial;
 			color: #777;
 		}
-		.col-md-6 tbody {
+		.col-md-12 tbody {
 			font-size: 15px;
 		}
 		#tbid_filter input {

@@ -32,6 +32,13 @@ public class Product {
 	@OneToOne
 	@JoinColumn(name="gstid")
 	private Gst gst;
+	@Column
+	private double sgst;
+	@Column
+	private double cgst;
+	@Column
+	private double igst;
+	
 	public long getPid() {
 		return pid;
 	}
@@ -73,6 +80,24 @@ public class Product {
 	}
 	public void setGst(Gst gst) {
 		this.gst = gst;
+	}
+	public double getSgst() {
+		return sgst;
+	}
+	public void setSgst(double sgst) {
+		this.sgst = sgst;
+	}
+	public double getCgst() {
+		return cgst;
+	}
+	public void setCgst(double cgst) {
+		this.cgst = cgst;
+	}
+	public double getIgst() {
+		return igst;
+	}
+	public void setIgst(double igst) {
+		this.igst = igst;
 	}
 
 }

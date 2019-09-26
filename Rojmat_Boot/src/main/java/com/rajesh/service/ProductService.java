@@ -26,6 +26,9 @@ public class ProductService {
 			newProduct.setCategory(product.getCategory());
 			newProduct.setGst(product.getGst());
 			newProduct.setUnit(product.getUnit());
+			newProduct.setSgst(product.getSgst());
+			newProduct.setCgst(product.getCgst());
+			newProduct.setIgst(product.getIgst());
 			newProduct = productRepository.save(newProduct);
 			return newProduct;
 		}else {
