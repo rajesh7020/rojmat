@@ -62,14 +62,14 @@
 			<div class="col-md-4">	
 				<div class="form-group">
 					<form:label path="pincode">PinCode :</form:label>
-					<input name="pincode" id="pincode" value="${supplier.pincode}" class="form-control" autocomplete="off" placeholder="Category Name"/>
+					<input name="pincode" id="pincode" value="${supplier.pincode}" class="form-control" autocomplete="off" placeholder="Pin Code"/>
 					<small id="pincodechk"></small>
 				</div>
 			</div>
 			<div class="col-md-4">	
 				<div class="form-group">
 					<form:label path="state.stateid">State: </form:label>
-					<form:select path="state.stateid" cssStyle="width:350px;" id="state" name="state" class="form-control" required="required">
+					<form:select path="state.stateid" cssStyle="width:350px;" id="state" name="state" class="form-control" required="true">
 						<option value="0" >---Select---</option>
 						<c:forEach items="${states}" var="state">
 							<option value="${state.stateid}">${state.statename}</option>

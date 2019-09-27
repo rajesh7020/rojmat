@@ -62,7 +62,7 @@
 			<div class="col-md-4">	
 				<div class="form-group">
 					<form:label path="pincode">PinCode :</form:label>
-					<input name="pincode" id="pincode" value="${customer.pincode}" class="form-control" autocomplete="off" placeholder="Category Name"/>
+					<input name="pincode" id="pincode" value="${customer.pincode}" class="form-control" autocomplete="off" placeholder="Pin Code"/>
 					<small id="pincodechk"></small>
 				</div>
 			</div>
