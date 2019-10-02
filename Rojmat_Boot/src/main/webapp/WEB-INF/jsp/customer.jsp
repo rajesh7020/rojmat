@@ -99,6 +99,34 @@
 					<small id="emailchk"></small>
 				</div>
 			</div>	
+			<div class="col-md-4">	
+				<div class="form-group">
+					<form:label path="bankname">Bank Name :</form:label>
+					<form:input path="bankname" id="bankname" value="${customer.bankname}" class="form-control" autocomplete="off" placeholder="Bank Name"/>
+					<small id="banknamechk"></small>
+				</div>
+			</div>	
+			<div class="col-md-4">	
+				<div class="form-group">
+					<form:label path="branchname">Email :</form:label>
+					<form:input path="branchname" id="branchname" value="${customer.branchname}" class="form-control" autocomplete="off" placeholder="Banch Name"/>
+					<small id="branchnamechk"></small>
+				</div>
+			</div>	
+			<div class="col-md-4">	
+				<div class="form-group">
+					<form:label path="accountno">Account Number :</form:label>
+					<form:input path="accountno" id="accountno" value="${customer.accountno}" class="form-control" autocomplete="off" placeholder="Account Number"/>
+					<small id="emailchk"></small>
+				</div>
+			</div>	
+			<div class="col-md-4">	
+				<div class="form-group">
+					<form:label path="ifscode">IFSC Code :</form:label>
+					<form:input path="ifscode" id="ifscode" value="${customer.ifscode}" class="form-control" autocomplete="off" placeholder="IFSC Code"/>
+					<small id="emailchk"></small>
+				</div>
+			</div>	
 				<button class="btn btn-primary" id="savebtn">Save</button>
 			</form:form>
 		</div>

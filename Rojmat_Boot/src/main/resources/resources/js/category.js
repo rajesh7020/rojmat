@@ -1,8 +1,23 @@
 $(document).ready(function() {
-	$('#tbid').DataTable({
-		"paging": true, 
-	    "order": [0, 'desc'],
-	}); 
+	
+		Dtable = $('#tbid').DataTable({
+			//	processing: true,
+		    //  serverSide: true,
+				ajax:{ 
+					url: '/categories',
+					dataSrc: ''
+				},
+		        columns: [
+		            { data: 'cid' },
+		            { data: 'categoryname' },
+		            { data: 'cid',
+		            	'render': function ( cid, type, row) {
+			            	return '<td><button class="btn btn-success" onclick="getCategoryById('+cid+');">Edit</button> | <button class="btn btn-danger" onclick="getdeleteCategoryById('+cid+');">Delete</button></td></tr>';
+		            	}
+		            }
+		        ]
+		});
+	
 	
 	$('#categorynamechk').hide();
 	var categoryName_err = true;
@@ -35,3 +50,70 @@ $(document).ready(function() {
 		}
 	});
 });
+
+function getCategoryById(cid) { 	
+	
+    $.ajax({
+		type : "GET",
+		url : "/user/getCetagoryById",
+		dataType: "json",
+		data: {cid: cid },
+		success : function(data) {
+			var rows = '';
+			if($.trim(data)==""){
+				rows += '<tr><td colspan="10" style="text-align: center;">No data available</td></tr>';
+				$('#tableid').html(rows);
+			}
+			console.dir(data);
+				var cid = data.cid;
+				var catname = data.categoryname;
+				
+				$("#cid").val(cid);
+				$("#categoryname").val(catname);
+			},
+			error : function(xmlHttpRequest, textStatus, errorThrown) {
+				alert("error");
+			} 
+    }); 
+}
+
+function getdeleteCategoryById(cid1) {
+	var result = confirm("Want to delete?");
+	if (result) {
+		$.ajax({
+			type : "GET",
+			url : "/user/deleteCategoryById?cid="+cid1,
+			
+			success : function(data) {
+				console.log(data);
+				if(data == "success"){
+					Dtable.ajax.reload();    					
+				}
+			},
+			error : function(xmlHttpRequest, textStatus, errorThrown) {
+				alert("error");
+			}
+		});
+	}
+}
+
+/*function saveCreditDebit() {
+	
+		$.ajax({
+			type: "POST",
+			url: "/user/savecategory",
+			dataType: "json",
+			data: {
+				categoryname: $('#categoryname').val(),
+			},
+			success : function(data) {
+				console.log(data);
+				if(data == "success"){
+					Dtable.ajax.reload();    					
+				}
+			},
+			error : function(xmlHttpRequest, textStatus, errorThrown) {
+				alert("error");
+			}
+		}); 
+}*/

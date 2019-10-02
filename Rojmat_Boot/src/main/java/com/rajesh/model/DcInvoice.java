@@ -6,14 +6,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-
 @Entity
-@Table(name="deliverychallan")
-public class DeliveryChallan {
+@Table(name="dcinvoice")
+public class DcInvoice {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="dcid")
 	private long dcid;
 	@Column
 	private String productname;
@@ -24,12 +21,15 @@ public class DeliveryChallan {
 	@Column
 	private String hsncode;
 	@Column
-	private double sgst;
+	private double sgstpercentage;
 	@Column
-	private double cgst;
+	private double sgstamount;
 	@Column
-	private double igst;
+	private double cgstpercentage;
 	@Column
-	private double ptotal;
-	
+	private double cgstamount;
+	@Column
+	private double igstpercentage;
+	@Column
+	private double igstamount;
 }

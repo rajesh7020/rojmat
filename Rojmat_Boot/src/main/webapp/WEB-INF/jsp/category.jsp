@@ -50,18 +50,13 @@
 								<th>Actions</th>
 							</tr>
 						</thead>
-						<c:forEach items="${categories}" var="category">
-							<tr>
-								<td><c:out value="${category.cid}"/></td>
-								<td><c:out value="${category.categoryname}"/></td>
-								<td><a href="/user/updateCategory?cid=${category.cid}" class="btn btn-success">Edit</a> | <a href="/user/deleteCategory?cid=${category.cid}" class="btn btn-danger">Delete</a></td>
-							</tr>
-						</c:forEach>	
+						<tbody id="tblcat">
+						</tbody>
 					</table>
 				</c:if>
 			</div>
 		</div>
 	</div>
-	<script src="<c:url value="/resources/js/category.js"/>"></script>
+	<script src="<c:url value="/resources/js/category.js?v=ds"/>"></script>
 </body>
 </html>

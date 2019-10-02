@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.rajesh.exception.RecordNotFoundException;
 import com.rajesh.model.Category;
@@ -18,7 +19,7 @@ import com.rajesh.service.CategoryService;
 public class CategoryController {
 	@Autowired
 	CategoryService categoryService;
-	@PostMapping("/user/savecategory")
+	@PostMapping(value="/user/savecategory",produces = "application/json")
 	public String saveCategory(@ModelAttribute("command")Category category, BindingResult result, HttpSession session) throws RecordNotFoundException {
 		categoryService.saveOrUpdateCategory(category);
 		return "redirect:/user/viewCategory";
@@ -29,22 +30,24 @@ public class CategoryController {
 		model.put("categories", categoryService.getAllCategories());
 		return new ModelAndView("category",model);
 	}
-	@GetMapping("/user/updateCategory")
-	public ModelAndView updateCategory(@ModelAttribute("command") Category category, BindingResult result, HttpSession session) throws RecordNotFoundException {
-		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("category", categoryService.getCategoryById(category.getCid()));
-		model.put("categories", categoryService.getAllCategories());
-		return new ModelAndView("category",model);
+	@GetMapping(value = "/user/getCetagoryById",produces = "application/json")
+	@ResponseBody
+	public Category updateCategory(Long cid, Category category, BindingResult result, HttpSession session) throws RecordNotFoundException {
+		return categoryService.getCategoryById(category.getCid());
 	}
-	@GetMapping("/user/deleteCategory")
-	public ModelAndView deleteCategory(@ModelAttribute("command") Category category, BindingResult result, HttpSession session) throws RecordNotFoundException {
-		categoryService.deleteCategory(category.getCid());
-		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("categories", categoryService.getAllCategories());
-		return new ModelAndView("redirect:/user/viewCategory");
+	@GetMapping(value="/user/deleteCategoryById")
+	@ResponseBody
+	public String deleteCategory(Long cid, Category category, BindingResult result, HttpSession session) throws RecordNotFoundException {
+		try {
+			categoryService.deleteCategory(category.getCid());
+			return "success";
+		}catch(Exception e) {
+			return "falied";
+		}
 		
 	}
 	@GetMapping("/categories")
+	@ResponseBody
 	public List<Category> getAllCategries() {
 		return categoryService.getAllCategories();
 	}

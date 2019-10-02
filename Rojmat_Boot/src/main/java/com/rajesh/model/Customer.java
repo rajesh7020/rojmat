@@ -31,6 +31,14 @@ public class Customer {
 	private long mobileno;
 	@Column
 	private String email;
+	@Column
+	private String bankname;
+	@Column
+	private String branchname;
+	@Column
+	private String accountno;
+	@Column
+	private String ifscode;
 	@OneToOne
 	@JoinColumn(name="stateid")
 	private State state;
@@ -87,6 +95,30 @@ public class Customer {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getBankname() {
+		return bankname;
+	}
+	public void setBankname(String bankname) {
+		this.bankname = bankname;
+	}
+	public String getBranchname() {
+		return branchname;
+	}
+	public void setBranchname(String branchname) {
+		this.branchname = branchname;
+	}
+	public String getAccountno() {
+		return accountno;
+	}
+	public void setAccountno(String accountno) {
+		this.accountno = accountno;
+	}
+	public String getIfscode() {
+		return ifscode;
+	}
+	public void setIfscode(String ifscode) {
+		this.ifscode = ifscode;
 	}
 	public State getState() {
 		return state;
