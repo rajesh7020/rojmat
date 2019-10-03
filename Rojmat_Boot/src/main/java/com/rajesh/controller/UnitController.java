@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.rajesh.exception.RecordNotFoundException;
 import com.rajesh.model.Unit;
@@ -30,21 +31,23 @@ public class UnitController {
 		model.put("units", unitService.getAllUnits());
 		return new ModelAndView("unit",model);
 	}
-	@GetMapping("/user/updateUnit")
-	public ModelAndView updateUnit(@ModelAttribute("command") Unit unit, BindingResult result, HttpSession session) throws RecordNotFoundException {
-		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("unit", unitService.getUnitById(unit.getUnitid()));
-		model.put("units", unitService.getAllUnits());
-		return new ModelAndView("unit",model);
+	@GetMapping("/user/getUnitById")
+	@ResponseBody
+	public Unit updateUnit(Long unitid, @ModelAttribute("command") Unit unit, BindingResult result, HttpSession session) throws RecordNotFoundException {
+		return unitService.getUnitById(unit.getUnitid());
 	}
-	@GetMapping("/user/deleteUnit")
-	public ModelAndView deleteUnit(@ModelAttribute("command") Unit unit, BindingResult result, HttpSession session) throws RecordNotFoundException {
-		unitService.deleteUnit(unit.getUnitid());
-		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("units", unitService.getAllUnits());
-		return new ModelAndView("redirect:/user/viewUnit");
+	@GetMapping("/user/deleteUnitById")
+	@ResponseBody
+	public String deleteUnit(Long unitid, @ModelAttribute("command") Unit unit, BindingResult result, HttpSession session) throws RecordNotFoundException {
+		try {
+			unitService.deleteUnit(unit.getUnitid());
+			return "success";
+		}catch(Exception e) {
+			return "falied";
+		}
 	}
 	@GetMapping("/units")
+	@ResponseBody
 	public List<Unit> getAllUnits() {
 		return unitService.getAllUnits();
 	}

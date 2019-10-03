@@ -50,18 +50,13 @@
 								<th>Actions</th>
 							</tr>
 						</thead>
-						<c:forEach items="${units}" var="unit">
-							<tr>
-								<td><c:out value="${unit.unitid}"/></td>
-								<td><c:out value="${unit.unitname}"/></td>
-								<td><a href="/user/updateUnit?unitid=${unit.unitid}" class="btn btn-success">Edit</a> | <a href="/user/deleteUnit?unitid=${unit.unitid}" class="btn btn-danger">Delete</a></td>
-							</tr>
-						</c:forEach>	
+						<tbody>
+						</tbody>
 					</table>
 				</c:if>
 			</div>
 		</div>
 	</div>
-	<script src="<c:url value="/resources/js/unit.js"/>"></script>
+	<script src="<c:url value="/resources/js/unit.js?v=dsd"/>"></script>
 </body>
 </html>

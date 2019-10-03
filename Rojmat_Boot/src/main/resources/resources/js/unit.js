@@ -1,8 +1,22 @@
 $(document).ready(function() {
-	$('#tbid').DataTable({
-		"paging": true, 
-	    "order": [0, 'desc'],
-	}); 
+	
+		Dtable = $('#tbid').DataTable({
+			//	processing: true,
+		    //  serverSide: true,
+				ajax:{ 
+					url: '/units',
+					dataSrc: ''
+				},
+		        columns: [
+		            { data: 'unitid' },
+		            { data: 'unitname' },
+		            { data: 'unitid',
+		            	'render': function ( unitid, type, row) {
+			            	return '<td><button class="btn btn-success" onclick="getUnitById('+unitid+');">Edit</button> | <button class="btn btn-danger" onclick="deleteUnitById('+unitid+');">Delete</button></td></tr>';
+		            	}
+		            }
+		        ]
+		});
 	
 	$('#unitnamechk').hide();
 	var unitname_err = true;
@@ -35,3 +49,49 @@ $(document).ready(function() {
 		}
 	});
 });
+
+function getUnitById(unitid) { 	
+	
+    $.ajax({
+		type : "GET",
+		url : "/user/getUnitById",
+		dataType: "json",
+		data: {unitid: unitid },
+		success : function(data) {
+			var rows = '';
+			if($.trim(data)==""){
+				rows += '<tr><td colspan="10" style="text-align: center;">No data available</td></tr>';
+				$('#tableid').html(rows);
+			}
+			console.dir(data);
+				var unitid = data.unitid;
+				var unitname = data.unitname;
+				
+				$("#unitid").val(unitid);
+				$("#unitname").val(unitname);
+			},
+			error : function(xmlHttpRequest, textStatus, errorThrown) {
+				alert("error");
+			} 
+    }); 
+}
+
+function deleteUnitById(unitid) {
+	var result = confirm("Want to delete?");
+	if (result) {
+		$.ajax({
+			type : "GET",
+			url : "/user/deleteUnitById?unitid="+unitid,
+			
+			success : function(data) {
+				console.log(data);
+				if(data == "success"){
+					Dtable.ajax.reload();    					
+				}
+			},
+			error : function(xmlHttpRequest, textStatus, errorThrown) {
+				alert("error");
+			}
+		});
+	}
+}
