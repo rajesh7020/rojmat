@@ -10,12 +10,12 @@
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link href="<c:url value="/resources/css/customer.css?v=445"/>" rel="stylesheet" type="text/css" />
+	<link href="<c:url value="/resources/css/customer.css?v=44"/>" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-	<script src="<c:url value="/resources/js/customer.js?v=dsd"/>"></script>
+	<script src="<c:url value="/resources/js/customer.js?v=1"/>"></script>
 </head>
 <body>
 	<!-- Navigation Bar -->	
@@ -108,8 +108,8 @@
 			</div>	
 			<div class="col-md-4">	
 				<div class="form-group">
-					<form:label path="branchname">Email :</form:label>
-					<form:input path="branchname" id="branchname" value="${customer.branchname}" class="form-control" autocomplete="off" placeholder="Banch Name"/>
+					<form:label path="branchname">Branch Name :</form:label>
+					<form:input path="branchname" id="branchname" value="${customer.branchname}" class="form-control" autocomplete="off" placeholder="Branch Name"/>
 					<small id="branchnamechk"></small>
 				</div>
 			</div>	
@@ -130,7 +130,8 @@
 				<button class="btn btn-primary" id="savebtn">Save</button>
 			</form:form>
 		</div>
-		<div class="row1">
+	</div>
+	<div class="row1">
 			<div class="col-md-12">
 				<h3>Customer List</h3>
 				<c:if test="${!empty customers }">
@@ -147,28 +148,18 @@
 								<th>City</th>
 								<th>Mobile</th>
 								<th>Email</th>
+								<th>Bank Name</th>
+								<th>Branch Name</th>
+								<th>Acc_No</th>
+								<th>IFSC_Code</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
-						<c:forEach items="${customers}" var="customer">
-							<tr>
-								<td><c:out value="${customer.custid}"/></td>
-								<td><c:out value="${customer.customername}"/></td>
-								<td><c:out value="${customer.gstinno}"/></td>
-								<td><c:out value="${customer.panno}"/></td>								
-								<td><c:out value="${customer.address}"/></td>
-								<td><c:out value="${customer.pincode}"/></td>
-								<td><c:out value="${customer.state.statename}"/></td>
-								<td><c:out value="${customer.city}"/></td>
-								<td><c:out value="${customer.mobileno}"/></td>
-								<td><c:out value="${customer.email}"/></td>
-								<td><a href="/user/updateCustomer?custid=${customer.custid}" class="btn btn-success">Edit</a> | <a href="/user/deleteCustomer?custid=${customer.custid}" class="btn btn-danger">Delete</a></td>
-							</tr>
-						</c:forEach>	
+						<tbody id="tableid">
+						</tbody>
 					</table>
 				</c:if>
 			</div>
 		</div>
-	</div>
 </body>
 </html>

@@ -1,7 +1,32 @@
 $(document).ready(function() {
-	$('#tbid').DataTable({
-		"paging": true, 
-	    "order": [0, 'desc'],
+	Dtable = $('#tbid').DataTable({
+		//	processing: true,
+	    //  serverSide: true,
+			ajax:{ 
+				url: '/suppliers',
+				dataSrc: ''
+			},
+	        columns: [
+	            { data: 'supid' },
+	            { data: 'suppliername' },
+	            { data: 'gstinno' },
+	            { data: 'panno' },
+	            { data: 'address' },
+	            { data: 'pincode' },
+	            { data: 'state.statename' },
+	            { data: 'city' },
+	            { data: 'mobileno' },
+	            { data: 'email' },
+	            { data: 'bankname' },
+	            { data: 'branchname' },
+	            { data: 'accountno' },
+	            { data: 'ifscode' },
+	            { data: 'supid',
+	            	'render': function ( supid, type, row) {
+		            	return '<td><button class="btn btn-success" onclick="getSupplierById('+supid+');">Edit</button> | <button class="btn btn-danger" onclick="deleteSupplierById('+supid+');">Delete</button></td></tr>';
+	            	}
+	            }
+	        ]
 	});
 	
 		$('#suppliernamechk').hide();
@@ -287,3 +312,73 @@ $(document).ready(function() {
 			 }
 		});
 });	
+
+function getSupplierById(supid) { 	
+	
+    $.ajax({
+		type : "GET",
+		url : "/user/getSupplierById",
+		dataType: "json",
+		data: {supid: supid },
+		success : function(data) {
+			var rows = '';
+			if($.trim(data)==""){
+				rows += '<tr><td colspan="10" style="text-align: center;">No data available</td></tr>';
+				$('#tableid').html(rows);
+			}
+			console.dir(data);
+				var supid = data.supid;
+				var suppliername = data.suppliername;
+				var gstinno = data.gstinno;
+				var panno = data.panno;
+				var address = data.address;
+				var pincode = data.pincode;
+				var state = data.state.stateid;
+				var city = data.city;
+				var mobileno = data.mobileno;
+				var email = data.email;
+				var bankname = data.bankname;
+				var branchname = data.branchname;
+				var accountno = data.accountno;
+				var ifscode = data.ifscode;
+				
+				$("#supid").val(supid);
+				$("#suppliername").val(suppliername);
+				$("#gstinno").val(gstinno);
+				$("#panno").val(panno);
+				$("#address").val(address);
+				$("#pincode").val(pincode);
+				$("#state").val(state);
+				$("#city").val(city);
+				$("#mobileno").val(mobileno);
+				$("#email").val(email);
+				$("#bankname").val(bankname);
+				$("#branchname").val(branchname);
+				$("#accountno").val(accountno);
+				$("#ifscode").val(ifscode);
+			},
+			error : function(xmlHttpRequest, textStatus, errorThrown) {
+				alert("error");
+			} 
+    }); 
+}
+
+function deleteSupplierById(supid) {
+	var result = confirm("Want to delete Supplier ?");
+	if (result) {
+		$.ajax({
+			type : "GET",
+			url : "/user/deleteSupplierById?supid="+supid,
+			
+			success : function(data) {
+				console.log(data);
+				if(data == "success"){
+					Dtable.ajax.reload();    					
+				}
+			},
+			error : function(xmlHttpRequest, textStatus, errorThrown) {
+				alert("error");
+			}
+		});
+	}
+}

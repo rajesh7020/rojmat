@@ -1,7 +1,32 @@
 $(document).ready(function() {
-	$('#tbid').DataTable({
-		"paging": true, 
-	    "order": [0, 'desc'],
+	Dtable = $('#tbid').DataTable({
+		//	processing: true,
+	    //  serverSide: true,
+			ajax:{ 
+				url: '/customers',
+				dataSrc: ''
+			},
+	        columns: [
+	            { data: 'custid' },
+	            { data: 'customername' },
+	            { data: 'gstinno' },
+	            { data: 'panno' },
+	            { data: 'address' },
+	            { data: 'pincode' },
+	            { data: 'state.statename' },
+	            { data: 'city' },
+	            { data: 'mobileno' },
+	            { data: 'email' },
+	            { data: 'bankname' },
+	            { data: 'branchname' },
+	            { data: 'accountno' },
+	            { data: 'ifscode' },
+	            { data: 'custid',
+	            	'render': function ( custid, type, row) {
+		            	return '<td><button class="btn btn-success" onclick="getCustomerById('+custid+');">Edit</button> | <button class="btn btn-danger" onclick="deleteCustomerById('+custid+');">Delete</button></td></tr>';
+	            	}
+	            }
+	        ]
 	});
 	$('#customernamechk').hide();
 	$('#gstinnochk').hide();
@@ -285,3 +310,73 @@ $(document).ready(function() {
 		 }
 	});
 });	
+
+function getCustomerById(custid) { 	
+	
+    $.ajax({
+		type : "GET",
+		url : "/user/getCustomerById",
+		dataType: "json",
+		data: {custid: custid },
+		success : function(data) {
+			var rows = '';
+			if($.trim(data)==""){
+				rows += '<tr><td colspan="10" style="text-align: center;">No data available</td></tr>';
+				$('#tableid').html(rows);
+			}
+			console.dir(data);
+				var custid = data.custid;
+				var customername = data.customername;
+				var gstinno = data.gstinno;
+				var panno = data.panno;
+				var address = data.address;
+				var pincode = data.pincode;
+				var state = data.state.stateid;
+				var city = data.city;
+				var mobileno = data.mobileno;
+				var email = data.email;
+				var bankname = data.bankname;
+				var branchname = data.branchname;
+				var accountno = data.accountno;
+				var ifscode = data.ifscode;
+				
+				$("#custid").val(custid);
+				$("#customername").val(customername);
+				$("#gstinno").val(gstinno);
+				$("#panno").val(panno);
+				$("#address").val(address);
+				$("#pincode").val(pincode);
+				$("#state").val(state);
+				$("#city").val(city);
+				$("#mobileno").val(mobileno);
+				$("#email").val(email);
+				$("#bankname").val(bankname);
+				$("#branchname").val(branchname);
+				$("#accountno").val(accountno);
+				$("#ifscode").val(ifscode);
+			},
+			error : function(xmlHttpRequest, textStatus, errorThrown) {
+				alert("error");
+			} 
+    }); 
+}
+
+function deleteCustomerById(custid) {
+	var result = confirm("Want to delete Customer ?");
+	if (result) {
+		$.ajax({
+			type : "GET",
+			url : "/user/deleteCustomerById?custid="+custid,
+			
+			success : function(data) {
+				console.log(data);
+				if(data == "success"){
+					Dtable.ajax.reload();    					
+				}
+			},
+			error : function(xmlHttpRequest, textStatus, errorThrown) {
+				alert("error");
+			}
+		});
+	}
+}

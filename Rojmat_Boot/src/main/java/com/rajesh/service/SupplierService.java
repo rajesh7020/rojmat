@@ -29,6 +29,10 @@ public class SupplierService {
 			newSupplier.setPanno(supplier.getPanno());
 			newSupplier.setPincode(supplier.getPincode());
 			newSupplier.setState(supplier.getState());
+			newSupplier.setBankname(supplier.getBankname());
+			newSupplier.setBranchname(supplier.getBranchname());
+			newSupplier.setAccountno(supplier.getAccountno());
+			newSupplier.setIfscode(supplier.getIfscode());
 			newSupplier = supplierRepository.save(newSupplier);
 			return newSupplier;
 		}else {

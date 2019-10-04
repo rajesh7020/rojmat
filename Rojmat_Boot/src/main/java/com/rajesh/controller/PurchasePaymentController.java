@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.rajesh.exception.RecordNotFoundException;
 import com.rajesh.model.PurchasePayment;
@@ -32,20 +33,23 @@ public class PurchasePaymentController {
 		model.put("paymenttypes", paymentTypeService.getAllPaymentType());
 		return new ModelAndView("purchasepayment", model);
 	}
-	@GetMapping("/user/deletePurchasePayment")
-	public ModelAndView deletePurchasePayment(@ModelAttribute("command") PurchasePayment purchasePayment, BindingResult ressult) throws RecordNotFoundException {
-		purchasePaymentService.deletePurchasePaymentById(purchasePayment.getPid());
-		return new ModelAndView("redirect:/user/viewPurchasePayment");
+	@GetMapping("/user/deletePurchasePaymentById")
+	@ResponseBody
+	public String deletePurchasePayment(Long pid, @ModelAttribute("command") PurchasePayment purchasePayment, BindingResult ressult) throws RecordNotFoundException {
+		try {
+			purchasePaymentService.deletePurchasePaymentById(purchasePayment.getPid());
+			return "success";
+		}catch (RecordNotFoundException e) {
+			return "failed";
+		}
 	}
-	@GetMapping("/user/updatePurchasePayment")
-	public ModelAndView updatePurchasePayment(@ModelAttribute("command") PurchasePayment purchasePayment, BindingResult result) throws RecordNotFoundException {
-		Map<String, Object> model = new HashMap<String,Object>();
-		model.put("purchasePayment", purchasePaymentService.getPurchasePaymentById(purchasePayment.getPid()));
-		model.put("purchasePayments", purchasePaymentService.getAllPurchasePayments());
-		model.put("paymenttypes", paymentTypeService.getAllPaymentType());
-		return new ModelAndView("purchasepayment",model);
+	@GetMapping("/user/getPurchasePaymentById")
+	@ResponseBody
+	public PurchasePayment updatePurchasePayment(Long pid, @ModelAttribute("command") PurchasePayment purchasePayment, BindingResult result) throws RecordNotFoundException {
+		return purchasePaymentService.getPurchasePaymentById(purchasePayment.getPid());
 	}
 	@GetMapping("/purchasePayments")
+	@ResponseBody
 	public List<PurchasePayment> getPurchasePayments() {
 		return purchasePaymentService.getAllPurchasePayments();
 	}

@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.rajesh.exception.RecordNotFoundException;
 import com.rajesh.model.Customer;
@@ -32,20 +33,23 @@ public class CustomerController {
 		model.put("states", stateService.getAllStates());
 		return new ModelAndView("customer", model);
 	}
-	@GetMapping("/user/deleteCustomer")
-	public ModelAndView deleteCustomer(@ModelAttribute("command") Customer customer, BindingResult ressult) throws RecordNotFoundException {
-		customerService.deleteCustomerById(customer.getCustid());
-		return new ModelAndView("redirect:/user/viewCustomer");
+	@GetMapping("/user/deleteCustomerById")
+	@ResponseBody
+	public String deleteCustomer(Long custid, @ModelAttribute("command") Customer customer, BindingResult ressult) throws RecordNotFoundException {
+		try {
+			customerService.deleteCustomerById(customer.getCustid());
+			return "success";
+		}catch (RecordNotFoundException e) {
+			return "failed";
+		}
 	}
-	@GetMapping("/user/updateCustomer")
-	public ModelAndView updateCustomer(@ModelAttribute("command") Customer customer, BindingResult result) throws RecordNotFoundException {
-		Map<String, Object> model = new HashMap<String,Object>();
-		model.put("customer", customerService.getCustomerById(customer.getCustid()));
-		model.put("customers", customerService.getAllCustomers());
-		model.put("states", stateService.getAllStates());
-		return new ModelAndView("customer",model);
+	@GetMapping("/user/getCustomerById")
+	@ResponseBody
+	public Customer getCustomer(Long custid, @ModelAttribute("command") Customer customer, BindingResult result) throws RecordNotFoundException {
+		return customerService.getCustomerById(customer.getCustid());
 	}
 	@GetMapping("/customers")
+	@ResponseBody
 	public List<Customer> getCustomers() {
 		return customerService.getAllCustomers();
 	}

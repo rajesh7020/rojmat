@@ -29,6 +29,10 @@ public class CustomerService {
 			newCustomer.setPanno(customer.getPanno());
 			newCustomer.setPincode(customer.getPincode());
 			newCustomer.setState(customer.getState());
+			newCustomer.setBankname(customer.getBankname());
+			newCustomer.setBranchname(customer.getBranchname());
+			newCustomer.setAccountno(customer.getAccountno());
+			newCustomer.setIfscode(customer.getIfscode());
 			newCustomer = customerRepository.save(newCustomer);
 			return newCustomer;
 		}else {

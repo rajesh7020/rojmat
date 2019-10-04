@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.rajesh.exception.RecordNotFoundException;
 import com.rajesh.model.Supplier;
@@ -32,20 +33,23 @@ public class SupplierController {
 		model.put("states", stateService.getAllStates());
 		return new ModelAndView("supplier", model);
 	}
-	@GetMapping("/user/deleteSupplier")
-	public ModelAndView deleteSupplier(@ModelAttribute("command") Supplier supplier, BindingResult ressult) throws RecordNotFoundException {
-		supplierService.deleteSupplierById(supplier.getSupid());
-		return new ModelAndView("redirect:/user/viewSupplier");
+	@GetMapping("/user/deleteSupplierById")
+	@ResponseBody
+	public String deleteSupplier(Long supid, @ModelAttribute("command") Supplier supplier, BindingResult ressult) throws RecordNotFoundException {
+		try {
+			supplierService.deleteSupplierById(supplier.getSupid());
+			return "success";
+		}catch (RecordNotFoundException e) {
+			return "failed";
+		}
 	}
-	@GetMapping("/user/updateSupplier")
-	public ModelAndView updateSupplier(@ModelAttribute("command") Supplier supplier, BindingResult result) throws RecordNotFoundException {
-		Map<String, Object> model = new HashMap<String,Object>();
-		model.put("supplier", supplierService.getSupplierById(supplier.getSupid()));
-		model.put("suppliers", supplierService.getAllSuppliers());
-		model.put("states", stateService.getAllStates());
-		return new ModelAndView("supplier",model);
+	@GetMapping("/user/getSupplierById")
+	@ResponseBody
+	public Supplier updateSupplier(Long supid, @ModelAttribute("command") Supplier supplier, BindingResult result) throws RecordNotFoundException {
+		return supplierService.getSupplierById(supplier.getSupid());
 	}
 	@GetMapping("/suppliers")
+	@ResponseBody
 	public List<Supplier> getSuppliers() {
 		return supplierService.getAllSuppliers();
 	}

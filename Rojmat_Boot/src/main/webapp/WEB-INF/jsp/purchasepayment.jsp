@@ -114,28 +114,17 @@
 								<th>Invoice Date</th>
 								<th>Payment Date</th>
 								<th>Party Name</th>
+								<th>Invoice No</th>
 								<th>Invoice Amount</th>
 								<th>Paid Amount</th>
 								<th>Un-Paid Amount</th>
 								<th>Payment Mode</th>
-								<th>Cheque No/Transaction Id</th>
+								<th>Cheq_No/T_Id</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
-						<c:forEach items="${purchasePayments}" var="purchasePayment">
-							<tr>
-								<td><c:out value="${purchasePayment.pid}"/></td>
-								<td><c:out value="${purchasePayment.invoiceDate}"/></td>
-								<td><c:out value="${purchasePayment.paymentdate}"/></td>
-								<td><c:out value="${purchasePayment.partyName}"/></td>
-								<td><c:out value="${purchasePayment.invoiceAmount}"/></td>
-								<td><c:out value="${purchasePayment.paidAmount}"/></td>
-								<td><c:out value="${purchasePayment.unpaidAmount}"/></td>
-								<td><c:out value="${purchasePayment.paymenttype.paymentMode}"/></td>
-								<td><c:out value="${purchasePayment.chequeNoOrTransactionId}"/></td>
-								<td><a href="/user/updatePurchasePayment?pid=${purchasePayment.pid}" class="btn btn-success">Edit</a> | <a href="/user/deletePurchasePayment?pid=${purchasePayment.pid}" class="btn btn-danger">Delete</a></td>
-							</tr>
-						</c:forEach>	
+						<tbody id="tableid">
+						</tbody>
 					</table>
 				</c:if>
 			</div>
