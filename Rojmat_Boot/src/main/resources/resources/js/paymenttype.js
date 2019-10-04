@@ -1,8 +1,21 @@
 $(document).ready(function() {
-	$('#tbid').DataTable({
-		"paging": true, 
-	    "order": [0, 'desc'],
-	}); 
+	Dtable = $('#tbid').DataTable({
+		//	processing: true,
+	    //  serverSide: true,
+			ajax:{ 
+				url: '/paymenttypes',
+				dataSrc: ''
+			},
+	        columns: [
+	            { data: 'payid' },
+	            { data: 'paymentMode' },
+	            { data: 'payid',
+	            	'render': function ( payid, type, row) {
+		            	return '<td><button class="btn btn-success" onclick="getPaymentTypeById('+payid+');">Edit</button> | <button class="btn btn-danger" onclick="deletePaymentTypeById('+payid+');">Delete</button></td></tr>';
+	            	}
+	            }
+	        ]
+	});
 	
 	$('#paymentmodechk').hide();
 	var paymentmode_err = true;
@@ -35,3 +48,50 @@ $(document).ready(function() {
 		}
 	});
 });
+
+
+function getPaymentTypeById(payid) { 	
+	
+    $.ajax({
+		type : "GET",
+		url : "/user/getPaymentTypeById",
+		dataType: "json",
+		data: {payid: payid },
+		success : function(data) {
+			var rows = '';
+			if($.trim(data)==""){
+				rows += '<tr><td colspan="10" style="text-align: center;">No data available</td></tr>';
+				$('#tableid').html(rows);
+			}
+			console.dir(data);
+				var payid = data.payid;
+				var paymentMode = data.paymentMode;
+				
+				$("#payid").val(payid);
+				$("#paymentMode").val(paymentMode);
+			},
+			error : function(xmlHttpRequest, textStatus, errorThrown) {
+				alert("error");
+			} 
+    }); 
+}
+
+function deletePaymentTypeById(payid) {
+	var result = confirm("Want to delete PaymentMode?");
+	if (result) {
+		$.ajax({
+			type : "GET",
+			url : "/user/deletePaymentTypeById?payid="+payid,
+			
+			success : function(data) {
+				console.log(data);
+				if(data == "success"){
+					Dtable.ajax.reload();    					
+				}
+			},
+			error : function(xmlHttpRequest, textStatus, errorThrown) {
+				alert("error");
+			}
+		});
+	}
+}

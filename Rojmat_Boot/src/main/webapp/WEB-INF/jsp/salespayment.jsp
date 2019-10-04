@@ -16,7 +16,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-	<script src="<c:url value="/resources/js/salespayment.js?v=fd"/>"></script>
+	<script src="<c:url value="/resources/js/salespayment.js?v=fdds"/>"></script>
 </head>
 <body>
 	<!-- Navigation Bar -->		
@@ -114,28 +114,17 @@
 								<th>Invoice Date</th>
 								<th>Payment Date</th>
 								<th>Party Name</th>
+								<th>Invoice No</th>
 								<th>Invoice Amount</th>
 								<th>Paid Amount</th>
 								<th>Un-Paid Amount</th>
 								<th>Payment Mode</th>
-								<th>Cheque No/Transaction Id</th>
+								<th>Cheq_No/T_Id</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
-						<c:forEach items="${salesPayments}" var="salesPayment">
-							<tr>
-								<td><c:out value="${salesPayment.sid}"/></td>
-								<td><c:out value="${salesPayment.invoiceDate}"/></td>
-								<td><c:out value="${salesPayment.paymentdate}"/></td>
-								<td><c:out value="${salesPayment.partyName}"/></td>
-								<td><c:out value="${salesPayment.invoiceAmount}"/></td>
-								<td><c:out value="${salesPayment.paidAmount}"/></td>
-								<td><c:out value="${salesPayment.unpaidAmount}"/></td>
-								<td><c:out value="${salesPayment.paymenttype.paymentMode}"/></td>
-								<td><c:out value="${salesPayment.chequeNoOrTransactionId}"/></td>
-								<td><a href="/user/updateSalesPayment?sid=${salesPayment.sid}" class="btn btn-success">Edit</a> | <a href="/user/deleteSalesPayment?sid=${salesPayment.sid}" class="btn btn-danger">Delete</a></td>
-							</tr>
-						</c:forEach>	
+						<tbody>
+						</tbody>
 					</table>
 				</c:if>
 			</div>

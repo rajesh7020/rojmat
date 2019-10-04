@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.rajesh.exception.RecordNotFoundException;
 import com.rajesh.model.Product;
@@ -41,27 +42,23 @@ public class ProductController {
 		model.put("units", unitService.getAllUnits());
 		return new ModelAndView("product", model);
 	}
-	@GetMapping("/user/deleteProduct")
-	public ModelAndView deleteProduct(@ModelAttribute("command") Product product, BindingResult ressult) throws RecordNotFoundException {
-		productService.deleteProduct(product.getPid());
-		Map<String,Object> model = new HashMap<String,Object>();
-		model.put("products", productService.getAllProducts());
-		model.put("categories", categoryService.getAllCategories());
-		model.put("gsts", gstService.getAllGsts());
-		model.put("units", unitService.getAllUnits());
-		return new ModelAndView("redirect:/user/viewProduct", model);
+	@GetMapping("/user/deleteProductById")
+	@ResponseBody
+	public String deleteProduct(Long pid, @ModelAttribute("command") Product product, BindingResult ressult) throws RecordNotFoundException {
+		try {
+			productService.deleteProduct(product.getPid());
+			return "success";
+		}catch(RecordNotFoundException e) {
+			return "failed";
+		}
 	}
-	@GetMapping("/user/updateProduct")
-	public ModelAndView updateProduct(@ModelAttribute("command") Product product, BindingResult result) throws RecordNotFoundException {
-		Map<String, Object> model = new HashMap<String,Object>();
-		model.put("product", productService.getProductById(product.getPid()));
-		model.put("products", productService.getAllProducts());
-		model.put("categories", categoryService.getAllCategories());
-		model.put("gsts", gstService.getAllGsts());
-		model.put("units", unitService.getAllUnits());
-		return new ModelAndView("product",model);
+	@GetMapping("/user/getProductById")
+	@ResponseBody
+	public Product updateProduct(Long pid, @ModelAttribute("command") Product product, BindingResult result) throws RecordNotFoundException {
+		return productService.getProductById(product.getPid());
 	}
 	@GetMapping("/products")
+	@ResponseBody
 	public List<Product> getProducts() {
 		return productService.getAllProducts();
 	}

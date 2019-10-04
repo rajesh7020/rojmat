@@ -1,8 +1,29 @@
 $(document).ready(function(){
-		$('#tbid').DataTable({
-			"paging": true, 
-		    "order": [0, 'desc'],
-		}); 
+	Dtable = $('#tbid').DataTable({
+		//	processing: true,
+	    //  serverSide: true,
+			ajax:{ 
+				url: '/products',
+				dataSrc: ''
+			},
+	        columns: [
+	            { data: 'pid' },
+	            { data: 'name' },
+	            { data: 'hsncode' },
+	            { data: 'price' },
+	            { data: 'category.categoryname' },
+	            { data: 'unit.unitname' },
+	            { data: 'gst.percentage' },
+	            { data: 'sgst' },
+	            { data: 'cgst' },
+	            { data: 'igst' },
+	            { data: 'pid',
+	            	'render': function ( pid, type, row) {
+		            	return '<td><button class="btn btn-success" onclick="getProductById('+pid+');">Edit</button> | <button class="btn btn-danger" onclick="deleteProductById('+pid+');">Delete</button></td></tr>';
+	            	}
+	            }
+	        ]
+	});
 		
 		 $('#namechk').hide();
 	     $('#hsncodechk').hide();
@@ -159,3 +180,65 @@ $(document).ready(function(){
 	         }
 	     });
 	 });
+
+function getProductById(pid) { 	
+	
+    $.ajax({
+		type : "GET",
+		url : "/user/getProductById",
+		dataType: "json",
+		data: {pid: pid },
+		success : function(data) {
+			var rows = '';
+			if($.trim(data)==""){
+				rows += '<tr><td colspan="10" style="text-align: center;">No data available</td></tr>';
+				$('#tableid').html(rows);
+			}
+			console.dir(data);
+				var pid = data.pid;
+				var name = data.name;
+				var hsncode = data.hsncode;
+				var price = data.price;
+				var categoryname = data.category.cid;
+				var unitname = data.unit.unitid;
+				var percentage = data.gst.gstid;
+				var sgst = data.sgst;
+				var cgst = data.cgst;
+				var igst = data.igst;
+				
+				$("#pid").val(pid);
+				$("#name").val(name);
+				$("#hsncode").val(hsncode);
+				$("#price").val(price);
+				$("#category").val(categoryname);
+				$("#unit").val(unitname);
+				$("#gst").val(percentage);
+				$("#sgst").val(sgst);
+				$("#cgst").val(cgst);
+				$("#igst").val(igst);
+			},
+			error : function(xmlHttpRequest, textStatus, errorThrown) {
+				alert("error");
+			} 
+    }); 
+}
+
+function deleteProductById(pid) {
+	var result = confirm("Want to delete product ?");
+	if (result) {
+		$.ajax({
+			type : "GET",
+			url : "/user/deleteProductById?pid="+pid,
+			
+			success : function(data) {
+				console.log(data);
+				if(data == "success"){
+					Dtable.ajax.reload();    					
+				}
+			},
+			error : function(xmlHttpRequest, textStatus, errorThrown) {
+				alert("error");
+			}
+		});
+	}
+}

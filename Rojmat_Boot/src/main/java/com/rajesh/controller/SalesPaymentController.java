@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.rajesh.exception.RecordNotFoundException;
 import com.rajesh.model.SalesPayment;
@@ -32,20 +33,23 @@ public class SalesPaymentController {
 		model.put("paymenttypes", paymentTypeService.getAllPaymentType());
 		return new ModelAndView("salespayment", model);
 	}
-	@GetMapping("/user/deleteSalesPayment")
-	public ModelAndView deleteSalesPayments(@ModelAttribute("command") SalesPayment salesPayment, BindingResult ressult) throws RecordNotFoundException {
-		salesPaymentService.deleteSalesPaymentById(salesPayment.getSid());
-		return new ModelAndView("redirect:/user/viewSalesPayment");
+	@GetMapping("/user/deleteSalesPaymentById")
+	@ResponseBody
+	public String deleteSalesPayments(Long sid, @ModelAttribute("command") SalesPayment salesPayment, BindingResult ressult) throws RecordNotFoundException {
+		try {
+			salesPaymentService.deleteSalesPaymentById(salesPayment.getSid());
+			return "success";
+		}catch (RecordNotFoundException e) {
+			return "failed";
+		}
 	}
-	@GetMapping("/user/updateSalesPayment")
-	public ModelAndView updateSalesPayment(@ModelAttribute("command") SalesPayment salesPayment, BindingResult result) throws RecordNotFoundException {
-		Map<String, Object> model = new HashMap<String,Object>();
-		model.put("salesPayment", salesPaymentService.getSalesPaymentById(salesPayment.getSid()));
-		model.put("salesPayments", salesPaymentService.getAllSalesPayments());
-		model.put("paymenttypes", paymentTypeService.getAllPaymentType());
-		return new ModelAndView("salespayment",model);
+	@GetMapping("/user/getSalesPaymentById")
+	@ResponseBody
+	public SalesPayment updateSalesPayment(Long sid, @ModelAttribute("command") SalesPayment salesPayment, BindingResult result) throws RecordNotFoundException {
+		return salesPaymentService.getSalesPaymentById(salesPayment.getSid());
 	}
 	@GetMapping("/salesPayments")
+	@ResponseBody
 	public List<SalesPayment> getSalesPayments() {
 		return salesPaymentService.getAllSalesPayments();
 	}

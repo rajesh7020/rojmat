@@ -16,6 +16,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script src="<c:url value="/resources/js/paymenttype.js"/>"></script>
 </head>
 <body>
 	<!-- Navigation Bar -->	
@@ -50,18 +51,12 @@
 								<th>Actions</th>
 							</tr>
 						</thead>
-						<c:forEach items="${paymenttypes}" var="paymenttype">
-							<tr>
-								<td><c:out value="${paymenttype.payid}"/></td>
-								<td><c:out value="${paymenttype.paymentMode}"/></td>
-								<td><a href="/user/updatePaymentType?payid=${paymenttype.payid}" class="btn btn-success">Edit</a> | <a href="/user/deletePaymentType?payid=${paymenttype.payid}" class="btn btn-danger">Delete</a></td>
-							</tr>
-						</c:forEach>	
+						<tbody id="tableid">
+						</tbody>
 					</table>
 				</c:if>
 			</div>
 		</div>
 	</div>
-	<script src="<c:url value="/resources/js/paymenttype.js"/>"></script>
 </body>
 </html>

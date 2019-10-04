@@ -18,6 +18,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script src="<c:url value="/resources/js/product.js"/>"></script>
 </head>
 <body>
 	<!-- Navigation Bar -->	
@@ -51,7 +52,7 @@
 				<div class="col-md-4">	
 					<div class="form-group">
 						<form:label path="price">Price :</form:label>
-						<form:input path="price" id="price" value="${product.price}" class="form-control" autocomplete="off" placeholder="Price"/>
+						<input name="price" id="price" value="${product.price}" class="form-control" autocomplete="off" placeholder="Price"/>
 						<small id="pricechk"></small>
 					</div>
 				</div>
@@ -83,7 +84,7 @@
 					<div class="form-group">
 						<form:label path="gst.gstid">GST: </form:label>
 						<form:select path="gst.gstid" cssStyle="width:315px;" id="gst" name="gst">
-							<option value="0">Select a Type</option>
+							<option value="0" >Select a Type</option>
 							<c:forEach items="${gsts}" var="gst">
 								<option value="${gst.gstid}">${gst.percentage}</option>
 							</c:forEach>
@@ -132,26 +133,12 @@
 								<th>Actions</th>
 							</tr>
 						</thead>
-						<c:forEach items="${products}" var="product">
-							<tr>
-								<td><c:out value="${product.pid}"/></td>
-								<td><c:out value="${product.name}"/></td>
-								<td><c:out value="${product.hsncode}"/></td>
-								<td><c:out value="${product.price}"/></td>
-								<td><c:out value="${product.category.categoryname}"/></td>
-								<td><c:out value="${product.unit.unitname}"/></td>
-								<td><c:out value="${product.gst.percentage}"/></td>
-								<td><c:out value="${product.sgst}"/></td>
-								<td><c:out value="${product.cgst}"/></td>
-								<td><c:out value="${product.igst}"/></td>
-								<td><a href="/user/updateProduct?pid=${product.pid}" class="btn btn-success">Edit</a> | <a href="/user/deleteProduct?pid=${product.pid}" class="btn btn-danger">Delete</a></td>
-							</tr>
-						</c:forEach>	
+						<tbody id="tableid">
+						</tbody>
 					</table>
 				</c:if>
 			</div>
 		</div>
 	</div>
-	<script src="<c:url value="/resources/js/product.js"/>"></script>
 </body>
 </html>

@@ -16,6 +16,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script src="<c:url value="/resources/js/gst.js?v=ew"/>"></script>
 </head>
 <body>
 	<!-- Navigation Bar -->	
@@ -50,19 +51,13 @@
 								<th>Actions</th>
 							</tr>
 						</thead>
-						<c:forEach items="${gsts}" var="gst">
-							<tr>
-								<td><c:out value="${gst.gstid}"/></td>
-								<td><c:out value="${gst.percentage}"/></td>
-								<td><a href="/user/updateGst?gstid=${gst.gstid}" class="btn btn-success">Edit</a> | <a href="/user/deleteGst?gstid=${gst.gstid}" class="btn btn-danger">Delete</a></td>
-							</tr>
-						</c:forEach>	
+						<tbody>
+						</tbody>
 					</table>
 				</c:if>
 			</div>
 		</div>
 	</div>
-	<script src="<c:url value="/resources/js/gst.js"/>"></script>
 	<!-- eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIwYzRhZDFiMDFiYzE0Y2FjOTdlYjJkNzc0ZjQ5ZDczYyIsImlhdCI6MTU2NTMzMjQzMywic3ViIjoidXBkYXRlRGF0YSIsImlzcyI6ImJpc2FnIiwiZXhwIjozMTMwNjY0ODY2fQ.cvL68m3n6B3vflGYJYdvs8Tm4hhyYtUGKyv5N4S0NO8 -->
 </body>
 </html>

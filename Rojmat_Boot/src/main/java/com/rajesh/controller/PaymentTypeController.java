@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.rajesh.exception.RecordNotFoundException;
 import com.rajesh.model.PaymentType;
@@ -30,19 +31,23 @@ public class PaymentTypeController {
 		model.put("paymenttypes", paymentTypeService.getAllPaymentType());
 		return new ModelAndView("paymenttype",model);
 	}
-	@GetMapping("/user/updatePaymentType")
-	public ModelAndView updatePaymentType(@ModelAttribute("command") PaymentType paymentType, BindingResult result, HttpSession session) throws RecordNotFoundException {
-		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("paymenttype", paymentTypeService.getPaymentTypeById(paymentType.getPayid()));
-		model.put("paymenttypes", paymentTypeService.getAllPaymentType());
-		return new ModelAndView("paymenttype",model);
+	@GetMapping("/user/getPaymentTypeById")
+	@ResponseBody
+	public PaymentType updatePaymentType(Long payid, @ModelAttribute("command") PaymentType paymentType, BindingResult result, HttpSession session) throws RecordNotFoundException {
+		return paymentTypeService.getPaymentTypeById(paymentType.getPayid());
 	}
-	@GetMapping("/user/deletePaymentType")
-	public ModelAndView deletePaymentType(@ModelAttribute("command")PaymentType paymentType, BindingResult result, HttpSession session) throws RecordNotFoundException {
-		paymentTypeService.deletePaymentTypeById(paymentType.getPayid());
-		return new ModelAndView("redirect:/user/viewPaymentType");
+	@GetMapping("/user/deletePaymentTypeById")
+	@ResponseBody
+	public String deletePaymentType(Long payid,@ModelAttribute("command")PaymentType paymentType, BindingResult result, HttpSession session) throws RecordNotFoundException {
+		try {
+			paymentTypeService.deletePaymentTypeById(paymentType.getPayid());
+			return "success";
+		}catch (RecordNotFoundException e) {
+			return "failed";
+		}
 	}
 	@GetMapping("/paymenttypes")
+	@ResponseBody
 	public List<PaymentType> getAllPaymentTypes() {
 		return paymentTypeService.getAllPaymentType();
 	}

@@ -1,8 +1,29 @@
 $(document).ready(function() {
-	$('#tbid').DataTable({
-		"paging": true, 
-	    "order": [0, 'desc'],
-	}); 
+	Dtable = $('#tbid').DataTable({
+		//	processing: true,
+	    //  serverSide: true,
+			ajax:{ 
+				url: '/salesPayments',
+				dataSrc: ''
+			},
+	        columns: [
+	            { data: 'sid' },
+	            { data: 'invoiceDate' },
+	            { data: 'paymentdate' },
+	            { data: 'partyName' },
+	            { data: 'invoiceNo' },
+	            { data: 'invoiceAmount' },
+	            { data: 'paidAmount' },
+	            { data: 'unpaidAmount' },
+	            { data: 'paymenttype.paymentMode' },
+	            { data: 'chequeNoOrTransactionId' },
+	            { data: 'sid',
+	            	'render': function ( sid, type, row) {
+		            	return '<td><button class="btn btn-success" onclick="getSalesPaymentById('+sid+');">Edit</button> | <button class="btn btn-danger" onclick="deleteSalesPaymentById('+sid+');">Delete</button></td></tr>';
+	            	}
+	            }
+	        ]
+	});
 	 $('#invoicedatechk').hide();
 	 $('#invoicenochk').hide();
      $('#partynamechk').hide();
@@ -211,3 +232,66 @@ $(document).ready(function() {
 		      }
 	  });
 });
+
+function getSalesPaymentById(sid) { 	
+	
+    $.ajax({
+		type : "GET",
+		url : "/user/getSalesPaymentById",
+		dataType: "json",
+		data: {sid: sid },
+		success : function(data) {
+			var rows = '';
+			if($.trim(data)==""){
+				rows += '<tr><td colspan="10" style="text-align: center;">No data available</td></tr>';
+				$('#tableid').html(rows);
+			}
+			console.dir(data);
+				var sid = data.sid;
+				var invoiceDate = data.invoiceDate;
+				var partyName = data.partyName;
+				var invoiceNo = data.invoiceNo;
+				var paymentdate = data.paymentdate;
+				var invoiceAmount = data.invoiceAmount;
+				var paidAmount = data.paidAmount;
+				var unpaidAmount = data.unpaidAmount;
+				var chequeNoOrTransactionId = data.chequeNoOrTransactionId;
+				var paymenttype = data.paymenttype.payid;
+				
+				
+				$("#sid").val(sid);
+				$("#invoiceDate").val(invoiceDate);
+				$("#partyName").val(partyName);
+				$("#invoiceNo").val(invoiceNo);
+				$("#paymentdate").val(paymentdate);
+				$("#invoiceAmount").val(invoiceAmount);
+				$("#paidAmount").val(paidAmount);
+				$("#unpaidAmount").val(unpaidAmount);
+				$("#chequeNoOrTransactionId").val(chequeNoOrTransactionId);
+				$("#paymenttype").val(paymenttype);
+			},
+			error : function(xmlHttpRequest, textStatus, errorThrown) {
+				alert("error");
+			} 
+    }); 
+}
+
+function deleteSalesPaymentById(sid) {
+	var result = confirm("Want to delete Sales Payment details ?");
+	if (result) {
+		$.ajax({
+			type : "GET",
+			url : "/user/deleteSalesPaymentById?sid="+sid,
+			
+			success : function(data) {
+				console.log(data);
+				if(data == "success"){
+					Dtable.ajax.reload();    					
+				}
+			},
+			error : function(xmlHttpRequest, textStatus, errorThrown) {
+				alert("error");
+			}
+		});
+	}
+}

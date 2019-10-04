@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.rajesh.exception.RecordNotFoundException;
 import com.rajesh.model.Gst;
@@ -29,21 +30,23 @@ public class GstController {
 		model.put("gsts", gstService.getAllGsts());
 		return new ModelAndView("gst",model);
 	}
-	@GetMapping("/user/updateGst")
-	public ModelAndView updateGst(@ModelAttribute("command") Gst gst, BindingResult result, HttpSession session) throws RecordNotFoundException {
-		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("gst", gstService.getGstById(gst.getGstid()));
-		model.put("gsts", gstService.getAllGsts());
-		return new ModelAndView("gst",model);
+	@GetMapping("/user/getGstById")
+	@ResponseBody
+	public Gst updateGst(Long gstid, @ModelAttribute("command") Gst gst, BindingResult result, HttpSession session) throws RecordNotFoundException {
+		return gstService.getGstById(gst.getGstid());
 	}
-	@GetMapping("/user/deleteGst")
-	public ModelAndView deleteGst(@ModelAttribute("command") Gst gst, BindingResult result, HttpSession session) throws RecordNotFoundException {
-		gstService.deleteGst(gst.getGstid());
-		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("gsts", gstService.getAllGsts());
-		return new ModelAndView("redirect:/user/viewGst");
+	@GetMapping("/user/deleteGstById")
+	@ResponseBody
+	public String deleteGst(Long gstid, @ModelAttribute("command") Gst gst, BindingResult result, HttpSession session) throws RecordNotFoundException {
+		try {
+			gstService.deleteGst(gst.getGstid());
+			return "success";
+		}catch(Exception e) {
+			return "falied";
+		}
 	}
 	@GetMapping("/gsts")
+	@ResponseBody
 	public List<Gst> getAllGsts() {
 		return gstService.getAllGsts();
 	}
