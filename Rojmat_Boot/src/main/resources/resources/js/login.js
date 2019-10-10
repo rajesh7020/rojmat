@@ -7,6 +7,7 @@ $(document).ready(function() {
 	
 	$('#emaillog').keyup(function() {
 		email_chk();
+		userStatus_chk();
 	});
 	
 	function email_chk() {
@@ -51,17 +52,6 @@ $(document).ready(function() {
 		} else {
 			$('#passwordloginchk').hide();
 		}
-		
-		if((password_val.length < 5) || (password_val.length > 15)) {
-			$('#passwordloginchk').show();
-			$('#passwordloginchk').html("Password length must be between 5 and 15");
-			$('#passwordloginchk').focus();
-			$('#passwordloginchk').css("color","red");
-			pass_err = false;
-			return false;
-		} else {
-			$('#passwordloginchk').hide();
-		}
 	}
 	
 	$('#btnLogin').click(function() {
@@ -78,3 +68,38 @@ $(document).ready(function() {
 		 }
 	});
 });
+
+function userStatus_chk() {
+	var email = $('#emaillog').val();
+	if((email.length == '') || (email.length == null)) {
+		email_chk();
+	}else {
+		$.ajax({
+			type : "POST",
+			url : "/user/checkstatus",
+			dataType: "json",
+			data: {email: email},
+			success : function(data) {
+					console.log("your account is actived")    					
+				},
+				error : function(xmlHttpRequest, textStatus, errorThrown) {
+					console.log("your account is not actived");
+				} 
+	    }); 
+	}
+}
+
+function email_chk() {
+	var email_val = $('#emaillog').val();
+	var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+	if((email_val.length == '') || (email_val.length == null)) {
+		$('#emailloginchk').show();
+		$('#emailloginchk').html("Please Fill the Email");
+		$('#emailloginchk').focus();
+		$('#emailloginchk').css("color","red");
+		email_err = false;
+		return false;
+	} else {
+		$('#emailloginchk').hide();
+	}
+}	

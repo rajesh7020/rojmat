@@ -39,8 +39,8 @@ public class UserService {
 	public User loginUser(String email,String password) {
 		return userRepository.loginUser(email, password);
 	}
-	public Integer isActiveUserStatus(Integer active) {
-		Integer activeStatus =  userRepository.isActiveUserStatus(active);
+	public Integer isActiveUserStatus(String email) {
+		Integer activeStatus =  userRepository.isActiveUserStatus(email);
 		return activeStatus;
 	}
 }

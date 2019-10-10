@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rajesh.model.User;
 import com.rajesh.service.UserService;
@@ -62,6 +63,17 @@ public class UserController {
 			model.put("failed", "Invalid Email/Password");
 			return "home";
 	  	}  		
+	}
+	@PostMapping("/user/checkstatus")
+	@ResponseBody
+	public Integer checkUserStatus(String email, ModelMap model, @ModelAttribute("command")User user, HttpSession session) {
+			int userStatus = userService.isActiveUserStatus(email);
+			System.out.println(userStatus);
+			if(userStatus != 0) {
+				return userStatus;
+			}else {
+				return userStatus;
+			}
 	}
 	@GetMapping("/logout")
 	public String doLogout(ModelMap model, @ModelAttribute("command")User user, HttpSession session) {
