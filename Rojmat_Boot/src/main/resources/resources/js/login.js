@@ -80,10 +80,16 @@ function userStatus_chk() {
 			dataType: "json",
 			data: {email: email},
 			success : function(data) {
-					console.log("your account is actived")    					
+					console.log(data);
+					if(data == 1){
+						console.log("your account is actived")
+					} else {
+						console.log("your account is not actived");
+					}
+					    					
 				},
 				error : function(xmlHttpRequest, textStatus, errorThrown) {
-					console.log("your account is not actived");
+					
 				} 
 	    }); 
 	}

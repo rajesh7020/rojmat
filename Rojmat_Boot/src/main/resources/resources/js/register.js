@@ -19,8 +19,9 @@
 			});
 	    	
 	    	function shopname_check() {
-				var shopname_val = $("input[name='shopname']").val();
-				if((shopname_val.length == '') || (shopname_val.length == null) ) {
+				var shopname_val = $("input[name='shopname']").val());
+				var patternSpace = /\s+/;
+				if(!patternSpace.test(shopname_val)) {
 					$('#shopnamechk').show();
 					$('#shopnamechk').html("Please Fill the Shopname");
 					$('#shopnamechk').focus();

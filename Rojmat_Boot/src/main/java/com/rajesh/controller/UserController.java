@@ -53,6 +53,7 @@ public class UserController {
 		if(userService.loginUser(user.getEmail(), user.getPassword()) != null) {
 	  		session.setAttribute("email",user.getEmail());
 	  		session.setAttribute("user_id", user.getId());
+	  		session.setAttribute("users", user);
 	  		model.addAttribute("sucessLogin", "You are login sucessfully");
 	  		logger.info("You are login sucessfully",user.getEmail());
 	  		System.out.println("You are login sucessfully "+ user.getEmail());
@@ -70,8 +71,10 @@ public class UserController {
 			int userStatus = userService.isActiveUserStatus(email);
 			System.out.println(userStatus);
 			if(userStatus != 0) {
+				System.out.println(userStatus);
 				return userStatus;
 			}else {
+				System.out.println(userStatus);
 				return userStatus;
 			}
 	}

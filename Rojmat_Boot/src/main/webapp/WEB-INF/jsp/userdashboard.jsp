@@ -3,13 +3,13 @@
     <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%
+<%-- <%
 	HttpSession sess = request.getSession(false);
 	if (sess.getAttribute("user_id") == null) {
 		response.sendRedirect("/");
 		return;
 	}
-%> 
+%>  --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -30,7 +30,7 @@
 <!-- Navigation Bar -->	
 	<jsp:include page="userheader.jsp"/>	
 	<h1>Rojmat (Daily Account)</h1>
-	<strong>${email}</strong><br/><strong>${user_id}</strong><strong>${shopname}</strong>
+	<strong>${email}</strong><br/><strong>${user.user_id}</strong><strong>${user.shopname}</strong>
 	<p>${sucessLogin}</p>
 	<div class="container">
 		<div class="row">
