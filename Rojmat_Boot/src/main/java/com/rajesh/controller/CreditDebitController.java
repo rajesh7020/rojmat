@@ -80,9 +80,11 @@ public class CreditDebitController {
 		return creditDebitService.getCreditDebitById(cid);
 	}
 	@GetMapping("user/userdashboard")
-	public ModelAndView showUserAccount(@ModelAttribute("command")Credit credit, BindingResult br, HttpSession session) {
+	public ModelAndView showUserAccount(ModelMap modal, @ModelAttribute("command")Credit credit, BindingResult br, HttpSession session) {
+		Date lastAccessTime = new Date(session.getLastAccessedTime());
 		Map<String,Object> model = new HashMap<String,Object>();
 		model.put("creditdebitlist", creditDebitService.getAllCreditList());
+		modal.addAttribute("lastAccessTime", lastAccessTime);
 		return new ModelAndView("userdashboard",model);
 	}
 	@GetMapping("/user/creditDebitList")

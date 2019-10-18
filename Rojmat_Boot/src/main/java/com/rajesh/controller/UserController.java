@@ -1,4 +1,5 @@
 package com.rajesh.controller;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -48,22 +49,25 @@ public class UserController {
     }
 	
 	@PostMapping("/user/login") 
-	public String doLogin(ModelMap model, @ModelAttribute("command")User user, HttpSession session) {
+	public String doLogin(ModelMap model, @ModelAttribute("command")User user, HttpServletRequest request, HttpSession session) {
 		  	
-		if(userService.loginUser(user.getEmail(), user.getPassword()) != null) {
-	  		session.setAttribute("email",user.getEmail());
-	  		session.setAttribute("user_id", user.getId());
-	  		session.setAttribute("users", user);
-	  		model.addAttribute("sucessLogin", "You are login sucessfully");
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		User users = userService.loginUser(email, password);
+		if(users != null) {
+			session.setAttribute("users", users);
+			session.setMaxInactiveInterval(30000);
+			System.out.println("User Id = "+users.getId());
+			System.out.println("User Email = "+users.getEmail());
+			System.out.println("User Shopname = "+users.getShopname());
 	  		logger.info("You are login sucessfully",user.getEmail());
-	  		System.out.println("You are login sucessfully "+ user.getEmail());
 	  		return "redirect:userdashboard";
-	  	}else {
-	  		System.out.println("Invalid Email/Password");
+		}else {
+			System.out.println("Invalid Email/Password");
 	  		logger.error("Invalid Email/Password");
 			model.put("failed", "Invalid Email/Password");
 			return "home";
-	  	}  		
+		}
 	}
 	@PostMapping("/user/checkstatus")
 	@ResponseBody
@@ -80,7 +84,7 @@ public class UserController {
 	}
 	@GetMapping("/logout")
 	public String doLogout(ModelMap model, @ModelAttribute("command")User user, HttpSession session) {
-		session.removeAttribute("email");
+		session.removeAttribute("users");
 		logger.info("you are logout successfully");
 		return "home";
 	}

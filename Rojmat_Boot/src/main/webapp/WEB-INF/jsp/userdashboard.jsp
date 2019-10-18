@@ -30,7 +30,7 @@
 <!-- Navigation Bar -->	
 	<jsp:include page="userheader.jsp"/>	
 	<h1>Rojmat (Daily Account)</h1>
-	<strong>${email}</strong><br/><strong>${user.user_id}</strong><strong>${user.shopname}</strong>
+	<strong>${users.email}</strong><br/><strong>${users.id}</strong><br/><strong>${users.shopname}</strong><br/><strong>${lastAccessTime}</strong>
 	<p>${sucessLogin}</p>
 	<div class="container">
 		<div class="row">

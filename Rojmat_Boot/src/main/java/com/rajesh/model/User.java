@@ -31,7 +31,7 @@ public class User extends BaseEntity{
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
-    private int id;
+    private int user_id;
 	
 	@Column(name="shopname")
 	@Length(min = 3, message = "*Your shopname must have at least 3 characters")
@@ -69,10 +69,10 @@ public class User extends BaseEntity{
 	private Set<Role> roles;
 
 	public int getId() {
-		return id;
+		return user_id;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setId(int user_id) {
+		this.user_id = user_id;
 	}
 	public String getShopname() {
 		return shopname;
