@@ -22,6 +22,13 @@ public class CreditDebitService {
 		System.out.println(data);
 		return (List<Credit>) creditDebitRepository.findAll();
 	}
+
+	
+	public List<Credit> getAllCreditListByUserId(Long userId) {
+		List<Credit> data = creditDebitRepository.getAllCreditListByUserId(userId);
+		System.out.println("Credit List "+data); return data; 
+	}
+	 
 	public Credit getCreditDebitById(long cid) throws RecordNotFoundException {
 		Optional<Credit> credit =  creditDebitRepository.findById(cid);
 		if(credit.isPresent()) {
@@ -39,4 +46,5 @@ public class CreditDebitService {
             throw new RecordNotFoundException("No Credit Debit record exist for given cid");
         }
 	}
+	
 }

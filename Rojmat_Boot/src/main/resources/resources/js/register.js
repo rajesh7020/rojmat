@@ -19,7 +19,7 @@
 			});
 	    	
 	    	function shopname_check() {
-				var shopname_val = $("input[name='shopname']").val());
+				var shopname_val = $("input[name='shopname']").val();
 				var patternSpace = /\s+/;
 				if(!patternSpace.test(shopname_val)) {
 					$('#shopnamechk').show();

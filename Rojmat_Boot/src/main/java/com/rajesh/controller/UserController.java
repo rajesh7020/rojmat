@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.rajesh.model.Credit;
 import com.rajesh.model.User;
 import com.rajesh.service.UserService;
 
@@ -49,19 +50,19 @@ public class UserController {
     }
 	
 	@PostMapping("/user/login") 
-	public String doLogin(ModelMap model, @ModelAttribute("command")User user, HttpServletRequest request, HttpSession session) {
+	public String doLogin(ModelMap model, @ModelAttribute("command")Credit credit, User user, HttpServletRequest request, HttpSession session) {
 		  	
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		User users = userService.loginUser(email, password);
 		if(users != null) {
 			session.setAttribute("users", users);
-			session.setMaxInactiveInterval(30000);
+			//session.setMaxInactiveInterval(30000);
 			System.out.println("User Id = "+users.getId());
 			System.out.println("User Email = "+users.getEmail());
 			System.out.println("User Shopname = "+users.getShopname());
 	  		logger.info("You are login sucessfully",user.getEmail());
-	  		return "redirect:userdashboard";
+	  		return "userdashboard";
 		}else {
 			System.out.println("Invalid Email/Password");
 	  		logger.error("Invalid Email/Password");
@@ -83,7 +84,7 @@ public class UserController {
 			}
 	}
 	@GetMapping("/logout")
-	public String doLogout(ModelMap model, @ModelAttribute("command")User user, HttpSession session) {
+	public String doLogout(ModelMap model, @ModelAttribute("command")User users, HttpSession session) {
 		session.removeAttribute("users");
 		logger.info("you are logout successfully");
 		return "home";

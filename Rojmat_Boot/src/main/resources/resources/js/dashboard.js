@@ -1,15 +1,17 @@
-var Dtable;	    
 $(document).ready(function(){
 	    	var today = new Date().toISOString().split('T')[0];
 	    	$('#date').attr('min',today);
 	    	$('#date').attr('max',today);
 	    	var d=0;
+	    	var userId = $('#userId').val();
+	    	alert("UserId" +userId);
 	    	
-			Dtable = $('#tblcreditdebit').DataTable({
+		var	Dtable = $('#tblcreditdebit').DataTable({
 				//	processing: true,
 			    //  serverSide: true,
 					ajax:{ 
-						url: '/user/creditDebitList',
+						type : 'GET',
+						url: '/user/creditDebitList?userId='+userId,
 						dataSrc: ''
 					},
 			        columns: [
@@ -110,6 +112,7 @@ $(document).ready(function(){
 	        $('#drawertotalchk').hide();
 	        $('#debitplusdrawertotalchk').hide();
 	        $('#todaybusinesschk').hide();
+	        $('#amountchk').hide();
 	       // $('#datechk').hide();
 	        $('#amountchk').hide();
 	        
@@ -118,6 +121,7 @@ $(document).ready(function(){
 	        var drawertotal_err = true;
 	        var debitdrawertotal_err = true;
 	        var todaybusiness_err = true;
+	        var amount_err = true;
 	    //    var date_err = true;
 	        var amount_err = true;
 	        
@@ -333,15 +337,17 @@ $(document).ready(function(){
 		         debitdrawertotal_err = true;
 		         todaybusiness_err = true;
 		         date_err = true;
+		         amount_err = true;
 		         
 		         openingBalance_chk();
 		         debittotal_chk();
 		         drawertotal_chk();
 		         debitplusdrawertotal_chk();
 		         todaybusiness_chk();
+		         amount_chk(dclassname,dcAmountValue);
 		       //  date_chk();
 		         
-		         if((openingBalance_err == true) && (debittotal_err == true) && (drawertotal_err == true) && (debitdrawertotal_err == true) && (todaybusiness_err == true) && (date_err == true)) {
+		         if((openingBalance_err == true) && (debittotal_err == true) && (drawertotal_err == true) && (debitdrawertotal_err == true) && (todaybusiness_err == true) && (date_err == true) && (amount_err == true)) {
 		        	return true; 
 		         } else {
 		        	 return false;

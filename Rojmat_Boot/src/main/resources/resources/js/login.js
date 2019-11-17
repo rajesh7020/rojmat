@@ -74,7 +74,7 @@ function userStatus_chk() {
 	if((email.length == '') || (email.length == null)) {
 		email_chk();
 	}else {
-		$.ajax({
+		/*$.ajax({
 			type : "POST",
 			url : "/user/checkstatus",
 			dataType: "json",
@@ -91,7 +91,7 @@ function userStatus_chk() {
 				error : function(xmlHttpRequest, textStatus, errorThrown) {
 					
 				} 
-	    }); 
+	    }); */
 	}
 }
 

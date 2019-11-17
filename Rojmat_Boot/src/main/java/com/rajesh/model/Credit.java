@@ -35,7 +35,15 @@ public class Credit extends BaseEntity{
 	private long debittotalplusdrawertotal;
 	@Column @Order
 	private long todaybusiness;
+	@Column
+	private Long id;
 	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	@OneToMany(cascade={CascadeType.ALL})
 	@JoinTable(name="credit_debit", 
                joinColumns=@JoinColumn(name="c_id"), 

@@ -32,7 +32,10 @@ public class CreditDebitController {
 	@PostMapping(value="/user/savecreditdebit")
 	public String saveCreditDebit(@RequestParam(value = "amount") long[] amount, @RequestParam(value = "description") String[] description, 
 					ModelMap model, HttpServletRequest request, HttpSession session,@ModelAttribute("command")Credit credit, BindingResult result) {
-		
+		//long userId = (long) session.getAttribute("userId");
+		long uId = Integer.parseInt(request.getParameter("userId"));
+		System.out.println("uId = "+uId);
+		//System.out.println("User Id =" +userId);
 		String email = (String) session.getAttribute("email");
 		try {
 			List<Debit> debits = new ArrayList<Debit>(Arrays.asList());
@@ -63,6 +66,7 @@ public class CreditDebitController {
 				credit.setCreatedDate(new Date());
 				credit.setUpdatedBy(email);
 				credit.setUpdatedDate(new Date());	
+				credit.setId(uId);
 			//  Debit Data set	
 				System.out.println("Debit List = " + debits1.size());
 				System.out.println("Credit and Debit data seved successfully");
@@ -80,17 +84,22 @@ public class CreditDebitController {
 		return creditDebitService.getCreditDebitById(cid);
 	}
 	@GetMapping("user/userdashboard")
-	public ModelAndView showUserAccount(ModelMap modal, @ModelAttribute("command")Credit credit, BindingResult br, HttpSession session) {
+	public ModelAndView showUserAccount(ModelMap modal, @ModelAttribute("command")Credit credit, Long id, BindingResult br, HttpSession session, HttpServletRequest request) throws RecordNotFoundException {
+		Long userId = Long.parseLong(request.getParameter("userId"));
 		Date lastAccessTime = new Date(session.getLastAccessedTime());
 		Map<String,Object> model = new HashMap<String,Object>();
-		model.put("creditdebitlist", creditDebitService.getAllCreditList());
+		model.put("creditdebitlist", creditDebitService.getCreditDebitById(userId));
 		modal.addAttribute("lastAccessTime", lastAccessTime);
 		return new ModelAndView("userdashboard",model);
 	}
-	@GetMapping("/user/creditDebitList")
-	public @ResponseBody List<Credit> showCreditDebitList(Credit credit) {
-		return creditDebitService.getAllCreditList();
+
+	
+	  @SuppressWarnings("unchecked")
+	  @GetMapping("/user/creditDebitList") 
+	  public @ResponseBody List<Credit> showCreditDebitList(Long userId) throws RecordNotFoundException {
+		  return (List<Credit>) creditDebitService.getAllCreditListByUserId(userId);
 	}
+	 
 	@GetMapping(value="/user/deleteCreditDebitByCreditId")
 	@ResponseBody
 	public String deleteCreditDebitById(Long cid, Credit credit, HttpSession session, HttpServletRequest request, BindingResult result) throws RecordNotFoundException {

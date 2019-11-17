@@ -32,9 +32,11 @@
 	<h1>Rojmat (Daily Account)</h1>
 	<strong>${users.email}</strong><br/><strong>${users.id}</strong><br/><strong>${users.shopname}</strong><br/><strong>${lastAccessTime}</strong>
 	<p>${sucessLogin}</p>
+	<input type="hidden" value="${users.id}" name="userId" id="userId">
 	<div class="container">
 		<div class="row">
 			<form:form action="${pageContext.request.contextPath}/user/savecreditdebit" method="POST" id="myForm" modelAttribute="command">
+			
 			<div class="col-md-5">
 				<h3>Credit Account</h3>
 				<div class="form-group">
