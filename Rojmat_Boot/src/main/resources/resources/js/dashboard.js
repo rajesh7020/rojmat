@@ -1,3 +1,4 @@
+var	Dtable;
 $(document).ready(function(){
 	    	var today = new Date().toISOString().split('T')[0];
 	    	$('#date').attr('min',today);
@@ -6,9 +7,10 @@ $(document).ready(function(){
 	    	var userId = $('#userId').val();
 	    	alert("UserId" +userId);
 	    	
-		var	Dtable = $('#tblcreditdebit').DataTable({
+			Dtable = $('#tblcreditdebit').DataTable({
 				//	processing: true,
 			    //  serverSide: true,
+			
 					ajax:{ 
 						type : 'GET',
 						url: '/user/creditDebitList?userId='+userId,
@@ -356,7 +358,7 @@ $(document).ready(function(){
  
 	    }); 
 	    var d=0;
-    	function saveCreditDebit() {
+    	/*function saveCreditDebit() {
     		var result = confirm("Once you will add this record you can't update ! after the saved record");
     		if (result) {
     			$.ajax({
@@ -385,7 +387,7 @@ $(document).ready(function(){
         		}); 
     		}
     		
-    	}
+    	}*/
     	function deleteCreditDebitByCreditId(cid1) {
     		var result = confirm("Want to delete?");
     		if (result) {

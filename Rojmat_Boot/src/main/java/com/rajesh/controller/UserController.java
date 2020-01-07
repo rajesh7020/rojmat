@@ -14,12 +14,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.rajesh.model.Credit;
 import com.rajesh.model.User;
 import com.rajesh.service.UserService;
 
 @Controller
+@SessionAttributes("users")
 public class UserController {
 	private final Logger logger = LoggerFactory.getLogger(UserController.class);
 	@Autowired
@@ -62,7 +65,7 @@ public class UserController {
 			System.out.println("User Email = "+users.getEmail());
 			System.out.println("User Shopname = "+users.getShopname());
 	  		logger.info("You are login sucessfully",user.getEmail());
-	  		return "userdashboard";
+	  		return "redirect:/user/userdashboard";
 		}else {
 			System.out.println("Invalid Email/Password");
 	  		logger.error("Invalid Email/Password");
@@ -84,8 +87,9 @@ public class UserController {
 			}
 	}
 	@GetMapping("/logout")
-	public String doLogout(ModelMap model, @ModelAttribute("command")User users, HttpSession session) {
+	public String doLogout(ModelMap model, @ModelAttribute("command")User users, HttpSession session, SessionStatus sessionStatus) {
 		session.removeAttribute("users");
+		sessionStatus.setComplete();
 		logger.info("you are logout successfully");
 		return "home";
 	}

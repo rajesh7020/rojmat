@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import com.rajesh.exception.RecordNotFoundException;
 import com.rajesh.model.Customer;
@@ -16,6 +17,7 @@ import com.rajesh.service.CustomerService;
 import com.rajesh.service.StateService;
 
 @Controller
+@SessionAttributes("users")
 public class CustomerController {
 	@Autowired
 	private CustomerService customerService;

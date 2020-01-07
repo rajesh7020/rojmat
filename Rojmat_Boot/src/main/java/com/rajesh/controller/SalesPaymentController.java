@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import com.rajesh.exception.RecordNotFoundException;
 import com.rajesh.model.SalesPayment;
@@ -16,6 +17,7 @@ import com.rajesh.service.PaymentTypeService;
 import com.rajesh.service.SalesPaymentService;
 
 @Controller
+@SessionAttributes("users")
 public class SalesPaymentController {
 	@Autowired
 	private SalesPaymentService salesPaymentService;

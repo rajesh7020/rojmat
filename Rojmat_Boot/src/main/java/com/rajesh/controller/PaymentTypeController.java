@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import com.rajesh.exception.RecordNotFoundException;
 import com.rajesh.model.PaymentType;
 import com.rajesh.service.PaymentTypeService;
 
 @Controller
+@SessionAttributes("users")
 public class PaymentTypeController {
 	@Autowired
 	private PaymentTypeService paymentTypeService;
