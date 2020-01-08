@@ -25,13 +25,7 @@
 		<div class="row">
 			<h3>Add Purchase Payment</h3>
 			<form:form action="${pageContext.request.contextPath}/user/savePurchasePayment" method="POST" id="myForm" modelAttribute="command">
-			<div class="col-md-4">	
-				<div class="form-group">
-					<form:label path="pid">Product Id :</form:label>
-					<form:input path="pid" id="pid" value="${purchasePayment.pid}" class="form-control" autocomplete="off" placeholder="Product Id" readonly="true"/>
-					<small id="purchasepayidhk"></small>
-				</div>
-			</div>
+					<form:input path="pid" type="hidden" id="pid" value="${purchasePayment.pid}" class="form-control" autocomplete="off" placeholder="Product Id" readonly="true"/>
 			<div class="col-md-4">	
 				<div class="form-group">
 					<form:label path="invoiceDate">Invoice Date :</form:label>

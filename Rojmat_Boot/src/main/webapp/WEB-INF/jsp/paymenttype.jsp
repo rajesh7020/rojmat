@@ -27,11 +27,7 @@
 			<form:form action="${pageContext.request.contextPath}/user/savePaymentType" method="POST" id="myForm" modelAttribute="command">
 			<div class="col-md-5">
 				<h3>Add Payment Mode</h3>
-				<div class="form-group">
-					<form:label path="payid">Payment Id :</form:label>
-					<form:input path="payid" id="payid" value="${paymenttype.payid}" class="form-control" autocomplete="off" placeholder="Payment Id" readonly="true"/>
-					<small id="payidchk"></small>
-				</div>
+					<form:input path="payid" type="hidden" id="payid" value="${paymenttype.payid}" class="form-control" autocomplete="off" placeholder="Payment Id" readonly="true"/>
 				<div class="form-group">
 					<form:label path="paymentMode">Payment Mode :</form:label>
 					<form:input path="paymentMode" id="paymentMode" value="${paymenttype.paymentMode}" class="form-control" autocomplete="off" placeholder="Payment Mode"/>

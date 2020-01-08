@@ -27,9 +27,7 @@
 			<div class="col-md-5">
 				<h3>Add Category</h3>
 				<div class="form-group">
-					<form:label path="cid">cid :</form:label>
-					<form:input path="cid" id="cid" value="${category.cid}" class="form-control" autocomplete="off" placeholder="Category Id" readonly="true"/>
-					<small id="cidchk"></small>
+					<form:input path="cid" type="hidden" id="cid" value="${category.cid}" class="form-control" autocomplete="off" placeholder="Category Id" readonly="true"/>
 				</div>
 				<div class="form-group">
 					<form:label path="categoryname">Category Name :</form:label>

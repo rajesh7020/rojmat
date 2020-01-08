@@ -26,11 +26,7 @@
 			<form:form action="${pageContext.request.contextPath}/user/saveState" method="POST" id="myForm" modelAttribute="command">
 			<div class="col-md-5">
 				<h3>Add States</h3>
-				<div class="form-group">
-					<form:label path="stateid">State Id :</form:label>
-					<form:input path="stateid" id="stateid" value="${state.stateid}" class="form-control" autocomplete="off" placeholder="State Id" readonly="true"/>
-					<small id="stateidchk"></small>
-				</div>
+					<form:input path="stateid" type="hidden" id="stateid" value="${state.stateid}" class="form-control" autocomplete="off" placeholder="State Id" readonly="true"/>
 				<div class="form-group">
 					<form:label path="statename">Unit :</form:label>
 					<form:input path="statename" id="statename" value="${state.statename}" class="form-control" autocomplete="off" placeholder="State Name"/>

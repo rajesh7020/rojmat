@@ -24,13 +24,7 @@
 		<div class="row">
 			<h3>Add/Edit Customer</h3>
 			<form:form action="${pageContext.request.contextPath}/user/saveCustomer" method="POST" id="myForm" modelAttribute="command">
-			<div class="col-md-4">
-				<div class="form-group">
-					<form:label path="custid">Customer Id :</form:label>
-					<form:input path="custid" id="custid" value="${customer.custid}" class="form-control" autocomplete="off" placeholder="Customer Id" readonly="true"/>
-					<small id="custidchk"></small>
-				</div>
-			</div>	
+					<form:input path="custid" type="hidden" id="custid" value="${customer.custid}" class="form-control" autocomplete="off" placeholder="Customer Id" readonly="true"/>
 			<div class="col-md-4">	
 				<div class="form-group">
 					<form:label path="customername">Customer Name :</form:label>
@@ -69,7 +63,7 @@
 			<div class="col-md-4">	
 				<div class="form-group">
 					<form:label path="state.stateid">State: </form:label>
-					<form:select path="state.stateid" cssStyle="width:350px;" id="state" name="state" class="form-control">
+					<form:select path="state.stateid" id="state" name="state" class="form-control">
 						<option value="0">---Select---</option>
 						<c:forEach items="${states}" var="state">
 							<option value="${state.stateid}">${state.statename}</option>
@@ -88,7 +82,7 @@
 			<div class="col-md-4">	
 				<div class="form-group">
 					<form:label path="mobileno">Mobile :</form:label>
-					<input name="mobileno" id="mobileno" value="${customer.mobileno}" class="form-control" autocomplete="off" placeholder="Mobile"/>
+					<input name="mobileno" id="mobileno" maxlength="10" value="${customer.mobileno}" class="form-control" autocomplete="off" placeholder="Mobile"/>
 					<small id="mobilnochk"></small>
 				</div>
 			</div>

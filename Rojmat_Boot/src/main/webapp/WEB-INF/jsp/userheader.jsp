@@ -51,7 +51,7 @@
 	           <li><a href="${pageContext.request.contextPath}/user/viewCustomerInvoice">Customer Invoice</a></li>
 	            <li><a href="${pageContext.request.contextPath}/user/viewSupplierInvoice">Supplier Invoice</a></li>
 	            <li class="divider"></li>
-	            <li><a href="${pageContext.request.contextPath}/user/viewState">Add Product</a></li>
+	            <li><a href="${pageContext.request.contextPath}/user/viewProduct">Add Product</a></li>
             </ul>
         </li>
       	<li class="nav-item">

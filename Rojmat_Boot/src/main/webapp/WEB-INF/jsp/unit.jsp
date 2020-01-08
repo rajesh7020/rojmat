@@ -26,11 +26,7 @@
 			<form:form action="${pageContext.request.contextPath}/user/saveUnit" method="POST" id="myForm" modelAttribute="command">
 			<div class="col-md-5">
 				<h3>Add Unit</h3>
-				<div class="form-group">
-					<form:label path="unitid">Unit Id :</form:label>
-					<form:input path="unitid" id="unitid" value="${unit.unitid}" class="form-control" autocomplete="off" placeholder="Unit Id" readonly="true"/>
-					<small id="unitidchk"></small>
-				</div>
+					<form:input path="unitid" type="hidden" id="unitid" value="${unit.unitid}" class="form-control" autocomplete="off" placeholder="Unit Id" readonly="true"/>
 				<div class="form-group">
 					<form:label path="unitname">Unit :</form:label>
 					<form:input path="unitname" id="unitname" value="${unit.unitname}" class="form-control" autocomplete="off" placeholder="Unit Name"/>

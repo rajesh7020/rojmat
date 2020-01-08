@@ -39,50 +39,58 @@ public class CreditDebitController {
 	public String saveCreditDebit(@RequestParam(value = "amount") long[] amount, @RequestParam(value = "description") String[] description, 
 					ModelMap model, HttpServletRequest request, HttpSession session, @ModelAttribute("command")Credit credit, BindingResult result) {
 		User userId = (User) session.getAttribute("users");
-		//long uId = Long.parseLong(request.getParameter("userId"));
 		System.out.println("uId = "+userId);
-		//System.out.println("User Id =" +userId);
 		String email = (String) session.getAttribute("email");
-		try {
-			List<Debit> debits = new ArrayList<Debit>(Arrays.asList());
-			debits = credit.getDebit();
-			for(int i=0; i<amount.length; i++) {
-				Debit debit = new Debit();
-				debit.setAmount(amount[i]);
-				debit.setDescription(description[i]);
-				debits.add(debit);
-			}   
-			System.out.println("debits ="+debits);
-			List<Debit> debits1 = new ArrayList<Debit>();
-			
-			for(int i=0; i<debits.size(); i++)
-			{
-				debits1.add(new Debit(debits.get(i).getAmount(),debits.get(i).getDescription()));
+		
+		if(userId.getId() != null) {
+			if(userId.getId()>0) {
+				try {
+					List<Debit> debits = new ArrayList<Debit>(Arrays.asList());
+					debits = credit.getDebit();
+					for(int i=0; i<amount.length; i++) {
+						Debit debit = new Debit();
+						debit.setAmount(amount[i]);
+						debit.setDescription(description[i]);
+						debits.add(debit);
+					}   
+					System.out.println("debits ="+debits);
+					List<Debit> debits1 = new ArrayList<Debit>();
+					
+					for(int i=0; i<debits.size(); i++)
+					{
+						debits1.add(new Debit(debits.get(i).getAmount(),debits.get(i).getDescription()));
+					}
+					System.out.println("debits1 ="+debits1);
+					 // Credit Data Set
+						credit.setOpeningbalance(credit.getOpeningbalance());
+						credit.setDate(credit.getDate());
+						System.out.println("Date is: = "+credit.getDate());
+						credit.setDebittotal(credit.getDebittotal());
+						credit.setDrawertotal(credit.getDrawertotal());
+						credit.setDebittotalplusdrawertotal(credit.getDebittotalplusdrawertotal());
+						credit.setTodaybusiness(credit.getTodaybusiness());
+						credit.setCreatedBy(email);
+						credit.setCreatedDate(new Date());
+						credit.setUpdatedBy(email);
+						credit.setUpdatedDate(new Date());	
+						credit.setId(userId.getId());
+					//  Debit Data set	
+						System.out.println("Debit List = " + debits1.size());
+						System.out.println("Credit and Debit data seved successfully");
+						credit.setDebit(debits1);
+						creditDebitService.save(credit);
+						model.put("success", "Data Saved Successfully");
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+				return "redirect:userdashboard";
+			}else {
+				return "redirect:error";
 			}
-			System.out.println("debits1 ="+debits1);
-			 // Credit Data Set
-				credit.setOpeningbalance(credit.getOpeningbalance());
-				credit.setDate(credit.getDate());
-				System.out.println("Date is: = "+credit.getDate());
-				credit.setDebittotal(credit.getDebittotal());
-				credit.setDrawertotal(credit.getDrawertotal());
-				credit.setDebittotalplusdrawertotal(credit.getDebittotalplusdrawertotal());
-				credit.setTodaybusiness(credit.getTodaybusiness());
-				credit.setCreatedBy(email);
-				credit.setCreatedDate(new Date());
-				credit.setUpdatedBy(email);
-				credit.setUpdatedDate(new Date());	
-				credit.setId(userId.getId());
-			//  Debit Data set	
-				System.out.println("Debit List = " + debits1.size());
-				System.out.println("Credit and Debit data seved successfully");
-				credit.setDebit(debits1);
-				creditDebitService.save(credit);
-				model.put("success", "Data Saved Successfully");
-		}catch(Exception e) {
-			e.printStackTrace();
+		}else {
+			return "redirect:error";
 		}
-		return "redirect:userdashboard";
+		
 	}
 	@GetMapping(value="/user/getCreditDebitByCreditId",produces = "application/json")
 	@ResponseBody
@@ -93,18 +101,24 @@ public class CreditDebitController {
 	public ModelAndView showUserAccount(ModelMap modal, @ModelAttribute("command")Credit credit, Long id, BindingResult br, HttpSession session, HttpServletRequest request) throws RecordNotFoundException {
 		//Long userId = Long.parseLong(request.getParameter("userId"));
 		User user = (User)session.getAttribute("users");
-		System.err.println("UserId ========"+user.getId());
 		Date lastAccessTime = new Date(session.getLastAccessedTime());
 		Map<String,Object> model = new HashMap<String,Object>();
-		modal.put("creditdebitlist", creditDebitService.getAllCreditListByUserId(user.getId()));
-		modal.addAttribute("lastAccessTime", lastAccessTime);
-		return new ModelAndView("userdashboard",model);
+		if(user.getId() != null) {
+			modal.put("creditdebitlist", creditDebitService.getAllCreditListByUserId(user.getId()));
+			modal.addAttribute("lastAccessTime", lastAccessTime);
+			return new ModelAndView("userdashboard",model);
+		}else {
+			return new ModelAndView("error");
+		}
+		
+		
 	}
 
 	
 	  @SuppressWarnings("unchecked")
-	  @GetMapping("/user/creditDebitList") 
-	  public @ResponseBody List<Credit> showCreditDebitList(Long userId) throws RecordNotFoundException {
+	  @GetMapping("/user/creditDebitList")
+	  @ResponseBody
+	  public List<Credit> showCreditDebitList(Long userId) throws RecordNotFoundException {
 		  return (List<Credit>) creditDebitService.getAllCreditListByUserId(userId);
 	}
 	 

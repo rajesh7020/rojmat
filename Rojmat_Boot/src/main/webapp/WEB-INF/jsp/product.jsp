@@ -28,13 +28,7 @@
 		<div class="row">
 			<form:form action="${pageContext.request.contextPath}/user/saveProduct" method="POST" id="myForm" modelAttribute="command">
 				<h3>Product</h3>
-				<div class="col-md-4">
-					<div class="form-group">
-						<form:label path="pid">Product Id :</form:label>
-						<form:input path="pid" id="pid" value="${product.pid}" class="form-control" autocomplete="off" placeholder="Product Id" readonly="true" />
-						<small id="productidhk"></small>
-					</div>
-				</div>
+					<form:input path="pid" type="hidden" id="pid" value="${product.pid}" class="form-control" autocomplete="off" placeholder="Product Id" readonly="true" />
 				<div class="col-md-4">	
 					<div class="form-group">
 						<form:label path="name">Product Name :</form:label>

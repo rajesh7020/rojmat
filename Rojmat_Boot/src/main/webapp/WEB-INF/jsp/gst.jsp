@@ -27,11 +27,7 @@
 			<form:form action="${pageContext.request.contextPath}/user/saveGst" method="POST" id="myForm" modelAttribute="command">
 			<div class="col-md-5">
 				<h3>Add GST</h3>
-				<div class="form-group">
-					<form:label path="gstid">cid :</form:label>
-					<form:input path="gstid" id="gstid" value="${gst.gstid}" class="form-control" autocomplete="off" placeholder="GST Id" readonly="true"/>
-					<small id="gstidhk"></small>
-				</div>
+					<form:input path="gstid" type="hidden" id="gstid" value="${gst.gstid}" class="form-control" autocomplete="off" placeholder="GST Id" readonly="true"/>
 				<div class="form-group">
 					<form:label path="percentage">Percentage :</form:label>
 					<form:input path="percentage" id="percentage" value="${gst.percentage}" class="form-control" autocomplete="off" placeholder="Percentage"/>
