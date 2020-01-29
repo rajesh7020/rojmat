@@ -40,8 +40,8 @@ public class SupplierService {
 			return supplier;
 		}
 	}
-	public List<Supplier> getAllSuppliers() {
-		List<Supplier> supplierList = supplierRepository.findAll();
+	public List<Supplier> getAllSuppliers(Long user_id) throws RecordNotFoundException {
+		List<Supplier> supplierList = supplierRepository.getAllSupplierListByUserId(user_id);
 		if(supplierList.size() > 0) {
 			return supplierList;
 		}else {

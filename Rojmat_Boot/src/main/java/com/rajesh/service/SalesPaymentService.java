@@ -36,8 +36,8 @@ public class SalesPaymentService {
 			return salesPayment;
 		}
 	}
-	public List<SalesPayment> getAllSalesPayments() {
-		List<SalesPayment> salesPaymentList = salesPaymentRepository.findAll();
+	public List<SalesPayment> getAllSalesPayments(Long user_id) throws RecordNotFoundException {
+		List<SalesPayment> salesPaymentList = salesPaymentRepository.getAllSalesPaymentListByUserId(user_id);
 		if(salesPaymentList.size() > 0) {
 			return salesPaymentList;
 		}else {

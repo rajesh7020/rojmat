@@ -25,8 +25,8 @@ public class CategoryService {
 			return category;
 		}
 	}
-	public List<Category> getAllCategories() {
-		List<Category> categoryList = categoryRepository.findAll();
+	public List<Category> getAllCategories(Long userId) throws RecordNotFoundException{
+		List<Category> categoryList = categoryRepository.getAllCategoryListByUserId(userId);
 		if(categoryList.size() > 0) {
 			return categoryList;
 		}else {

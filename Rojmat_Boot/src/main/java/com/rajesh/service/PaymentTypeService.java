@@ -24,8 +24,8 @@ public class PaymentTypeService {
 			return paymentType;
 		}
 	}
-	public List<PaymentType> getAllPaymentType() {
-		List<PaymentType> paymentTypeList = paymentTypeRepository.findAll();
+	public List<PaymentType> getAllPaymentType(Long user_id) throws RecordNotFoundException {
+		List<PaymentType> paymentTypeList = paymentTypeRepository.getAllPaymentTypeListByUserId(user_id);
 		if(paymentTypeList.size() > 0) {
 			return paymentTypeList;
 		}else {

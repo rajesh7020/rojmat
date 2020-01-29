@@ -60,7 +60,7 @@ public class UserController {
 		User users = userService.loginUser(email, password);
 		if(users != null) {
 			session.setAttribute("users", users);
-			session.setMaxInactiveInterval(10*60*60);
+			session.setMaxInactiveInterval(1 * 24 * 60 * 60);
 			System.out.println("User Id = "+users.getId());
 			System.out.println("User Email = "+users.getEmail());
 			System.out.println("User Shopname = "+users.getShopname());

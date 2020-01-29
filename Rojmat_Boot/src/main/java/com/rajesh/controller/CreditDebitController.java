@@ -40,8 +40,7 @@ public class CreditDebitController {
 					ModelMap model, HttpServletRequest request, HttpSession session, @ModelAttribute("command")Credit credit, BindingResult result) {
 		User userId = (User) session.getAttribute("users");
 		System.out.println("uId = "+userId);
-		String email = (String) session.getAttribute("email");
-		
+		String name = userId.getName();
 		if(userId.getId() != null) {
 			if(userId.getId()>0) {
 				try {
@@ -69,9 +68,9 @@ public class CreditDebitController {
 						credit.setDrawertotal(credit.getDrawertotal());
 						credit.setDebittotalplusdrawertotal(credit.getDebittotalplusdrawertotal());
 						credit.setTodaybusiness(credit.getTodaybusiness());
-						credit.setCreatedBy(email);
+						credit.setCreatedBy(name);
 						credit.setCreatedDate(new Date());
-						credit.setUpdatedBy(email);
+						credit.setUpdatedBy(name);
 						credit.setUpdatedDate(new Date());	
 						credit.setId(userId.getId());
 					//  Debit Data set	

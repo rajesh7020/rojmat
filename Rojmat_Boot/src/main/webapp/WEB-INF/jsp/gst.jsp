@@ -25,6 +25,7 @@
 	<div class="container">
 		<div class="row">
 			<form:form action="${pageContext.request.contextPath}/user/saveGst" method="POST" id="myForm" modelAttribute="command">
+			<input type="hidden" value="${users.id}" name="users" id="userId">
 			<div class="col-md-5">
 				<h3>Add GST</h3>
 					<form:input path="gstid" type="hidden" id="gstid" value="${gst.gstid}" class="form-control" autocomplete="off" placeholder="GST Id" readonly="true"/>

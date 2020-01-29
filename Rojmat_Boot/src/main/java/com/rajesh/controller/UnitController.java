@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import com.rajesh.exception.RecordNotFoundException;
 import com.rajesh.model.Unit;
+import com.rajesh.model.User;
 import com.rajesh.service.UnitService;
 
 @Controller
@@ -24,14 +25,33 @@ public class UnitController {
 	
 	@PostMapping("/user/saveUnit")
 	public String saveUnit(@ModelAttribute("command")Unit unit, BindingResult result, HttpSession session) throws RecordNotFoundException {
-		unitService.saveOrUpdateCategory(unit);
-		return "redirect:/user/viewUnit";
+		User userId = (User) session.getAttribute("users");
+		if(userId.getId() != null) {
+			if(userId.getId()>0) {
+				unit.setUsers(unit.getUsers());
+				unitService.saveOrUpdateCategory(unit);
+				return "redirect:/user/viewUnit";
+			}else {
+				return "redirect:error";
+			}
+		}else {
+			return "redirect:error";
+		}	
 	}
 	@GetMapping("/user/viewUnit")
-	public ModelAndView viewUnit(@ModelAttribute("command") Unit unit, BindingResult result, HttpSession session) {
+	public ModelAndView viewUnit(@ModelAttribute("command") Unit unit, BindingResult result, HttpSession session) throws RecordNotFoundException {
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("units", unitService.getAllUnits());
-		return new ModelAndView("unit",model);
+		User userId = (User) session.getAttribute("users");
+		if(userId.getId() != null) {
+			if(userId.getId()>0) {
+				model.put("units", unitService.getAllUnits(userId.getId()));
+				return new ModelAndView("unit",model);
+			}else {
+				return new ModelAndView("redirect:error");
+			}
+		}else {
+			return new ModelAndView("redirect:error");
+		}	
 	}
 	@GetMapping("/user/getUnitById")
 	@ResponseBody
@@ -50,7 +70,7 @@ public class UnitController {
 	}
 	@GetMapping("/units")
 	@ResponseBody
-	public List<Unit> getAllUnits() {
-		return unitService.getAllUnits();
+	public List<Unit> getAllUnits(Long userId) throws RecordNotFoundException {
+		return unitService.getAllUnits(userId);
 	}
 }

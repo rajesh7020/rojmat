@@ -24,6 +24,7 @@
 		<div class="row">
 			<h3>Add/Edit Supplier</h3>
 			<form:form action="${pageContext.request.contextPath}/user/saveSupplier" method="POST" id="myForm" modelAttribute="command">
+					<input type="hidden" value="${users.id}" name="users" id="userId">
 					<form:input path="supid" type="hidden" id="supid" value="${supplier.supid}" class="form-control" autocomplete="off" placeholder="Sales Id" readonly="true"/>
 			<div class="col-md-4">	
 				<div class="form-group">

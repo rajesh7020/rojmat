@@ -24,8 +24,8 @@ public class StateService {
 			return state;
 		}
 	}
-	public List<State> getAllStates() {
-		List<State> stateList = stateRepository.findAll();
+	public List<State> getAllStates(Long user_id) throws RecordNotFoundException {
+		List<State> stateList = stateRepository.getAllStateListByUserId(user_id);
 		if(stateList.size() > 0) {
 			return stateList;
 		}else {

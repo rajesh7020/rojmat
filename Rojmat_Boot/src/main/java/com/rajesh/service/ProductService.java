@@ -36,8 +36,8 @@ public class ProductService {
 			return product;
 		}
 	}
-	public List<Product> getAllProducts() {
-		List<Product> productList = productRepository.findAll();
+	public List<Product> getAllProducts(Long user_id) throws RecordNotFoundException {
+		List<Product> productList = productRepository.getAllProductListByUserId(user_id);
 		if(productList.size() > 0) {
 			return productList;
 		}else {

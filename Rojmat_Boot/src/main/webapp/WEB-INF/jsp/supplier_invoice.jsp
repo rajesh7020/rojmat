@@ -23,6 +23,7 @@
 <body> 
 <jsp:include page="userheader.jsp"/>
 <div class="container">
+	<input type="hidden" value="${users.id}" name="users" id="userId">
   <div class="row clearfix">
     <div class="col-md-12">
       <table class="table table-bordered table-hover" id="tab_logic">

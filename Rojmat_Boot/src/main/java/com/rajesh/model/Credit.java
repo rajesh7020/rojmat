@@ -20,7 +20,7 @@ import org.springframework.core.annotation.Order;
 @Table(name="credit")
 public class Credit extends BaseEntity{
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column
 	private Long cid;
 	@Column @Order
@@ -114,6 +114,10 @@ public class Credit extends BaseEntity{
 	}
 	@Override
 	public String toString() {
-	        return "Credit [cid=" + cid + ", openingbalance =" + openingbalance + ", date=" + date + ", debittotal= " + debittotal + ", debittotalplusdrawertotal=" + debittotalplusdrawertotal + ", todaybusiness=" + todaybusiness + "]";
-    }
+		return "Credit [cid=" + cid + ", openingbalance=" + openingbalance + ", date=" + date + ", debittotal="
+				+ debittotal + ", drawertotal=" + drawertotal + ", debittotalplusdrawertotal="
+				+ debittotalplusdrawertotal + ", todaybusiness=" + todaybusiness + ", id=" + id + ", debits=" + debits
+				+ "]";
+	}
+	
 }

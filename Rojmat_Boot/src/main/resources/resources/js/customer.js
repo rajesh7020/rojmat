@@ -1,9 +1,10 @@
 $(document).ready(function() {
+	var userId = $('#userId').val();
 	Dtable = $('#tbid').DataTable({
 		//	processing: true,
 	    //  serverSide: true,
 			ajax:{ 
-				url: '/customers',
+				url: '/customers?userId='+userId,
 				dataSrc: ''
 			},
 	        columns: [

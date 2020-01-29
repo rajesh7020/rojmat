@@ -24,6 +24,7 @@
 	<div class="container">
 		<div class="row">
 			<form:form action="${pageContext.request.contextPath}/user/saveUnit" method="POST" id="myForm" modelAttribute="command">
+			<input type="hidden" value="${users.id}" name="users" id="userId">
 			<div class="col-md-5">
 				<h3>Add Unit</h3>
 					<form:input path="unitid" type="hidden" id="unitid" value="${unit.unitid}" class="form-control" autocomplete="off" placeholder="Unit Id" readonly="true"/>

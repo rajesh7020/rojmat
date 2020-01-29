@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import com.rajesh.exception.RecordNotFoundException;
 import com.rajesh.model.Category;
+import com.rajesh.model.User;
 import com.rajesh.service.CategoryService;
 
 @Controller
@@ -21,16 +22,37 @@ import com.rajesh.service.CategoryService;
 public class CategoryController {
 	@Autowired
 	CategoryService categoryService;
-	@PostMapping(value="/user/savecategory",produces = "application/json")
+	
+	@PostMapping(value="/user/savecategory")
 	public String saveCategory(@ModelAttribute("command")Category category, BindingResult result, HttpSession session) throws RecordNotFoundException {
-		categoryService.saveOrUpdateCategory(category);
-		return "redirect:/user/viewCategory";
+		User userId = (User) session.getAttribute("users");
+		if(userId.getId() != null) {
+			if(userId.getId()>0) {
+				category.setUsers(category.getUsers());
+				categoryService.saveOrUpdateCategory(category);
+				return "redirect:/user/viewCategory";
+			}else {
+				return "redirect:error";
+			}
+		}else {
+			return "redirect:error";
+		}	
+		
 	}
 	@GetMapping("/user/viewCategory")
-	public ModelAndView viewCategory(@ModelAttribute("command") Category category, BindingResult result, HttpSession session) {
+	public ModelAndView viewCategory(@ModelAttribute("command") Category category, BindingResult result, HttpSession session) throws RecordNotFoundException {
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("categories", categoryService.getAllCategories());
-		return new ModelAndView("category",model);
+		User userId = (User) session.getAttribute("users");
+		if(userId.getId() != null) {
+			if(userId.getId()>0) {
+				model.put("categories", categoryService.getAllCategories(userId.getId()));
+				return new ModelAndView("category",model);
+			}else {
+				return new ModelAndView("redirect:error");
+			}
+		}else {
+			return new ModelAndView("redirect:error");
+		}	
 	}
 	@GetMapping(value = "/user/getCetagoryById",produces = "application/json")
 	@ResponseBody
@@ -50,7 +72,7 @@ public class CategoryController {
 	}
 	@GetMapping("/categories")
 	@ResponseBody
-	public List<Category> getAllCategries() {
-		return categoryService.getAllCategories();
+	public List<Category> getAllCategries(Long userId) throws RecordNotFoundException {
+		return categoryService.getAllCategories(userId);
 	}
 }

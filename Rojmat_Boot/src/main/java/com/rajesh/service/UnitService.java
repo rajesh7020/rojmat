@@ -25,13 +25,14 @@ public class UnitService {
 			return unit;
 		}
 	}
-	public List<Unit> getAllUnits() {
-		List<Unit> unitList = unitRepository.findAll();
+	public List<Unit> getAllUnits(Long user_id) throws RecordNotFoundException {
+		List<Unit> unitList = unitRepository.getAllUnitListByUserId(user_id);
 		if(unitList.size() > 0) {
 			return unitList;
 		}else {
-			return new ArrayList<Unit>();
+		    return new ArrayList<Unit>();
 		}
+		
 	}
 	 public Unit getUnitById(Long unitId) throws RecordNotFoundException {
 		 Optional<Unit> unit =  unitRepository.findById(unitId);

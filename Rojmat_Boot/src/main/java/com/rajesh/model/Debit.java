@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Table(name="debit")
 public class Debit {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private long did;
 	@Column

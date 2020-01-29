@@ -77,6 +77,6 @@
 	<!-- Navigation Bar -->	
 	<jsp:include page="userheader.jsp"/>	
 	<h1 style="text-align:center;">User Profile</h1>
-	
+	<input type="hidden" value="${users.id}" name="users" id="userId">
 </body>
 </html>

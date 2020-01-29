@@ -26,7 +26,8 @@ public class CreditDebitService {
 	
 	public List<Credit> getAllCreditListByUserId(Long userId) {
 		List<Credit> data = creditDebitRepository.getAllCreditListByUserId(userId);
-		System.out.println("Credit List "+data); return data; 
+		System.out.println("Credit List "+data); 
+		return data; 
 	}
 	 
 	public Credit getCreditDebitById(long cid) throws RecordNotFoundException {

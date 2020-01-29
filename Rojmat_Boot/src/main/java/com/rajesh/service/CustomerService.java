@@ -40,8 +40,8 @@ public class CustomerService {
 			return customer;
 		}
 	}
-	public List<Customer> getAllCustomers() {
-		List<Customer> customerList = customerRepository.findAll();
+	public List<Customer> getAllCustomers(Long user_id) throws RecordNotFoundException {
+		List<Customer> customerList = customerRepository.getAllCustomerListByUserId(user_id);
 		if(customerList.size() > 0) {
 			return customerList;
 		}else {

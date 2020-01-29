@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Table(name="customer")
 public class Customer {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column
 	private long custid;
 	@Column
@@ -42,6 +42,10 @@ public class Customer {
 	@OneToOne
 	@JoinColumn(name="stateid")
 	private State state;
+	@OneToOne
+	@JoinColumn(name="user_id")
+	private User users;
+	
 	public long getCustid() {
 		return custid;
 	}
@@ -126,4 +130,11 @@ public class Customer {
 	public void setState(State state) {
 		this.state = state;
 	}
+	public User getUsers() {
+		return users;
+	}
+	public void setUsers(User users) {
+		this.users = users;
+	}
+	
 }

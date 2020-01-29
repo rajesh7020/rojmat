@@ -21,7 +21,7 @@ import javax.persistence.Table;
 @Table(name="dctotals")
 public class DcTotals {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="dctotid")
 	private long dctotid;
 	@Column

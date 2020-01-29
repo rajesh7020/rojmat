@@ -2,6 +2,9 @@ package com.rajesh.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import com.rajesh.exception.RecordNotFoundException;
 import com.rajesh.model.Customer;
+import com.rajesh.model.User;
 import com.rajesh.service.CustomerService;
 import com.rajesh.service.StateService;
 
@@ -23,17 +27,37 @@ public class CustomerController {
 	private CustomerService customerService;
 	@Autowired
 	private StateService stateService;
+	
 	@PostMapping("/user/saveCustomer")
-	public String saveCustomer(@ModelAttribute("command") Customer customer, BindingResult result) throws RecordNotFoundException {
-		customerService.saveOrUpdateCustomer(customer);
-		return "redirect:/user/viewCustomer";
+	public String saveCustomer(@ModelAttribute("command") Customer customer, BindingResult result, HttpSession session) throws RecordNotFoundException {
+		User user = (User) session.getAttribute("users");
+		if(user.getId() != null) {
+			if(user.getId()>0) {
+				customer.setUsers(customer.getUsers());
+				customerService.saveOrUpdateCustomer(customer);
+				return "redirect:/user/viewCustomer";
+			}else {
+				return "redirect:error";
+			}
+		}else {
+			return "redirect:error";
+		}	
 	}
 	@GetMapping("/user/viewCustomer")
-	public ModelAndView viewCustomer(@ModelAttribute("command") Customer customer,BindingResult result) {
+	public ModelAndView viewCustomer(@ModelAttribute("command") Customer customer,BindingResult result, HttpSession session) throws RecordNotFoundException {
 		Map<String,Object> model = new HashMap<String,Object>();
-		model.put("customers", customerService.getAllCustomers());
-		model.put("states", stateService.getAllStates());
-		return new ModelAndView("customer", model);
+		User user = (User) session.getAttribute("users");
+		if(user.getId() != null) {
+			if(user.getId()>0) {
+				model.put("customers", customerService.getAllCustomers(user.getId()));
+				model.put("states", stateService.getAllStates(user.getId()));
+				return new ModelAndView("customer", model);
+			}else {
+				return new ModelAndView("redirect:error");
+			}
+		}else {
+			return new ModelAndView("redirect:error");
+		}	
 	}
 	@GetMapping("/user/deleteCustomerById")
 	@ResponseBody
@@ -52,7 +76,7 @@ public class CustomerController {
 	}
 	@GetMapping("/customers")
 	@ResponseBody
-	public List<Customer> getCustomers() {
-		return customerService.getAllCustomers();
+	public List<Customer> getCustomers(Long userId) throws RecordNotFoundException {
+		return customerService.getAllCustomers(userId);
 	}
 }

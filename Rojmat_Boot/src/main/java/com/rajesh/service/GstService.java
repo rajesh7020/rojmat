@@ -24,8 +24,8 @@ public class GstService {
 			return gst;
 		}
 	}
-	public List<Gst> getAllGsts() {
-		List<Gst> gstList = gstRepository.findAll();
+	public List<Gst> getAllGsts(Long user_id) throws RecordNotFoundException {
+		List<Gst> gstList = gstRepository.getAllGstListByUserId(user_id);
 		if(gstList.size() > 0) {
 			return gstList;
 		}else {

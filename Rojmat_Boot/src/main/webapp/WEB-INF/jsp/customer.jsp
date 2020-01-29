@@ -24,6 +24,7 @@
 		<div class="row">
 			<h3>Add/Edit Customer</h3>
 			<form:form action="${pageContext.request.contextPath}/user/saveCustomer" method="POST" id="myForm" modelAttribute="command">
+					<input type="hidden" value="${users.id}" name="users" id="userId">
 					<form:input path="custid" type="hidden" id="custid" value="${customer.custid}" class="form-control" autocomplete="off" placeholder="Customer Id" readonly="true"/>
 			<div class="col-md-4">	
 				<div class="form-group">

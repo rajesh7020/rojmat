@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Table(name="purchasepayment")
 public class PurchasePayment {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column
 	private long pid;
 	@Column
@@ -34,6 +34,10 @@ public class PurchasePayment {
 	@OneToOne
 	@JoinColumn(name="payid")
 	private PaymentType paymenttype;
+	@OneToOne
+	@JoinColumn(name="user_id")
+	private User users;
+	
 	public long getPid() {
 		return pid;
 	}
@@ -94,4 +98,11 @@ public class PurchasePayment {
 	public void setPaymenttype(PaymentType paymenttype) {
 		this.paymenttype = paymenttype;
 	}
+	public User getUsers() {
+		return users;
+	}
+	public void setUsers(User users) {
+		this.users = users;
+	}
+	                                  
 }

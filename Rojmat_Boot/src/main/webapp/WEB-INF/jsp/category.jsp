@@ -24,6 +24,7 @@
 	<div class="container">
 		<div class="row">
 			<form:form action="${pageContext.request.contextPath}/user/savecategory" method="POST" id="myForm" modelAttribute="command">
+			<input type="hidden" value="${users.id}" name="users" id="userId">
 			<div class="col-md-5">
 				<h3>Add Category</h3>
 				<div class="form-group">

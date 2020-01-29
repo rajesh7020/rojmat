@@ -36,8 +36,8 @@ public class PurchasePaymentService {
 			return purchasePayment;
 		}
 	}
-	public List<PurchasePayment> getAllPurchasePayments() {
-		List<PurchasePayment> purchasePaymentList = purchasePaymentRepository.findAll();
+	public List<PurchasePayment> getAllPurchasePayments(Long user_id) throws RecordNotFoundException {
+		List<PurchasePayment> purchasePaymentList = purchasePaymentRepository.getAllPurchasePaymentListByUserId(user_id);
 		if(purchasePaymentList.size() > 0) {
 			return purchasePaymentList;
 		}else {

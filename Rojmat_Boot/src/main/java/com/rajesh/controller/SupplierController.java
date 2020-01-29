@@ -2,6 +2,9 @@ package com.rajesh.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import com.rajesh.exception.RecordNotFoundException;
 import com.rajesh.model.Supplier;
+import com.rajesh.model.User;
 import com.rajesh.service.StateService;
 import com.rajesh.service.SupplierService;
 
@@ -23,17 +27,37 @@ public class SupplierController {
 	private SupplierService supplierService;
 	@Autowired
 	private StateService stateService;
+	
 	@PostMapping("/user/saveSupplier")
-	public String saveSupplier(@ModelAttribute("command") Supplier supplier, BindingResult result) throws RecordNotFoundException {
-		supplierService.saveOrUpdateSupplier(supplier);
-		return "redirect:/user/viewSupplier";
+	public String saveSupplier(@ModelAttribute("command") Supplier supplier, BindingResult result, HttpSession session) throws RecordNotFoundException {
+		User user = (User) session.getAttribute("users");
+		if(user.getId() != null) {
+			if(user.getId()>0) {
+				supplier.setUsers(supplier.getUsers());
+				supplierService.saveOrUpdateSupplier(supplier);
+				return "redirect:/user/viewSupplier";
+			}else {
+				return "redirect:error";
+			}
+		}else {
+			return "redirect:error";
+		}	
 	}
 	@GetMapping("/user/viewSupplier")
-	public ModelAndView viewSupplier(@ModelAttribute("command") Supplier supplier,BindingResult result) {
+	public ModelAndView viewSupplier(@ModelAttribute("command") Supplier supplier,BindingResult result, HttpSession session) throws RecordNotFoundException {
 		Map<String,Object> model = new HashMap<String,Object>();
-		model.put("suppliers", supplierService.getAllSuppliers());
-		model.put("states", stateService.getAllStates());
-		return new ModelAndView("supplier", model);
+		User user = (User) session.getAttribute("users");
+		if(user.getId() != null) {
+			if(user.getId()>0) {
+				model.put("suppliers", supplierService.getAllSuppliers(user.getId()));
+				model.put("states", stateService.getAllStates(user.getId()));
+				return new ModelAndView("supplier", model);
+			}else {
+				return new ModelAndView("redirect:error");
+			}
+		}else {
+			return new ModelAndView("redirect:error");
+		}	
 	}
 	@GetMapping("/user/deleteSupplierById")
 	@ResponseBody
@@ -52,7 +76,7 @@ public class SupplierController {
 	}
 	@GetMapping("/suppliers")
 	@ResponseBody
-	public List<Supplier> getSuppliers() {
-		return supplierService.getAllSuppliers();
+	public List<Supplier> getSuppliers(Long userId) throws RecordNotFoundException {
+		return supplierService.getAllSuppliers(userId);
 	}
 }

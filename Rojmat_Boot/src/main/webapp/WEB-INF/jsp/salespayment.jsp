@@ -25,6 +25,7 @@
 		<div class="row">
 			<h3>Add Sales Payment</h3>
 			<form:form action="${pageContext.request.contextPath}/user/saveSalesPayment" method="POST" id="myForm" modelAttribute="command">
+				<input type="hidden" value="${users.id}" name="users" id="userId">
 					<form:input path="sid" type="hidden" id="sid" value="${salesPayment.sid}" class="form-control" autocomplete="off" placeholder="Sales Id" readonly="true"/>
 			<div class="col-md-4">	
 				<div class="form-group">

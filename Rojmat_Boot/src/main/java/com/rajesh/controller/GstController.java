@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import com.rajesh.exception.RecordNotFoundException;
 import com.rajesh.model.Gst;
+import com.rajesh.model.User;
 import com.rajesh.service.GstService;
 
 @Controller
@@ -23,14 +24,34 @@ public class GstController {
 	private GstService gstService;
 	@PostMapping("/user/saveGst")
 	public String saveGst(@ModelAttribute("command")Gst gst, BindingResult result, HttpSession session) throws RecordNotFoundException {
-		gstService.saveOrUpdateGst(gst);
-		return "redirect:/user/viewGst";
+		User userId = (User) session.getAttribute("users");
+		if(userId.getId() != null) {
+			if(userId.getId()>0) {
+				gst.setUsers(gst.getUsers());
+				gstService.saveOrUpdateGst(gst);
+				return "redirect:/user/viewGst";
+			}else {
+				return "redirect:error";
+			}
+		}else {
+			return "redirect:error";
+		}	
+		
 	}
 	@GetMapping("/user/viewGst")
-	public ModelAndView viewGst(@ModelAttribute("command") Gst gst, BindingResult result, HttpSession session) {
+	public ModelAndView viewGst(@ModelAttribute("command") Gst gst, BindingResult result, HttpSession session) throws RecordNotFoundException {
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("gsts", gstService.getAllGsts());
-		return new ModelAndView("gst",model);
+		User userId = (User) session.getAttribute("users");
+		if(userId.getId() != null) {
+			if(userId.getId()>0) {
+				model.put("gsts", gstService.getAllGsts(userId.getId()));
+				return new ModelAndView("gst",model);
+			}else {
+				return new ModelAndView("redirect:error");
+			}
+		}else {
+			return new ModelAndView("redirect:error");
+		}	
 	}
 	@GetMapping("/user/getGstById")
 	@ResponseBody
@@ -49,7 +70,7 @@ public class GstController {
 	}
 	@GetMapping("/gsts")
 	@ResponseBody
-	public List<Gst> getAllGsts() {
-		return gstService.getAllGsts();
+	public List<Gst> getAllGsts(Long userId) throws RecordNotFoundException {
+		return gstService.getAllGsts(userId);
 	}
 }

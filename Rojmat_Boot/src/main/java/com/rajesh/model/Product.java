@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Table(name="product")
 public class Product {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Basic(fetch = FetchType.EAGER)
 	private long pid;
 	@Column
@@ -32,6 +32,9 @@ public class Product {
 	@OneToOne
 	@JoinColumn(name="gstid")
 	private Gst gst;
+	@OneToOne
+	@JoinColumn(name="user_id")
+	private User users;
 	@Column
 	private double sgst;
 	@Column
@@ -99,5 +102,11 @@ public class Product {
 	public void setIgst(double igst) {
 		this.igst = igst;
 	}
-
+	public User getUsers() {
+		return users;
+	}
+	public void setUsers(User users) {
+		this.users = users;
+	}
+	
 }

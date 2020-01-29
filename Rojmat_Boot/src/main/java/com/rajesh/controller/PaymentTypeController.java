@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import com.rajesh.exception.RecordNotFoundException;
 import com.rajesh.model.PaymentType;
+import com.rajesh.model.User;
 import com.rajesh.service.PaymentTypeService;
 
 @Controller
@@ -24,14 +25,33 @@ public class PaymentTypeController {
 	
 	@PostMapping("/user/savePaymentType")
 	public String savePaymentType(@ModelAttribute("command")PaymentType paymentType, BindingResult result, HttpSession session) throws RecordNotFoundException {
-		paymentTypeService.saveOrUpdatePaymentType(paymentType);
-		return "redirect:/user/viewPaymentType";
+		User user = (User) session.getAttribute("users");
+		if(user.getId() != null) {
+			if(user.getId()>0) {
+				paymentType.setUsers(paymentType.getUsers());
+				paymentTypeService.saveOrUpdatePaymentType(paymentType);
+				return "redirect:/user/viewPaymentType";
+			}else {
+				return "redirect:error";
+			}
+		}else {
+			return "redirect:error";
+		}	
 	}
 	@GetMapping("/user/viewPaymentType")
-	public ModelAndView viewPaymentType(@ModelAttribute("command")PaymentType paymentType, BindingResult result, HttpSession session) {
+	public ModelAndView viewPaymentType(@ModelAttribute("command")PaymentType paymentType, BindingResult result, HttpSession session) throws RecordNotFoundException {
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("paymenttypes", paymentTypeService.getAllPaymentType());
-		return new ModelAndView("paymenttype",model);
+		User user = (User) session.getAttribute("users");
+		if(user.getId() != null) {
+			if(user.getId()>0) {
+				model.put("paymenttypes", paymentTypeService.getAllPaymentType(user.getId()));
+				return new ModelAndView("paymenttype",model);
+			}else {
+				return new ModelAndView("redirect:error");
+			}
+		}else {
+			return new ModelAndView("redirect:error");
+		}	
 	}
 	@GetMapping("/user/getPaymentTypeById")
 	@ResponseBody
@@ -50,7 +70,7 @@ public class PaymentTypeController {
 	}
 	@GetMapping("/paymenttypes")
 	@ResponseBody
-	public List<PaymentType> getAllPaymentTypes() {
-		return paymentTypeService.getAllPaymentType();
+	public List<PaymentType> getAllPaymentTypes(Long userId) throws RecordNotFoundException {
+		return paymentTypeService.getAllPaymentType(userId);
 	}
 }

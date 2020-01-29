@@ -27,6 +27,7 @@
 	<div class="container">
 		<div class="row">
 			<form:form action="${pageContext.request.contextPath}/user/saveProduct" method="POST" id="myForm" modelAttribute="command">
+				<input type="hidden" value="${users.id}" name="users" id="userId">
 				<h3>Product</h3>
 					<form:input path="pid" type="hidden" id="pid" value="${product.pid}" class="form-control" autocomplete="off" placeholder="Product Id" readonly="true" />
 				<div class="col-md-4">	

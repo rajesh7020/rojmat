@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Table(name="dcinvoice")
 public class DcInvoice {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long dcid;
 	@Column
 	private String productname;
